@@ -1,0 +1,14 @@
+---
+layout: list
+title: 日记随笔
+---
+<ul>
+{% for category in site.categories %}
+	{% if category.first == "日记随笔" %}
+		{% for post in category.last %}
+		<li><p><a href="{{ site.baseurl }}{{ post.url }}" style="text-decoration:none;color:white">
+			{{ post.title }} {{ post.date | date_to_string }}</a></p></li>
+		{% endfor %}
+	{% endif %}
+{% endfor %}
+</ul>

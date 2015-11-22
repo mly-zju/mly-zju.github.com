@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.min.js"></script>
+	<title>{{ page.title }}</title>
+	<style>
+	*{margin:0;padding:0;}
+	body{background:url("{{ site.baseurl }}/img/bg_article.jpg") fixed;background-size:cover;
+		width:100%;min-height:400px;font-family:"微软雅黑";color:white;margin:0;padding:0;}
+	.cover{background:black;width:100%;height:100%;position:fixed;z-index:-1;opacity:0.6;top:0;left:0;}
+	.nav{height:40px;width:100%;overflow:hidden;font-size:18px;position:fixed;top:0;z-index:1;
+		background-color:rgb(10,36,65);opacity:0.9;}
+	.nav .name{float:left;margin-left:40px;color:white;line-height:40px;opacity:0;}
+	.nav ul{list-style:none;}
+	.nav li{float:right;margin-right:30px;}
+	.nav li a{display:block;width:60px;height:40px;line-height:40px;text-align:center;color:white;text-decoration:none;}
+	.left{height:100%;width:15%;margin-left:5%;margin-top:42px;float:left;background-color:red;
+		padding:20px 1px;background-color:rgb(43,50,61);opacity:0.92;}
+	.left h3{text-align:center;margin-bottom:5px;}
+	.left li{margin-left:30px;}
+	.left li a{text-decoration:none;color:white;font-size:14px;}
+	.right{height:100%;width:65%;margin-left:1%;margin-top:42px;
+		float:left;padding:20px 40px;background-color:rgb(39,46,57);opacity:0.92;}
+	.publish_title{text-align:center;margin-bottom:10px;}
+	.publish_date{text-align:center;margin-bottom:15px;}
+	.right p{margin-top:8px;font-size:16px;font-family:"宋体";font-size:14px;line-height:20px;}
+	.previous{text-decoration:none;color:white;float:right;font-size:14px;margin-top:15px;}
+	.next{text-decoration:none;color:white;float:left;font-size:14px;margin-top:15px;}
+	.foot{width:100%;height:120px;text-align:center;background-color:rgb(10,36,65);opacity:0.9;
+		padding-top:20px;position:absolute;}
+	.foot a{display:block;text-decoration:none;color:white;font-size:14px;margin-top:10px;}
+	.foot p{margin:40px auto 0;color:white;font-size:14px;}
+	img{margin:10px auto;}
+	</style>
+</head>
+<body>
+	<div class="cover"></div>
+	<div class="nav">
+		<div class="name">马龄阳的部落格</div>
+		<ul>
+			<li><a href="{{ site.baseurl }}/self_intro.html">关于我</a></li>
+			<li><a href="{{ site.baseurl }}/article_list.html">分类</a></li>
+			<li><a href="{{ site.baseurl }}/index.html">主页</a></li>
+		</ul>
+	</div>
+	<div class="left">
+		<h3>文章分类</h3>
+		<ul>
+		{% for category in site.categories %}
+			{% if category.first == "日记随笔" %}
+				<li><p><a href="{{ site.baseurl }}/category/diary.html" style="text-decoration:none;color:white">
+					{{ category.first }}({{ category | last | size }})</a></p></li>
+			{% elsif category.first == "前端开发" %}
+				<li><p><a href="{{ site.baseurl }}/category/front_end.html" style="text-decoration:none;color:white">
+					{{ category.first }}({{ category | last | size }})</a></p></li>
+			{% elsif category.first == "后端开发" %}
+				<li><p><a href="{{ site.baseurl }}/category/back_end.html" style="text-decoration:none;color:white">
+					{{ category.first }}({{ category | last | size }})</a></p></li>
+			{% elsif category.first == "网络通信" %}
+				<li><p><a href="{{ site.baseurl }}/category/network.html" style="text-decoration:none;color:white">
+					{{ category.first }}({{ category | last | size }})</a></p></li>
+			{% endif %}
+		{% endfor %}
+		</ul>
+	</div>
+	<div class="right">
+		<h2 class="publish_title">{{ page.title }}</h2>
+		<h4 class="publish_date">{{ page.date | date_to_long_string }}</h4>
+		{{ content }}
+		{% if page.next %}
+		<a class="next" href="{{ site.baseurl }}{{ page.next.url }}">上一篇</a>
+		{% else %}
+		<a class="next" style="color:gray;">上一篇</a>
+		{% endif %}
+		{% if page.previous %}
+		<a class="previous" href="{{ site.baseurl }}{{ page.previous.url }}">下一篇</a>
+		{% else %}
+		<a class="previous" style="color:gray;">下一篇</a>
+		{% endif %}
+	</div>
+	<div class="foot">
+		<a href="javascript:void(0)">Designed By 马龄阳</a>
+		<a href="{{ site.baseurl }}/self_intro.html">@联系方式</a> 
+	</div>
+	<script>
+		$(document).ready(function(){
+			var foot=$(".foot");
+			var height=$(document).height();
+			var right=$(".right");
+			var img=$("img");
+			foot.css({"top":height+"px"});
+			img.each(function(index,t){
+				if(t.width()>right.width())
+					t.css({"width":"100%"});
+			});
+		});
+	</script>
+</body>
+</html>

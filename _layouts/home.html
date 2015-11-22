@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>马龄阳的部落格</title>
+	<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.min.js"></script>
+</head>
+<body>
+	<div id="cover"></div>
+	<div id="nav">
+		<div id="name">马龄阳的部落格</div>
+		<ul>
+			<li><a href="{{ site.baseurl }}/self_intro.html">关于我</a></li>
+			<li><a href="{{ site.baseurl }}/article_list.html">分类</a></li>
+			<li><a href="{{ site.baseurl }}/index.html">主页</a></li>
+		</ul>
+	</div>
+	<div id="header">
+		<span></span>
+		<h2>风烟俱净</h2>
+		<span></span>
+		<p>马龄阳的部落格</p>
+	</div>
+	{{ content }}
+	<div class="foot">
+		<a href="javascript:void(0)">Designed By 马龄阳</a>
+		<a href="{{ site.baseurl }}/self_intro.html">@联系方式</a> 
+	</div>
+</body>
+</html>
