@@ -13,7 +13,7 @@ $(document).ready(function(){
 	var height=$(document).height();
 	
 	foot.css({"top":height+"px"});
-	body.css({"background":"url(../img/bg"+day+".jpg) fixed","background-size":"cover"});
+	body.css({"background":"url(../img/bg"+day+".jpg) fixed no-repeat","background-size":"cover"});
 	header.css({"height":"300px","padding-top":"160px"});
 	
 	wrapper.each(function(index){

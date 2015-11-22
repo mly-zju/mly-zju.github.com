@@ -13,7 +13,7 @@ $(document).ready(function(){
 	var height=$(document).height();
 	
 	foot.css({"top":height+"px"});
-	body.css({"background":"url(img/bg"+day+".jpg) fixed","background-size":"cover"});
+	body.css({"background":"url(img/bg"+day+".jpg) fixed no-repeat","background-size":"cover"});
 	title_line.eq(0).animate(
 	{
 		height:"2px",
