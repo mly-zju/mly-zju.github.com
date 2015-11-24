@@ -28,7 +28,7 @@
 	.previous{text-decoration:none;color:white;float:right;font-size:14px;margin-top:15px;}
 	.next{text-decoration:none;color:white;float:left;font-size:14px;margin-top:15px;}
 	.foot{width:100%;height:120px;text-align:center;background-color:rgb(10,36,65);opacity:0.9;
-		padding-top:20px;position:absolute;}
+		padding-top:20px;float:left;}
 	.foot a{display:block;text-decoration:none;color:white;font-size:14px;margin-top:10px;}
 	.foot p{margin:40px auto 0;color:white;font-size:14px;}
 	img{margin:10px auto;}
@@ -84,17 +84,16 @@
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
 	function footdisplay(){
-		var foot=$(".foot");
-		var height=$(document).height();
+		// var foot=$(".foot");
+		// var height=$(document).height();
 		var right=$(".right");
 		var img=$("img");
-		foot.css({"top":height+"px"});
+		// foot.css({"top":height+"px"});
 		img.each(function(index,t){
 		if(t.width()>right.width())
 			t.css({"width":"100%"});
 		});
 	}
-	$(document).ready(function(){
 	var duoshuoQuery = {short_name:"mly-zju"};
 	function judge(){
 		var ds = document.createElement('script');
@@ -105,7 +104,7 @@
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
 	}
 	judge();
-	});
+	footdisplay();
 	</script>
 	<!-- 多说公共JS代码 end -->
 	</div>
