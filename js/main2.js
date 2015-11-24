@@ -8,6 +8,7 @@ $(document).ready(function(){
 	var d=new Date();
 	var day=d.getDay();
 	var wrapper=$(".wrapper");
+	var len=wrapper.length;
 	var pre=0;
 	var foot=$(".foot");
 	var height=$(document).height();
@@ -16,8 +17,9 @@ $(document).ready(function(){
 	body.css({"background":"url(../img/bg"+day+".jpg) fixed no-repeat","background-size":"cover"});
 	header.css({"height":"300px","padding-top":"160px"});
 	
-	wrapper.each(function(index){
-		var t=$(this);
+	for(var i=len-1;i>=0;i--)
+	{
+		t=wrapper.eq(i);
 		if(pre==0)
 		{
 			if(t.hasClass("pic_type"))
@@ -48,7 +50,7 @@ $(document).ready(function(){
 				pre=0;
 			}
 		}
-	});
+	}
 
 	$(window).scroll(function(){
 		var top=$(document).scrollTop();
