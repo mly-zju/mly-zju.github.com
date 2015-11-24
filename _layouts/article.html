@@ -95,8 +95,8 @@
 				t.css({"width":"100%"});
 			});
 		}
-		
-		(function(){
+
+		function displayjudge(){
 			var duoshuoQuery = {short_name:"mly-zju"};
 			var ds = document.createElement('script');
 			ds.type = 'text/javascript';ds.async = true;
@@ -105,7 +105,9 @@
 			(document.getElementsByTagName('head')[0] 
 			 || document.getElementsByTagName('body')[0]).appendChild(ds);
 			displayfoot();
-		})();
+		}
+
+		displayjudge();
 	});
 		</script>
 	<!-- 多说公共JS代码 end -->
