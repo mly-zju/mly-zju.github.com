@@ -91,6 +91,7 @@
 	(document.getElementsByTagName('head')[0] 
 	 || document.getElementsByTagName('body')[0]).appendChild(ds);
 	$("document").ready(function() {
+		setTimeout(function(){
 		var foot=$(".foot");
 		var height=$(document).height();
 		var right=$(".right");
@@ -100,6 +101,7 @@
 			if(t.width()>right.width())
 				t.css({"width":"100%"});
 		});
+		},150);
 	});
 		</script>
 	<!-- 多说公共JS代码 end -->
