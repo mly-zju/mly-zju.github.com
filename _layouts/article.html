@@ -21,7 +21,7 @@
 	.left li{margin-left:30px;}
 	.left li a{text-decoration:none;color:white;font-size:14px;}
 	.right{height:100%;width:65%;margin-left:1%;margin-top:42px;
-		float:left;padding:20px 40px;background-color:rgb(39,46,57);opacity:0.92;}
+		float:left;overflow:hidden;padding:20px 40px;background-color:rgb(39,46,57);opacity:0.92;}
 	.publish_title{text-align:center;margin-bottom:10px;}
 	.publish_date{text-align:center;margin-bottom:15px;}
 	.right p{margin-top:8px;font-size:16px;font-family:"宋体";font-size:14px;line-height:20px;}
@@ -95,10 +95,10 @@
 		</script>
 	<!-- 多说公共JS代码 end -->
 	</div>
-		<div class="foot">
-			<a href="javascript:void(0)">Designed By 马龄阳</a>
-			<a href="{{ site.baseurl }}/self_intro.html">@联系方式</a> 
-		</div>
+	<div class="foot">
+		<a href="javascript:void(0)">Designed By 马龄阳</a>
+		<a href="{{ site.baseurl }}/self_intro.html">@联系方式</a> 
+	</div>
 	<script>
 		$(document).ready(function(){
 			var foot=$(".foot");
@@ -110,7 +110,6 @@
 				if(t.width()>right.width())
 					t.css({"width":"100%"});
 			});
-			console.log("hello");
 		});
 	</script>
 </body>
