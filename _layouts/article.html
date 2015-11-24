@@ -84,13 +84,14 @@
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
 	var duoshuoQuery = {short_name:"mly-zju"};
-		(function() {
+		$("document").ready(function() {
 			var ds = document.createElement('script');
 			ds.type = 'text/javascript';ds.async = true;
 			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
 			ds.charset = 'UTF-8';
 			(document.getElementsByTagName('head')[0] 
 			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			setTimeout(function(){
 			var foot=$(".foot");
 			var height=$(document).height();
 			var right=$(".right");
@@ -99,8 +100,9 @@
 			img.each(function(index,t){
 				if(t.width()>right.width())
 					t.css({"width":"100%"});
-			});
-		})();
+			})
+			},200);
+		});
 		</script>
 	<!-- 多说公共JS代码 end -->
 	</div>
@@ -108,18 +110,5 @@
 		<a href="javascript:void(0)">Designed By 马龄阳</a>
 		<a href="{{ site.baseurl }}/self_intro.html">@联系方式</a> 
 	</div>
-	// <script>
-	// 	$(document).ready(function(){
-	// 		var foot=$(".foot");
-	// 		var height=$(document).height();
-	// 		var right=$(".right");
-	// 		var img=$("img");
-	// 		foot.css({"top":height+"px"});
-	// 		img.each(function(index,t){
-	// 			if(t.width()>right.width())
-	// 				t.css({"width":"100%"});
-	// 		});
-	// 	});
-	// </script>
 </body>
 </html>
