@@ -28,7 +28,7 @@
 	.previous{text-decoration:none;color:white;float:right;font-size:14px;margin-top:15px;}
 	.next{text-decoration:none;color:white;float:left;font-size:14px;margin-top:15px;}
 	.foot{width:100%;height:120px;text-align:center;background-color:rgb(10,36,65);opacity:0.9;
-		padding-top:20px;position:absolute;display:none;}
+		padding-top:20px;position:absolute;}
 	.foot a{display:block;text-decoration:none;color:white;font-size:14px;margin-top:10px;}
 	.foot p{margin:40px auto 0;color:white;font-size:14px;}
 	img{margin:10px auto;}
@@ -102,14 +102,14 @@
 		ds.charset = 'UTF-8';
 		(document.getElementsByTagName('head')[0] 
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-		var foot=$(".foot");
-		var height=$(document).height();
-		var right=$(".right");
-		var img=$("img");
-		foot.css({"top":height+"px","display":"block"});
-		img.each(function(index,t){
-		if(t.width()>right.width())
-			t.css({"width":"100%"});
+		// var foot=$(".foot");
+		// var height=$(document).height();
+		// var right=$(".right");
+		// var img=$("img");
+		// foot.css({"top":height+"px","display":"block"});
+		// img.each(function(index,t){
+		// if(t.width()>right.width())
+		// 	t.css({"width":"100%"});
 		});
 	})();
 	</script>
@@ -118,6 +118,13 @@
 	<div class="foot">
 		<a href="javascript:void(0)">Designed By 马龄阳</a>
 		<a href="{{ site.baseurl }}/self_intro.html">@联系方式</a> 
+		<script>
+		$(document).ready(function(){
+			var foot=$(".foot");
+			var height=$(document).height();
+			foot.css({"top":height+"px"});
+		});
+		</script>
 	</div>
 </body>
 </html>
