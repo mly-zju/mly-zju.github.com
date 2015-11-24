@@ -83,29 +83,27 @@
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
-	$(document).ready(function{
-		function footdisplay(){
-		var foot=$(".foot");
-			var height=$(document).height();
-			var right=$(".right");
-			var img=$("img");
-			foot.css({"top":height+"px","display":"block"});
-			img.each(function(index,t){
-			if(t.width()>right.width())
-				t.css({"width":"100%"});
-			});
-		}
-		var duoshuoQuery = {short_name:"mly-zju"};
-		(function(){
-			var ds = document.createElement('script');
-			ds.type = 'text/javascript';ds.async = true;
-			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-			ds.charset = 'UTF-8';
-			(document.getElementsByTagName('head')[0] 
-			 || document.getElementsByTagName('body')[0]).appendChild(ds);
-			footdisplay();
-		})();
-	});
+	function footdisplay(){
+	var foot=$(".foot");
+		var height=$(document).height();
+		var right=$(".right");
+		var img=$("img");
+		foot.css({"top":height+"px","display":"block"});
+		img.each(function(index,t){
+		if(t.width()>right.width())
+			t.css({"width":"100%"});
+		});
+	}
+	var duoshuoQuery = {short_name:"mly-zju"};
+	(function(){
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		footdisplay();
+	})();
 	</script>
 	<!-- 多说公共JS代码 end -->
 	</div>
