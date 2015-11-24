@@ -7,7 +7,7 @@
 	<style>
 	*{margin:0;padding:0;}
 	body{background:url("{{ site.baseurl }}/img/bg_article.jpg") fixed;background-size:cover;
-		width:100%;min-height:400px;font-family:"微软雅黑";color:white;margin:0;padding:0;}
+		width:100%;min-height:400px;overflow:hidden;font-family:"微软雅黑";color:white;margin:0;padding:0;}
 	.cover{background:black;width:100%;height:100%;position:fixed;z-index:-1;opacity:0.6;top:0;left:0;}
 	.nav{height:40px;width:100%;overflow:hidden;font-size:18px;position:fixed;top:0;z-index:1;
 		background-color:rgb(10,36,65);opacity:0.9;}
@@ -83,17 +83,17 @@
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
-	function footdisplay(){
-		var foot=$(".foot");
-		var height=$(document).height();
-		var right=$(".right");
-		var img=$("img");
-		foot.css({"top":height+"px","display":"block"});
-		img.each(function(index,t){
-		if(t.width()>right.width())
-			t.css({"width":"100%"});
-		});
-	}
+	// function footdisplay(){
+	// 	var foot=$(".foot");
+	// 	var height=$(document).height();
+	// 	var right=$(".right");
+	// 	var img=$("img");
+	// 	foot.css({"top":height+"px","display":"block"});
+	// 	img.each(function(index,t){
+	// 	if(t.width()>right.width())
+	// 		t.css({"width":"100%"});
+	// 	});
+	// }
 	var duoshuoQuery = {short_name:"mly-zju"};
 	(function(){
 		var ds = document.createElement('script');
@@ -102,15 +102,6 @@
 		ds.charset = 'UTF-8';
 		(document.getElementsByTagName('head')[0] 
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-		// var foot=$(".foot");
-		// var height=$(document).height();
-		// var right=$(".right");
-		// var img=$("img");
-		// foot.css({"top":height+"px","display":"block"});
-		// img.each(function(index,t){
-		// if(t.width()>right.width())
-		// 	t.css({"width":"100%"});
-		});
 	})();
 	</script>
 	<!-- 多说公共JS代码 end -->
