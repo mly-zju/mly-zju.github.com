@@ -83,17 +83,17 @@
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
-	// function footdisplay(){
-	// 	var foot=$(".foot");
-	// 	var height=$(document).height();
-	// 	var right=$(".right");
-	// 	var img=$("img");
-	// 	foot.css({"top":height+"px"});
-	// 	img.each(function(index,t){
-	// 	if(t.width()>right.width())
-	// 		t.css({"width":"100%"});
-	// 	});
-	// }
+	function footdisplay(){
+		var foot=$(".foot");
+		var height=$(document).height();
+		var right=$(".right");
+		var img=$("img");
+		foot.css({"top":height+"px"});
+		img.each(function(index,t){
+		if(t.width()>right.width())
+			t.css({"width":"100%"});
+		});
+	}
 	var duoshuoQuery = {short_name:"mly-zju"};
 	function judge(){
 		var ds = document.createElement('script');
@@ -102,6 +102,8 @@
 		ds.charset = 'UTF-8';
 		(document.getElementsByTagName('head')[0] 
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+
+		footdisplay();
 	}
 	judge();
 	</script>
@@ -110,13 +112,13 @@
 	<div class="foot">
 		<a href="javascript:void(0)">Designed By 马龄阳</a>
 		<a href="{{ site.baseurl }}/self_intro.html">@联系方式</a> 
-		<script>
-		$(document).ready(function(){
-			var foot=$(".foot");
-			var height=$(document).height();
-			foot.css({"top":height+"px"});
-		});
-		</script>
+		// <script>
+		// $(document).ready(function(){
+		// 	var foot=$(".foot");
+		// 	var height=$(document).height();
+		// 	foot.css({"top":height+"px"});
+		// });
+		// </script>
 	</div>
 </body>
 </html>
