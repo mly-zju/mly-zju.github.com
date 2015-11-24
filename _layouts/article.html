@@ -102,10 +102,11 @@
 		ds.charset = 'UTF-8';
 		(document.getElementsByTagName('head')[0] 
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-
-		footdisplay();
 	}
 	judge();
+	setTimeout(function(){
+		footdisplay();
+	},300);
 	</script>
 	<!-- 多说公共JS代码 end -->
 	</div>
