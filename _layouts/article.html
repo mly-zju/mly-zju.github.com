@@ -84,7 +84,7 @@
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
 	function footdisplay(){
-	var foot=$(".foot");
+		var foot=$(".foot");
 		var height=$(document).height();
 		var right=$(".right");
 		var img=$("img");
@@ -102,7 +102,15 @@
 		ds.charset = 'UTF-8';
 		(document.getElementsByTagName('head')[0] 
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-		footdisplay();
+		var foot=$(".foot");
+		var height=$(document).height();
+		var right=$(".right");
+		var img=$("img");
+		foot.css({"top":height+"px","display":"block"});
+		img.each(function(index,t){
+		if(t.width()>right.width())
+			t.css({"width":"100%"});
+		});
 	})();
 	</script>
 	<!-- 多说公共JS代码 end -->
