@@ -91,16 +91,6 @@
 			ds.charset = 'UTF-8';
 			(document.getElementsByTagName('head')[0] 
 			 || document.getElementsByTagName('body')[0]).appendChild(ds);
-		})();
-		</script>
-	<!-- 多说公共JS代码 end -->
-	</div>
-	<div class="foot">
-		<a href="javascript:void(0)">Designed By 马龄阳</a>
-		<a href="{{ site.baseurl }}/self_intro.html">@联系方式</a> 
-	</div>
-	<script>
-		$(document).ready(function(){
 			var foot=$(".foot");
 			var height=$(document).height();
 			var right=$(".right");
@@ -110,7 +100,26 @@
 				if(t.width()>right.width())
 					t.css({"width":"100%"});
 			});
-		});
-	</script>
+		})();
+		</script>
+	<!-- 多说公共JS代码 end -->
+	</div>
+	<div class="foot">
+		<a href="javascript:void(0)">Designed By 马龄阳</a>
+		<a href="{{ site.baseurl }}/self_intro.html">@联系方式</a> 
+	</div>
+	// <script>
+	// 	$(document).ready(function(){
+	// 		var foot=$(".foot");
+	// 		var height=$(document).height();
+	// 		var right=$(".right");
+	// 		var img=$("img");
+	// 		foot.css({"top":height+"px"});
+	// 		img.each(function(index,t){
+	// 			if(t.width()>right.width())
+	// 				t.css({"width":"100%"});
+	// 		});
+	// 	});
+	// </script>
 </body>
 </html>
