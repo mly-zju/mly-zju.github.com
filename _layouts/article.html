@@ -84,25 +84,25 @@
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
 	var duoshuoQuery = {short_name:"mly-zju"};
-		$("document").ready(function() {
-			var ds = document.createElement('script');
-			ds.type = 'text/javascript';ds.async = true;
-			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-			ds.charset = 'UTF-8';
-			(document.getElementsByTagName('head')[0] 
-			 || document.getElementsByTagName('body')[0]).appendChild(ds);
-			setTimeout(function(){
-			var foot=$(".foot");
-			var height=$(document).height();
-			var right=$(".right");
-			var img=$("img");
-			foot.css({"top":height+"px"});
-			img.each(function(index,t){
-				if(t.width()>right.width())
-					t.css({"width":"100%"});
-			})
-			},250);
-		});
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	$("document").ready(function() {
+	setTimeout(function(){
+	var foot=$(".foot");
+	var height=$(document).height();
+	var right=$(".right");
+	var img=$("img");
+	foot.css({"top":height+"px"});
+	img.each(function(index,t){
+		if(t.width()>right.width())
+			t.css({"width":"100%"});
+	})
+	},250);
+	});
 		</script>
 	<!-- 多说公共JS代码 end -->
 	</div>
