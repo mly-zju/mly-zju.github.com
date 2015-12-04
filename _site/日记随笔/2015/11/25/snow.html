@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="{{ site.baseurl }}/css/pygments.css">
-	<script type="text/javascript" src="{{ site.baseurl }}/js/jquery.js"></script>
-	<title>{{ page.title }}</title>
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<title>想去看雪</title>
 	<style>
 	*{margin:0;padding:0;}
-	body{background:url("{{ site.baseurl }}/img/bg_article.jpg") fixed;background-size:cover;
+	body{background:url("/img/bg_article.jpg") fixed;background-size:cover;
 		width:100%;min-height:400px;font-family:"微软雅黑";color:white;margin:0;padding:0;}
 	.cover{background:black;width:100%;height:100%;position:fixed;z-index:-1;opacity:0.6;top:0;left:0;}
 	.nav{height:40px;width:100%;overflow:hidden;font-size:18px;position:fixed;top:0;z-index:1;
@@ -40,47 +39,43 @@
 	<div class="nav">
 		<div class="name">马龄阳的部落格</div>
 		<ul>
-			<li><a href="{{ site.baseurl }}/self_intro.html">关于我</a></li>
-			<li><a href="{{ site.baseurl }}/article_list.html">分类</a></li>
-			<li><a href="{{ site.baseurl }}/index.html">主页</a></li>
+			<li><a href="/self_intro.html">关于我</a></li>
+			<li><a href="/article_list.html">分类</a></li>
+			<li><a href="/index.html">主页</a></li>
 		</ul>
 	</div>
 	<div class="left">
 		<h3>文章分类</h3>
 		<ul>
-		{% for category in site.categories %}
-			{% if category.first == "日记随笔" %}
-				<li><p><a href="{{ site.baseurl }}/category/diary.html" style="text-decoration:none;color:white">
-					{{ category.first }}({{ category | last | size }})</a></p></li>
-			{% elsif category.first == "前端开发" %}
-				<li><p><a href="{{ site.baseurl }}/category/front_end.html" style="text-decoration:none;color:white">
-					{{ category.first }}({{ category | last | size }})</a></p></li>
-			{% elsif category.first == "后端开发" %}
-				<li><p><a href="{{ site.baseurl }}/category/back_end.html" style="text-decoration:none;color:white">
-					{{ category.first }}({{ category | last | size }})</a></p></li>
-			{% elsif category.first == "网络通信" %}
-				<li><p><a href="{{ site.baseurl }}/category/network.html" style="text-decoration:none;color:white">
-					{{ category.first }}({{ category | last | size }})</a></p></li>
-			{% endif %}
-		{% endfor %}
+		
+			
+				<li><p><a href="/category/diary.html" style="text-decoration:none;color:white">
+					日记随笔(3)</a></p></li>
+			
+		
+			
+				<li><p><a href="/category/front_end.html" style="text-decoration:none;color:white">
+					前端开发(1)</a></p></li>
+			
+		
 		</ul>
 	</div>
 	<div class="right">
-		<h2 class="publish_title">{{ page.title }}</h2>
-		<h4 class="publish_date">{{ page.date | date_to_long_string }}</h4>
-		{{ content }}
-		{% if page.next %}
-		<a class="next" href="{{ site.baseurl }}{{ page.next.url }}">上一篇</a>
-		{% else %}
+		<h2 class="publish_title">想去看雪</h2>
+		<h4 class="publish_date">25 November 2015</h4>
+		<p>今晚开始上海寒流来袭，晚上回来的时候在冷雨中瑟瑟发抖，然而周围的风景却依然没有一点临近十二月该有的感觉。这么多年了还是适应不了南方潮湿的冬天，听着耳机里“生就属于北方的我将一去不回”，一点点微妙的感慨，难以把握，就像这首歌忽高忽低的音调。</p>
+<!--more-->
+<img src="/img/snow.gif"/>
+<p>然后忽然很想去北京看雪。</p>
+
+		
 		<a class="next" style="color:gray;">上一篇</a>
-		{% endif %}
-		{% if page.previous %}
-		<a class="previous" href="{{ site.baseurl }}{{ page.previous.url }}">下一篇</a>
-		{% else %}
-		<a class="previous" style="color:gray;">下一篇</a>
-		{% endif %}
+		
+		
+		<a class="previous" href="/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/11/22/begin2.html">下一篇</a>
+		
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="{{ page.id }}" data-title="{{ page.title}}" data-url="http://mly-zju.github.io/{{ page.url }}"></div>
+	<div class="ds-thread" data-thread-key="/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2015/11/25/snow" data-title="想去看雪" data-url="http://mly-zju.github.io//%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2015/11/25/snow.html"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -111,7 +106,7 @@
 	</div>
 	<div class="foot">
 		<a href="javascript:void(0)">Designed By 马龄阳</a>
-		<a href="{{ site.baseurl }}/self_intro.html">@联系方式</a> 
+		<a href="/self_intro.html">@联系方式</a> 
 	</div>
 </body>
 </html>
