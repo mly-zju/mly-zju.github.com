@@ -6,7 +6,7 @@ description: javascript.jpg
 ---
 <p>这一篇主要想测试一下代码高亮。使用了pygments生成代码高亮样式文件，在模板中导入，此后按照语法进行代码高亮引用。样式特意选择了经典的vim代码格式，看起来还是挺复古的。</p>
 <!--more-->
-<p>
+<div style="background:gray">
 {% highlight javascript %}
 var x=document.getElementById("test");
 x.innerHTML="hello world";
@@ -14,4 +14,4 @@ x.onclick=function(){
 	alert(this.innerHTML);
 }
 {% endhighlight %}
-</p>
+</div>
