@@ -2,4 +2,4 @@ excerpt_separator: "<!--more-->"
 paginate: 5
 paginate_path: "page:num"
 gems: [jekyll-paginate]
-pygments: true
+highlighter: pagments
