@@ -43,9 +43,9 @@ description: 201601/div1.jpg
 {% endhighlight %}
 </div>
 <p>这个时候，观察container的盒子，发现如下图所示:</p>
-<img src="{{ site.baseurl }}/img/2016-01/div1.jpg"/>
+<img src="{{ site.baseurl }}/img/201601/div1.jpg"/>
 <p>可以看到，container的height为0，并没有被content撑起来，主要是因为content有float属性，脱离了文档流。这个时候，可以有很多种方法来清除浮动，一种是w3cschool当中提到的，在container容器的最后再加一个空的div,并且属性设置为clear:both。还有一种方法就是将container的属性增加一条overflow:hidden，当然，还有一种就是将container本身进行float，这个用途有限。我们来看加了overflow以后盒子模型：</p>
-<img src="{{ site.baseurl }}/img/2016-01/div2.jpg"/>
+<img src="{{ site.baseurl }}/img/201601/div2.jpg"/>
 <p>可以看出这个时候container的height已经成为了100px，被content撑了起来。</p>
 <p style="color:red">这里需要注意的是，这些清除浮动的方法仅仅对于float有效果！如果content有position:absolute属性，那么即使清除浮动，也无法撑起父元素，比如如下代码：</p>
 <div class="code">
