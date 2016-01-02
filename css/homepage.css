@@ -21,8 +21,8 @@ a{text-decoration:none;color:white;}
 .word h2{text-align:center;margin-top:30px;font-size:40px;}
 .word p{width:70%;margin:15px auto 0;}
 .content_pic2{background-color:rgb(39,46,57);color:white;width:100%;height:300px;}
-.content_pic2 .pic{float:right;height:300px;width:35%;}
-.content_pic2 .word{float:right;padding-top:20px;padding-bottom:20px;height:230px;width:65%;} 
+.content_pic2 .pic{float:left;height:300px;width:35%;}
+.content_pic2 .word{float:left;padding-top:20px;padding-bottom:20px;height:230px;width:65%;} 
 .content_word2{background-color:rgb(39,46,57);color:white;
 	width:100%;height:300px;}
 .content_word2 .title{float:left;height:300px;width:35%;}
@@ -31,8 +31,8 @@ a{text-decoration:none;color:white;}
 .content_word2  p{width:70%;margin:20px auto 0;}
 .content_word1{background-color:rgb(43,50,61);color:white;
 	width:100%;height:300px;}
-.content_word1 .title{float:right;height:300px;width:35%;}
-.content_word1 .paragraph{float:right;padding-top:40px;padding-bottom:20px;height:240px;width:65%;}
+.content_word1 .title{float:left;height:300px;width:35%;}
+.content_word1 .paragraph{float:left;padding-top:40px;padding-bottom:20px;height:240px;width:65%;}
 .content_word1  h3{text-align:center;margin-top:100px;font-size:40px;}
 .content_word1  p{width:70%;margin:20px auto 0;}
 /*pages*/
