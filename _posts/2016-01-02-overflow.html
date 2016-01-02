@@ -1,0 +1,44 @@
+---
+layout: article
+title: 关于css中元素内部清除浮动的思考
+category: 前端开发
+---
+<p>经常在前端编程的时候遇到这样的问题：一个div元素，没有指定大小，内部有其他元素，但是是浮动或者是absolute的，这种情况下父div元素不会被撑开。为了能够被撑开，需要对父div元素做一些修改。</p>
+<!--more-->
+<p>首先看如下的例子</p>
+<div class="code">
+{% highlight html %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<style>
+	#container {
+	  	width: 100px;
+	  	position: relative;
+	  	background-color: red;
+	 	overflow:hidden;
+	}
+	#container2{
+		width:100px;
+		height:600px;
+		background-color:black;
+	}
+	#content{
+		width:100px;
+		height:100px;
+		background-color:blue;
+		float:left;
+	}
+	</style>
+</head>
+<body>
+	<div id="container" >
+  		<div id="content"></div>
+	</div>
+	<div id="container2"></div>
+</body>
+</html>
+{% endhighlight %}
+</div>
