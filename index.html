@@ -4,7 +4,7 @@ title: 马龄阳的部落格
 ---
 {% for post in paginator.posts %}
 	{% if post.description %}
-		<div class="wrapper pic_type">
+		<div class="wrapper pic_type content_pic1">
 			{% if paginator.page == 1 %}
 			<div class="pic" style="background:url(img/{{ post.description }}) no-repeat;background-size:cover">
 			{% else %}
@@ -17,7 +17,7 @@ title: 马龄阳的部落格
 			</div>
 	</div>
 	{% else %}
-		<div class="wrapper word_type">
+		<div class="wrapper word_type conent_word2">
 			<div class="title">
 				<a href="{{ site.baseurl }}{{ post.url }}"><h3>{{ post.title }}</h3></a>
 			</div>
