@@ -15,7 +15,7 @@ $(document).ready(function(){
 	
 	foot.css({"top":height+"px"});
 	body.css({"background":"url(../img/bg"+day+".jpg) fixed no-repeat","background-size":"cover"});
-	header.css({"height":"300px","padding-top":"160px"});
+	header.css({"height":"300px","padding-top":"140px"});
 	
 	for(var i=len-1;i>=0;i--)
 	{
