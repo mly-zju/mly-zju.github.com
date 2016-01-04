@@ -5,9 +5,10 @@ category: 后端开发
 ---
 <p>感慨一下最近工作还是有点辛苦的，但是怎么说呢，还是痛并快乐着吧，每天都在学习和思考，每天都有收获。</p>
 <p>最近在开发中经常遇到在python中序列化与反序列化的问题。其实更具体一点就是将python对象同json字符串相互转化的问题。这里做一点小结。</p>
+<!--more-->
 <p>话不多说，用一个例子来说明所有的要点吧。</p>
 <div class="code">
-{% highlight python %}
+{% highlight Python %}
 import json
 print "Test1:"
 x=['Tom',100,True]
@@ -37,7 +38,7 @@ for key,val in x2.items():
 </div>
 <p>运行程序，可以看到如下结果：</p>
 <div class="code">
-{% highlight %}
+{% highlight css %}
 Test1:
 ["Tom", 100, true]
 <type 'str'>
