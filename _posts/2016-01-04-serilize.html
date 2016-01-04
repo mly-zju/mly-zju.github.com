@@ -1,0 +1,64 @@
+---
+layout: article
+title: python中的序列化与反序列化
+category: 后端开发
+---
+<p>感慨一下最近工作还是有点辛苦的，但是怎么说呢，还是痛并快乐着吧，每天都在学习和思考，每天都有收获。</p>
+<p>最近在开发中经常遇到在python中序列化与反序列化的问题。其实更具体一点就是将python对象同json字符串相互转化的问题。这里做一点小结。</p>
+<p>话不多说，用一个例子来说明所有的要点吧。</p>
+<div class="code">
+{% highlight python %}
+import json
+print "Test1:"
+x=['Tom',100,True]
+y=json.dumps(x)
+print y
+print type(y)
+x2=json.loads(y)
+for ele in x2:
+    print ele,type(ele)
+
+print "Test2:"
+x=('Tom',100,True)
+y=json.dumps(x)
+print y
+print type(y)
+x2=json.loads(y)
+print type(x2)
+
+print "Test3"
+x={'Tom':22,'Jerry':23,'Paul':24}
+y=json.dumps(x)
+print y
+x2=json.loads(y)
+for key,val in x2.items():
+    print key,':',val
+{% endhighlight %}
+</div>
+<p>运行程序，可以看到如下结果：</p>
+<div class="code">
+{% highlight %}
+Test1:
+["Tom", 100, true]
+<type 'str'>
+Tom <type 'unicode'>
+100 <type 'int'>
+True <type 'bool'>
+Test2:
+["Tom", 100, true]
+<type 'str'>
+<type 'list'>
+Test3
+{"Paul": 24, "Jerry": 23, "Tom": 22}
+Paul : 24
+Jerry : 23
+Tom : 22
+{% endhighlight %}
+</div>
+<p>首先分析test1的结果。首先x是一个list，序列化为y之后，是一个字符串，可以看出type(y)显示str，并且可以被打印出来。但是要注意的是，当我们同时打印出反序列话后的元素类型，可以看出，原本的str类型被反序列化成为了unicode类型。这只是python 2.7中的特性。自从python 3以后，str类型都会反序列化成为str，所以不必担心。但是在python 2.7中，记得在有些场合可能得到反序列的字符串后，需要将其转换为utf-8格式的str。比如在数据库当中设置了默认utf8，那么当你从json中反序列化拿到字符串之后，可能还要进行encode('utf-8')之后才能存入数据库。事实上今天我就遇到了这一一个问题。然后再由y反序列化得到x2，就又能得到一个list，并且里面元素都可以正常访问。</p>
+<p>然后分析test2，x是一个tuple，序列化为y之后打印，可以看出()变为了[]，也就是说，json并不会记录tuple类型，它都会将其认为是list类型（其实本来tuple就可以看做一个只读的list），为了进一步验证，我们将其反序列化得到x2，打印出type(x2)可以看出是list类型。</p>
+<p>再看test3，x是一个dict类型，序列化之后原样保存为字符串，反序列话之后依旧还原为dict，并且可以进行正常访问。这里要注意，在python 2.7中dict的key同样会被反序列化为unicode，需要注意。</p>
+<p>最后再提一下set类型，当我试图将一个set类型数据序列化的时候会报错，可见json并不支持set类型。</p>
+<p>总体可以总结一下：序列化与反序列化之后的对应关系是：list~list,tuple~list,dict~dict,int~int,str~unicode or str,bool~bool。然后set不支持。</p>
+<p>最后还需要注意，实际应用中可能经常需要将一个对象序列化。这时候需要编写一个转换函数，这方面的这里不详述了，参考教程即可。</p>
+<p>实际应用中才发现json还是使用的满频繁的。javascript当中有时候也经常要处理json，这个也应该注意一下。可以参考这篇教程：<a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001434499490767fe5a0e31e17e44b69dcd1196f7ec6fc6000">js处理json教程</a></p>
