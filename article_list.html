@@ -16,12 +16,6 @@ title: 分类
 	{% elsif category.first == "网络通信" %}
 		<li><p><a href="{{ site.baseurl }}/category/network.html" style="text-decoration:none;color:white">
 			{{ category.first }}({{ category | last | size }})</a></p></li>
-	{% elsif category.first == "JavaScript" %}
-		<li><p><a href="{{ site.baseurl }}/category/javascript.html" style="text-decoration:none;color:white">
-			{{ category.first }}({{ category | last | size }})</a></p></li>
-	{% elsif category.first == "Python" %}
-		<li><p><a href="{{ site.baseurl }}/category/python.html" style="text-decoration:none;color:white">
-			{{ category.first }}({{ category | last | size }})</a></p></li>
     {% endif %}
 {% endfor %}
 </ul>

@@ -1,7 +1,7 @@
 ---
 layout: article
 title: jQuery插件编写
-category: [前端开发,JavaScript]
+category: 前端开发
 ---
 <p>最近工作当中需要写一个简单的jquery插件。之前看过一些jquery插件的写法，但是有些模糊，正好乘此机会搞明白了jquery插件的原理，在此记录一下。为了搞清楚这个概念，需要整体了解js的面向对象，以及jquery对于js面向对象的封装。</p>
 <!--more-->
@@ -24,7 +24,7 @@ jq.prototype.hello2=function(){
 var jqObj=new jq();
 jqObj.hello2();     //hello2
 jqObj.hello1();     //TypeError: jqObj.hello1 is not a function.
-{% end %}
+{% endhighlight %}
 </div>
 <p>这里jq就姑且代表jQuery，jq.hello1是给jq绑定一个hello1方法，类似jquery中的$.extend()。这时候绑定之后就可以直接调用jq.hello1()了，类似jquery中使用$.ajax()等方法。而之后jq.prototype.hello2就是给jq的原型绑定一个hello2方法，类似jquery中的$.fn.extend()，这时候当使用jqObj=new jq()之后就可以继承hello2方法，类似jquery中使用$('selector')得到对象，可以继承$.fn.extend()绑定的方法。而直接用$.extend()绑定的方法则不会被继承，也就是说jqObj.hello1()会提示错误。</p>
 <p>这里的一个要点就是理解jQuery这个对象本身是一个对象，也同时是一个构造函数。这就是js中一切皆对象的原理。</p>
