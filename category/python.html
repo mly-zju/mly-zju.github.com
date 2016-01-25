@@ -4,7 +4,7 @@ title: Python
 ---
 <ul>
 {% for category in site.categories %}
-	{% if category.first == "Python" %}
+	{% if category.first == "python开发" %}
 		{% for post in category.last %}
 		<li><p><a href="{{ site.baseurl }}{{ post.url }}" style="text-decoration:none;color:white">
 			{{ post.title }} {{ post.date | date_to_string }}</a></p></li>
