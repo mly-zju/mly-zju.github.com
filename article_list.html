@@ -17,5 +17,14 @@ title: 分类
 		<li><p><a href="{{ site.baseurl }}/category/network.html" style="text-decoration:none;color:white">
 			{{ category.first }}({{ category | last | size }})</a></p></li>
 	{% endif %}
+	{% elsif category.first == "JavaScript" %}
+		<li><p><a href="{{ site.baseurl }}/category/javascript.html" style="text-decoration:none;color:white">
+			{{ category.first }}({{ category | last | size }})</a></p></li>
+	{% elsif category.first == "Python" %}
+		<li><p><a href="{{ site.baseurl }}/category/python.html" style="text-decoration:none;color:white">
+			{{ category.first }}({{ category | last | size }})</a></p></li>
+	{% elsif category.first == "html/css" %}
+		<li><p><a href="{{ site.baseurl }}/category/htmlcss.html" style="text-decoration:none;color:white">
+			{{ category.first }}({{ category | last | size }})</a></p></li>
 {% endfor %}
 </ul>
