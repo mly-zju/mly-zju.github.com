@@ -1,0 +1,11 @@
+---
+layout: article
+title: jQuery插件编写
+category: 前端开发
+---
+<p>最近工作当中需要写一个简单的jquery插件。之前看过一些jquery插件的写法，但是有些模糊，正好乘此机会搞明白了jquery插件的原理，在此记录一下。</p>
+<!--more-->
+<p>首先推荐看这一篇，把jquery插件的写法讲的比较清楚：<a href="http://www.cnblogs.com/joey0210/p/3408349.html">如何写jquery插件</a>，或者廖雪峰老师的教程中也有一章专门讲到如何写jquery插件：<a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/0014356468967974219593d94f64d06b370c87fc38eade4000">jquery扩展</a>，虽然两篇文章讲到的具体方法稍有差别，但也不过是茴字的两种写法而已，个人倾向于遵照前一篇的方法写。</p>
+<p>总结起来，学会写插件，要明白以下这个关键知识点：</p>
+<p>区分$.extend和$.fn.extend。jQuery.extend(object) ,一个参数的用于扩展jQuery类本身，也就是用来在jQuery类/命名空间上增加新函数，或者叫静态方法，例如jQuery内置的 ajax方法都是用jQuery.ajax()这样调用的，有点像 “类名.方法名” 静态方法的调用方式。而jQuery.fn = jQuery.prototype，也就是jQuery对象的原型。那jQuery.fn.extend()方法就是扩展jQuery对象的原型方法。我们知道扩展原型上的方法，就相当于为对象添加”成员方法“，类的”成员方法“要类的对象才能调用，所以使用jQuery.fn.extend(object)扩展的方法， jQuery类的实例可以使用这个“成员函数”。jQuery.fn.extend(object)和jQuery.extend(object)方法一定要区分开来。</p>
+<p>这里面涉及到了一些js的面向对象编程的知识以及jquery相应的写法，这一块现在我还有些模糊，留待以后进一步深入学习。</p>
