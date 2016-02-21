@@ -15,12 +15,12 @@ body{min-width:1000px;min-height:400px;position:relative;}
 #header p{color:white;margin-top:20px;font-size:30px;font-family:"微软雅黑";opacity:0;}
 /*content*/
 a{text-decoration:none;color:white;}
-.content_pic1{background-color:rgb(43,50,61);color:white;width:100%;height:300px;}
+.content_pic1{background-color:rgb(43,50,61);color:white;width:100%;height:300px;opacity:0.95;}
 .content_pic1 .pic{float:left;height:300px;width:35%;}
 .content_pic1 .word{float:left;padding-top:20px;padding-bottom:20px;height:240px;width:65%;} 
 .word h2{text-align:center;margin-top:30px;font-size:40px;}
 .word p{width:70%;margin:15px auto 0;}
-.content_pic2{background-color:rgb(39,46,57);color:white;width:100%;height:300px;}
+.content_pic2{background-color:rgb(39,46,57);color:white;width:100%;height:300px;opacity:0.95;}
 .content_pic2 .pic{float:left;height:300px;width:35%;}
 .content_pic2 .word{float:left;padding-top:20px;padding-bottom:20px;height:230px;width:65%;} 
 .content_word2{background-color:rgb(39,46,57);color:white;

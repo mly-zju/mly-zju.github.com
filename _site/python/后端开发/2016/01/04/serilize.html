@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="//css/pygments.css">
+	<script type="text/javascript" src="//js/jquery.js"></script>
+	<title>python中的序列化与反序列化</title>
+	<style>
+	*{margin:0;padding:0;}
+	body{background:url("//img/bg_article.jpg") fixed;background-size:cover;
+		width:100%;min-height:400px;font-family:"微软雅黑";color:white;margin:0;padding:0;}
+	.cover{background:black;width:100%;height:100%;position:fixed;z-index:-1;opacity:0.6;top:0;left:0;}
+	.nav{height:40px;width:100%;overflow:hidden;font-size:18px;position:fixed;top:0;z-index:1;
+		background-color:rgb(10,36,65);opacity:0.9;}
+	.nav .name{float:left;margin-left:40px;color:white;line-height:40px;opacity:0;}
+	.nav ul{list-style:none;}
+	.nav li{float:right;margin-right:30px;}
+	.nav li a{display:block;width:60px;height:40px;line-height:40px;text-align:center;color:white;text-decoration:none;}
+	.left{height:100%;width:15%;margin-left:5%;margin-top:42px;float:left;background-color:red;
+		padding:20px 1px;background-color:rgb(43,50,61);opacity:0.92;}
+	.left h3{text-align:center;margin-bottom:5px;}
+	.left li{margin-left:30px;}
+	.left li a{text-decoration:none;color:white;font-size:14px;}
+	.right{height:100%;width:65%;margin-left:1%;margin-top:42px;
+		float:left;overflow:hidden;padding:20px 40px;background-color:rgb(39,46,57);opacity:0.92;}
+	.publish_title{text-align:center;margin-bottom:10px;}
+	.publish_date{text-align:center;margin-bottom:15px;}
+	.right p{margin-top:8px;font-size:16px;font-family:"宋体";font-size:14px;line-height:20px;}
+    .right a{color:#EEC900;}
+	.right a.previous{text-decoration:none;color:white;float:right;font-size:14px;margin-top:15px;}
+	.right a.next{text-decoration:none;color:white;float:left;font-size:14px;margin-top:15px;}
+	.foot{width:100%;height:120px;text-align:center;background-color:rgb(10,36,65);opacity:0.9;
+		padding-top:20px;float:left;}
+	.foot a{display:block;text-decoration:none;color:white;font-size:14px;margin-top:10px;}
+	.foot p{margin:40px auto 0;color:white;font-size:14px;}
+	img{margin:10px auto;}
+	.code{background:rgb(0,0,0);padding:5px 0 5px 5px;margin:5px 0;}
+	a{color:blue;}
+	</style>
+</head>
+<body>
+	<div class="cover"></div>
+	<div class="nav">
+		<div class="name">马龄阳的部落格</div>
+		<ul>
+			<li><a href="//self_intro.html">关于我</a></li>
+			<li><a href="//article_list.html">分类</a></li>
+			<li><a href="//index.html">主页</a></li>
+		</ul>
+	</div>
+	<div class="left">
+		<h3>文章分类</h3>
+		<ul>
+		
+			
+				<li><p><a href="//category/diary.html" style="text-decoration:none;color:white">
+					日记随笔(3)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/front_end.html" style="text-decoration:none;color:white">
+					前端开发(10)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/python.html" style="text-decoration:none;color:white">
+					python(1)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/back_end.html" style="text-decoration:none;color:white">
+					后端开发(2)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/network.html" style="text-decoration:none;color:white">
+					网络通信(1)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/javascript.html" style="text-decoration:none;color:white">
+					javascript(2)</a></p></li>
+			
+		
+		</ul>
+	</div>
+	<div class="right">
+		<h2 class="publish_title">python中的序列化与反序列化</h2>
+		<h4 class="publish_date">04 January 2016</h4>
+		<p>感慨一下最近工作还是有点辛苦的，但是怎么说呢，还是痛并快乐着吧，每天都在学习和思考，每天都有收获。</p>
+<p>最近在开发中经常遇到在python中序列化与反序列化的问题。其实更具体一点就是将python对象同json字符串相互转化的问题。这里做一点小结。</p>
+<!--more-->
+<p>话不多说，用一个例子来说明所有的要点吧。</p>
+<div class="code">
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">json</span>
+<span class="k">print</span> <span class="s">"Test1:"</span>
+<span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">'Tom'</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="bp">True</span><span class="p">]</span>
+<span class="n">y</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">y</span>
+<span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">x2</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">x2</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">ele</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">ele</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">"Test2:"</span>
+<span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="s">'Tom'</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">y</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">y</span>
+<span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">x2</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">"Test3"</span>
+<span class="n">x</span><span class="o">=</span><span class="p">{</span><span class="s">'Tom'</span><span class="p">:</span><span class="mi">22</span><span class="p">,</span><span class="s">'Jerry'</span><span class="p">:</span><span class="mi">23</span><span class="p">,</span><span class="s">'Paul'</span><span class="p">:</span><span class="mi">24</span><span class="p">}</span>
+<span class="n">y</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">y</span>
+<span class="n">x2</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">val</span> <span class="ow">in</span> <span class="n">x2</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">key</span><span class="p">,</span><span class="s">':'</span><span class="p">,</span><span class="n">val</span></code></pre></figure>
+</div>
+<p>运行程序，可以看到如下结果：</p>
+<div class="code">
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">Test1</span><span class="o">:</span>
+<span class="o">[</span><span class="err">"</span><span class="nt">Tom</span><span class="err">"</span><span class="o">,</span> <span class="nt">100</span><span class="o">,</span> <span class="nt">true</span><span class="o">]</span>
+<span class="o">&lt;</span><span class="nt">type</span> <span class="err">'</span><span class="nt">str</span><span class="err">'</span><span class="o">&gt;</span>
+<span class="nt">Tom</span> <span class="o">&lt;</span><span class="nt">type</span> <span class="err">'</span><span class="nt">unicode</span><span class="err">'</span><span class="o">&gt;</span>
+<span class="nt">100</span> <span class="o">&lt;</span><span class="nt">type</span> <span class="err">'</span><span class="nt">int</span><span class="err">'</span><span class="o">&gt;</span>
+<span class="nt">True</span> <span class="o">&lt;</span><span class="nt">type</span> <span class="err">'</span><span class="nt">bool</span><span class="err">'</span><span class="o">&gt;</span>
+<span class="nt">Test2</span><span class="o">:</span>
+<span class="o">[</span><span class="err">"</span><span class="nt">Tom</span><span class="err">"</span><span class="o">,</span> <span class="nt">100</span><span class="o">,</span> <span class="nt">true</span><span class="o">]</span>
+<span class="o">&lt;</span><span class="nt">type</span> <span class="err">'</span><span class="nt">str</span><span class="err">'</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">type</span> <span class="err">'</span><span class="nt">list</span><span class="err">'</span><span class="o">&gt;</span>
+<span class="nt">Test3</span>
+<span class="p">{</span><span class="err">"Paul":</span> <span class="err">24,</span> <span class="err">"Jerry":</span> <span class="err">23,</span> <span class="err">"Tom":</span> <span class="err">22</span><span class="p">}</span>
+<span class="nt">Paul</span> <span class="o">:</span> <span class="nt">24</span>
+<span class="nt">Jerry</span> <span class="o">:</span> <span class="nt">23</span>
+<span class="nt">Tom</span> <span class="o">:</span> <span class="nt">22</span></code></pre></figure>
+</div>
+<p>首先分析test1的结果。首先x是一个list，序列化为y之后，是一个字符串，可以看出type(y)显示str，并且可以被打印出来。但是要注意的是，当我们同时打印出反序列话后的元素类型，可以看出，原本的str类型被反序列化成为了unicode类型。这只是python 2.7中的特性。自从python 3以后，str类型都会反序列化成为str，所以不必担心。但是在python 2.7中，记得在有些场合可能得到反序列的字符串后，需要将其转换为utf-8格式的str。比如在数据库当中设置了默认utf8，那么当你从json中反序列化拿到字符串之后，可能还要进行encode('utf-8')之后才能存入数据库。事实上今天我就遇到了这一一个问题。然后再由y反序列化得到x2，就又能得到一个list，并且里面元素都可以正常访问。</p>
+<p>然后分析test2，x是一个tuple，序列化为y之后打印，可以看出()变为了[]，也就是说，json并不会记录tuple类型，它都会将其认为是list类型（其实本来tuple就可以看做一个只读的list），为了进一步验证，我们将其反序列化得到x2，打印出type(x2)可以看出是list类型。</p>
+<p>再看test3，x是一个dict类型，序列化之后原样保存为字符串，反序列话之后依旧还原为dict，并且可以进行正常访问。这里要注意，在python 2.7中dict的key同样会被反序列化为unicode，需要注意。</p>
+<p>最后再提一下set类型，当我试图将一个set类型数据序列化的时候会报错，可见json并不支持set类型。</p>
+<p>总体可以总结一下：序列化与反序列化之后的对应关系是：list~list,tuple~list,dict~dict,int~int,str~unicode or str,bool~bool。然后set不支持。</p>
+<p>最后还需要注意，实际应用中可能经常需要将一个对象序列化。这时候需要编写一个转换函数，这方面的这里不详述了，参考教程即可。</p>
+<p>实际应用中才发现json还是使用的满频繁的。javascript当中有时候也经常要处理json，这个也应该注意一下。可以参考这篇教程：<a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001434499490767fe5a0e31e17e44b69dcd1196f7ec6fc6000">js处理json教程</a></p>
+
+		
+		<a class="next" href="//%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/20/cache.html">上一篇</a>
+		
+		
+		<a class="previous" href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/02/overflow.html">下一篇</a>
+		
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/python/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/04/serilize" data-title="python中的序列化与反序列化" data-url="http://mly-zju.github.io//python/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/04/serilize.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	function footdisplay(){
+		// var foot=$(".foot");
+		// var height=$(document).height();
+		var right=$(".right");
+		var img=$("img");
+		// foot.css({"top":height+"px"});
+		img.each(function(index,t){
+		if(t.width()>right.width())
+			t.css({"width":"100%"});
+		});
+	}
+	var duoshuoQuery = {short_name:"mly-zju"};
+	function judge(){
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	}
+	judge();
+	footdisplay();
+	</script>
+	<!-- 多说公共JS代码 end -->
+	</div>
+	<div class="foot">
+		<a href="javascript:void(0)">Designed By 马龄阳</a>
+		<a href="//self_intro.html">@联系方式</a> 
+	</div>
+</body>
+</html>

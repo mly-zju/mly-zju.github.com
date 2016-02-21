@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/css/pygments.css">
-	<script type="text/javascript" src="/js/jquery.js"></script>
+	<link rel="stylesheet" href="//css/pygments.css">
+	<script type="text/javascript" src="//js/jquery.js"></script>
 	<title>代码高亮测试</title>
 	<style>
 	*{margin:0;padding:0;}
-	body{background:url("/img/bg_article.jpg") fixed;background-size:cover;
+	body{background:url("//img/bg_article.jpg") fixed;background-size:cover;
 		width:100%;min-height:400px;font-family:"微软雅黑";color:white;margin:0;padding:0;}
 	.cover{background:black;width:100%;height:100%;position:fixed;z-index:-1;opacity:0.6;top:0;left:0;}
 	.nav{height:40px;width:100%;overflow:hidden;font-size:18px;position:fixed;top:0;z-index:1;
@@ -26,13 +26,16 @@
 	.publish_title{text-align:center;margin-bottom:10px;}
 	.publish_date{text-align:center;margin-bottom:15px;}
 	.right p{margin-top:8px;font-size:16px;font-family:"宋体";font-size:14px;line-height:20px;}
-	.previous{text-decoration:none;color:white;float:right;font-size:14px;margin-top:15px;}
-	.next{text-decoration:none;color:white;float:left;font-size:14px;margin-top:15px;}
+    .right a{color:#EEC900;}
+	.right a.previous{text-decoration:none;color:white;float:right;font-size:14px;margin-top:15px;}
+	.right a.next{text-decoration:none;color:white;float:left;font-size:14px;margin-top:15px;}
 	.foot{width:100%;height:120px;text-align:center;background-color:rgb(10,36,65);opacity:0.9;
 		padding-top:20px;float:left;}
 	.foot a{display:block;text-decoration:none;color:white;font-size:14px;margin-top:10px;}
 	.foot p{margin:40px auto 0;color:white;font-size:14px;}
 	img{margin:10px auto;}
+	.code{background:rgb(0,0,0);padding:5px 0 5px 5px;margin:5px 0;}
+	a{color:blue;}
 	</style>
 </head>
 <body>
@@ -40,9 +43,9 @@
 	<div class="nav">
 		<div class="name">马龄阳的部落格</div>
 		<ul>
-			<li><a href="/self_intro.html">关于我</a></li>
-			<li><a href="/article_list.html">分类</a></li>
-			<li><a href="/index.html">主页</a></li>
+			<li><a href="//self_intro.html">关于我</a></li>
+			<li><a href="//article_list.html">分类</a></li>
+			<li><a href="//index.html">主页</a></li>
 		</ul>
 	</div>
 	<div class="left">
@@ -50,13 +53,33 @@
 		<ul>
 		
 			
-				<li><p><a href="/category/diary.html" style="text-decoration:none;color:white">
+				<li><p><a href="//category/diary.html" style="text-decoration:none;color:white">
 					日记随笔(3)</a></p></li>
 			
 		
 			
-				<li><p><a href="/category/front_end.html" style="text-decoration:none;color:white">
-					前端开发(2)</a></p></li>
+				<li><p><a href="//category/front_end.html" style="text-decoration:none;color:white">
+					前端开发(10)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/python.html" style="text-decoration:none;color:white">
+					python(1)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/back_end.html" style="text-decoration:none;color:white">
+					后端开发(2)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/network.html" style="text-decoration:none;color:white">
+					网络通信(1)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/javascript.html" style="text-decoration:none;color:white">
+					javascript(2)</a></p></li>
 			
 		
 		</ul>
@@ -64,18 +87,21 @@
 	<div class="right">
 		<h2 class="publish_title">代码高亮测试</h2>
 		<h4 class="publish_date">03 December 2015</h4>
-		<p>这一篇主要想测试一下代码高亮。使用了pygments生成代码高亮样式文件，在模板中导入，此后按照语法进行代码高亮引用。</p>
+		<p>这一篇主要想测试一下代码高亮。使用了pygments生成代码高亮样式文件，在模板中导入，此后按照语法进行代码高亮引用。样式特意选择了经典的vim代码格式，看起来还是挺复古的。</p>
 <!--more-->
-<p><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">x=document.getElementById(&quot;test&quot;);
-	x.innerHTML=&quot;hello world&quot;;
-	alert(x);</code></pre></figure>
-</p>
+<div class="code">
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">x</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"test"</span><span class="p">);</span>
+<span class="nx">x</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="s2">"hello world"</span><span class="p">;</span>
+<span class="nx">x</span><span class="p">.</span><span class="nx">onclick</span><span class="o">=</span><span class="kd">function</span><span class="p">(){</span>
+	<span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+</div>
 
 		
-		<a class="next" style="color:gray;">上一篇</a>
+		<a class="next" href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/12/05/e-business.html">上一篇</a>
 		
 		
-		<a class="previous" href="/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2015/11/25/snow.html">下一篇</a>
+		<a class="previous" href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/11/30/waterfall.html">下一篇</a>
 		
 	<!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/12/03/web" data-title="代码高亮测试" data-url="http://mly-zju.github.io//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/12/03/web.html"></div>
@@ -109,7 +135,7 @@
 	</div>
 	<div class="foot">
 		<a href="javascript:void(0)">Designed By 马龄阳</a>
-		<a href="/self_intro.html">@联系方式</a> 
+		<a href="//self_intro.html">@联系方式</a> 
 	</div>
 </body>
 </html>

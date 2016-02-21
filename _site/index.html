@@ -3,16 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>马龄阳的部落格</title>
-	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="//js/jquery.js"></script>
 </head>
 <body>
 	<div id="cover"></div>
 	<div id="nav">
 		<div id="name">马龄阳的部落格</div>
 		<ul>
-			<li><a href="/self_intro.html">关于我</a></li>
-			<li><a href="/article_list.html">分类</a></li>
-			<li><a href="/index.html">主页</a></li>
+			<li><a href="//self_intro.html">关于我</a></li>
+			<li><a href="//article_list.html">分类</a></li>
+			<li><a href="//index.html">主页</a></li>
 		</ul>
 	</div>
 	<div id="header">
@@ -23,45 +23,67 @@
 	</div>
 	
 	
-		<div class="wrapper pic_type">
-			
-			<div class="pic" style="background:url(img/javascript.png) no-repeat;background-size:cover">
-			
+		<div class="wrapper word_type">
+			<div class="title">
+				<a href="//javascript/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/25/js-obj.html"><h3>javascript面向对象深入理解</h3></a>
 			</div>
-			<div class="word">
-				<a href="/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/12/03/web.html"><h2>代码高亮测试 </h2>
-					<p>这一篇主要想测试一下代码高亮。使用了pygments生成代码高亮样式文件，在模板中导入，此后按照语法进行代码高亮引用。</p>
+			<div class="paragraph">
+				<p>前面将到了jquery插件的写法，其中涉及到了很多js对象和继承的知识点。用了js这么久了，可能是收到c++和java的影响太深，总觉得对于javascript的面向对象方法理解的不是很透彻。恰好今天找到了一篇好文，在这里分享，读完之后觉得清晰了不少：<a href="http://www.ibm.com/developerworks/cn/web/1304_zengyz_jsoo/index.html?ca=drs-#resources">全面理解面向对象的 JavaScript</a></p>
 
 
-</a>
+
 			</div>
-	</div>
-	
-
-	
-		<div class="wrapper pic_type">
-			
-			<div class="pic" style="background:url(img/snow.gif) no-repeat;background-size:cover">
-			
-			</div>
-			<div class="word">
-				<a href="/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2015/11/25/snow.html"><h2>想去看雪 </h2>
-					<p>今晚开始上海寒流来袭，晚上回来的时候在冷雨中瑟瑟发抖，然而周围的风景却依然没有一点临近十二月该有的感觉。这么多年了还是适应不了南方潮湿的冬天，听着耳机里“生就属于北方的我将一去不回”，一点点微妙的感慨，难以把握，就像这首歌忽高忽低的音调。</p>
-
-
-</a>
-			</div>
-	</div>
+			<script>
+				var h=$(".publish_title");
+				h.css({"display":"none"});
+			</script>
+		</div>
 	
 
 	
 		<div class="wrapper word_type">
 			<div class="title">
-				<a href="/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/11/22/begin2.html"><h3>博客维护注意事项</h3></a>
+				<a href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/javascript/2016/01/25/jquery.html"><h3>jQuery插件编写</h3></a>
 			</div>
 			<div class="paragraph">
-				<p><b>1. 网站维护与更新</b></p>
-<p>日常博客维护都是在本地进行的，比如文章的更新、网站版式的更改等等。当在本地维护更新好确认无误以后，再通过github提交，即可在网站端更新了。</p>
+				<p>最近工作当中需要写一个简单的jquery插件。之前看过一些jquery插件的写法，但是有些模糊，正好乘此机会搞明白了jquery插件的原理，在此记录一下。为了搞清楚这个概念，需要整体了解js的面向对象，以及jquery对于js面向对象的封装。</p>
+
+
+
+			</div>
+			<script>
+				var h=$(".publish_title");
+				h.css({"display":"none"});
+			</script>
+		</div>
+	
+
+	
+		<div class="wrapper word_type">
+			<div class="title">
+				<a href="//%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/20/cache.html"><h3>客户端与服务器的缓存机制</h3></a>
+			</div>
+			<div class="paragraph">
+				<p>自己一个人玩玩的时候不会考虑很多，通常都是做出东西来能用就觉得很开心了。然而最近在蜻蜓fm接触了很多工程方面的东西以后才明白，在实际应用中要考虑的事情，尤其是性能上的优化，是一门很深的学问。</p>
+
+
+
+			</div>
+			<script>
+				var h=$(".publish_title");
+				h.css({"display":"none"});
+			</script>
+		</div>
+	
+
+	
+		<div class="wrapper word_type">
+			<div class="title">
+				<a href="//python/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/04/serilize.html"><h3>python中的序列化与反序列化</h3></a>
+			</div>
+			<div class="paragraph">
+				<p>感慨一下最近工作还是有点辛苦的，但是怎么说呢，还是痛并快乐着吧，每天都在学习和思考，每天都有收获。</p>
+<p>最近在开发中经常遇到在python中序列化与反序列化的问题。其实更具体一点就是将python对象同json字符串相互转化的问题。这里做一点小结。</p>
 
 
 
@@ -76,13 +98,13 @@
 	
 		<div class="wrapper pic_type">
 			
-			<div class="pic" style="background:url(img/2015-11-22-diary1.jpg) no-repeat;background-size:cover">
+			<div class="pic" style="background:url(img/201601/div1.jpg) no-repeat;background-size:cover">
 			
 			</div>
 			<div class="word">
-				<a href="/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2015/11/22/begin.html"><h2>Hello World! </h2>
-					<p>第一篇文章，标题竟然是"Hello World"，什么毛病(扶额)。Anyway，这篇文章也可以当测试用= =</p>
-<p>我的个人博客网站今天正式上线了，鼓掌~~总体结构是采用了Html+Css+Javascript+jekyll+github pages来完成的。
+				<a href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/02/overflow.html"><h2>关于css中元素内部清除浮动的思考 </h2>
+					<p>经常在前端编程的时候遇到这样的问题：一个div元素，没有指定大小，内部有其他元素，但是是浮动或者是absolute的，这种情况下父div元素不会被撑开。为了能够被撑开，需要对父div元素做一些修改。</p>
+
 
 </a>
 			</div>
@@ -100,19 +122,27 @@
   
 
   
+    
+        <a href="//page2/index.html">2</a>
+    
+  
+    
+        <a href="//page3/index.html">3</a>
+    
+  
 
   
-      <a>&gt;</a>
+      <a href="//page2/index.html">&gt;</a>
   
 </div>
 
 
-	<link rel="stylesheet" type="text/css" href="/css/homepage.css" />
-	<script type="text/javascript" src="/js/main.js"></script>
+	<link rel="stylesheet" type="text/css" href="//css/homepage.css" />
+	<script type="text/javascript" src="//js/main.js"></script>
 
 	<div class="foot">
 		<a href="javascript:void(0)">Designed By 马龄阳</a>
-		<a href="/self_intro.html">@联系方式</a> 
+		<a href="//self_intro.html">@联系方式</a> 
 	</div>
 </body>
 </html>

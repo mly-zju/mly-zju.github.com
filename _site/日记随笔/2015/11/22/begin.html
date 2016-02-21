@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/css/pygments.css">
-	<script type="text/javascript" src="/js/jquery.js"></script>
+	<link rel="stylesheet" href="//css/pygments.css">
+	<script type="text/javascript" src="//js/jquery.js"></script>
 	<title>Hello World!</title>
 	<style>
 	*{margin:0;padding:0;}
-	body{background:url("/img/bg_article.jpg") fixed;background-size:cover;
+	body{background:url("//img/bg_article.jpg") fixed;background-size:cover;
 		width:100%;min-height:400px;font-family:"微软雅黑";color:white;margin:0;padding:0;}
 	.cover{background:black;width:100%;height:100%;position:fixed;z-index:-1;opacity:0.6;top:0;left:0;}
 	.nav{height:40px;width:100%;overflow:hidden;font-size:18px;position:fixed;top:0;z-index:1;
@@ -26,13 +26,16 @@
 	.publish_title{text-align:center;margin-bottom:10px;}
 	.publish_date{text-align:center;margin-bottom:15px;}
 	.right p{margin-top:8px;font-size:16px;font-family:"宋体";font-size:14px;line-height:20px;}
-	.previous{text-decoration:none;color:white;float:right;font-size:14px;margin-top:15px;}
-	.next{text-decoration:none;color:white;float:left;font-size:14px;margin-top:15px;}
+    .right a{color:#EEC900;}
+	.right a.previous{text-decoration:none;color:white;float:right;font-size:14px;margin-top:15px;}
+	.right a.next{text-decoration:none;color:white;float:left;font-size:14px;margin-top:15px;}
 	.foot{width:100%;height:120px;text-align:center;background-color:rgb(10,36,65);opacity:0.9;
 		padding-top:20px;float:left;}
 	.foot a{display:block;text-decoration:none;color:white;font-size:14px;margin-top:10px;}
 	.foot p{margin:40px auto 0;color:white;font-size:14px;}
 	img{margin:10px auto;}
+	.code{background:rgb(0,0,0);padding:5px 0 5px 5px;margin:5px 0;}
+	a{color:blue;}
 	</style>
 </head>
 <body>
@@ -40,9 +43,9 @@
 	<div class="nav">
 		<div class="name">马龄阳的部落格</div>
 		<ul>
-			<li><a href="/self_intro.html">关于我</a></li>
-			<li><a href="/article_list.html">分类</a></li>
-			<li><a href="/index.html">主页</a></li>
+			<li><a href="//self_intro.html">关于我</a></li>
+			<li><a href="//article_list.html">分类</a></li>
+			<li><a href="//index.html">主页</a></li>
 		</ul>
 	</div>
 	<div class="left">
@@ -50,13 +53,33 @@
 		<ul>
 		
 			
-				<li><p><a href="/category/diary.html" style="text-decoration:none;color:white">
+				<li><p><a href="//category/diary.html" style="text-decoration:none;color:white">
 					日记随笔(3)</a></p></li>
 			
 		
 			
-				<li><p><a href="/category/front_end.html" style="text-decoration:none;color:white">
-					前端开发(2)</a></p></li>
+				<li><p><a href="//category/front_end.html" style="text-decoration:none;color:white">
+					前端开发(10)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/python.html" style="text-decoration:none;color:white">
+					python(1)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/back_end.html" style="text-decoration:none;color:white">
+					后端开发(2)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/network.html" style="text-decoration:none;color:white">
+					网络通信(1)</a></p></li>
+			
+		
+			
+				<li><p><a href="//category/javascript.html" style="text-decoration:none;color:white">
+					javascript(2)</a></p></li>
 			
 		
 		</ul>
@@ -67,13 +90,13 @@
 		<p>第一篇文章，标题竟然是"Hello World"，什么毛病(扶额)。Anyway，这篇文章也可以当测试用= =</p>
 <p>我的个人博客网站今天正式上线了，鼓掌~~总体结构是采用了Html+Css+Javascript+jekyll+github pages来完成的。<!--more-->最初在考虑要不要买个空间，然后基于php后台搭建网站，但后来觉得轻量级个人网站没有很多动态元素，没必要使用后台语言当然也有自己对于后台技术还不是很熟练的原因>.<)，再加上接触了jekyll以后发现很好用，满满的极客范儿，所以最终就愉快决定基于jekyll搭建啦(撒花)!</p>
 <p>第一篇文章就随便记录一些想法吧。首先博客完全是我自己设计的= =因为不是专业设计人员，只能尽量做得不难看就好了，风格参考了扁平化样式，看起来还行吧。。其次，博客的名字我取了"风烟俱净",这个来自中学时候谢灵运的一篇文章的开头："风烟俱净,天山共色。从流飘荡,任意东西。自富阳至桐庐,一百许里,奇山异水,天下独绝。"不知为何对这个句子印象很深，对于此中意境一直心向往之，后来大学去了杭州读，方才知道富阳和桐庐就在杭州，可是四年一直没去过，不得不说自己太懒了，以后要补上！</p>
-<img src="/img/2015-11-22-diary1.jpg"/>
+<img src="//img/2015-11-22-diary1.jpg"/>
 <p>这个是第一版博客，大体实现了一个个人博客网站的基本功能，如文章阅读、文章分类查询等等。后续版本还会增加访客评论等功能，让网站趋于完整。同时还会将网站实现的源代码上传至github作为一个开源项目，虽然做的这么挫估计没什么人关注(笑)。</p>
 <p>后续文章会记录一下自己搭建这个博客的过程解读，尤其一些关键功能的实现方法以及jekyll的使用。嗯，先就酱紫~</p>
 
 
 		
-		<a class="next" href="/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/11/22/begin2.html">上一篇</a>
+		<a class="next" href="//%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/11/22/begin2.html">上一篇</a>
 		
 		
 		<a class="previous" style="color:gray;">下一篇</a>
@@ -110,7 +133,7 @@
 	</div>
 	<div class="foot">
 		<a href="javascript:void(0)">Designed By 马龄阳</a>
-		<a href="/self_intro.html">@联系方式</a> 
+		<a href="//self_intro.html">@联系方式</a> 
 	</div>
 </body>
 </html>

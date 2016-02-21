@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="//css/pygments.css">
 	<script type="text/javascript" src="//js/jquery.js"></script>
-	<title>博客维护注意事项</title>
+	<title>javascript面向对象深入理解</title>
 	<style>
 	*{margin:0;padding:0;}
 	body{background:url("//img/bg_article.jpg") fixed;background-size:cover;
@@ -85,24 +85,20 @@
 		</ul>
 	</div>
 	<div class="right">
-		<h2 class="publish_title">博客维护注意事项</h2>
-		<h4 class="publish_date">22 November 2015</h4>
-		<p><b>1. 网站维护与更新</b></p>
-<p>日常博客维护都是在本地进行的，比如文章的更新、网站版式的更改等等。当在本地维护更新好确认无误以后，再通过github提交，即可在网站端更新了。</p>
+		<h2 class="publish_title">javascript面向对象深入理解</h2>
+		<h4 class="publish_date">25 January 2016</h4>
+		<p>前面将到了jquery插件的写法，其中涉及到了很多js对象和继承的知识点。用了js这么久了，可能是收到c++和java的影响太深，总觉得对于javascript的面向对象方法理解的不是很透彻。恰好今天找到了一篇好文，在这里分享，读完之后觉得清晰了不少：<a href="http://www.ibm.com/developerworks/cn/web/1304_zengyz_jsoo/index.html?ca=drs-#resources">全面理解面向对象的 JavaScript</a></p>
 <!--more-->
-<p><b>2. 文章书写注意事项</b></p>
-<p>设计网站的时候，为了首页展示好看起见，我将有图片的文章和无图片的文章分为两种样式进行展示。在jekyll语句中，为了提示系统区别不同样式，我规定当发表有图片的文章时候，必须在开头规定<b>description</b>,具体内容则是指定一张想要在首页展示的图片的文件名。所有图片都应该存放在/img文件夹下面。同时，每篇文章都应该有一个<b>category</b>和<b>title</b>，其中category用于系统自动归类文章。</p>
-<p>每篇文章的每一段都应该加上&lt;p&gt;标签，不然样式可能会不一样。其次，在首页中会展示文章的摘要，这里使用了&lt;--more--&gt;标志作为摘要的截止点。每次写一篇文章都记得要在适当的位置加上该截止标志。</p>
-
+<p>主要的要点总结起来就是，js是一门被误解的语言，虽然它没有java那样类的概念，但是基于prototype，依然可以实现对象的继承。同时，基于闭包的概念，可以实现对象的私有变量和私有方法。这篇文章中讲的都很详细，同时文末的一些参考资料链接也值得一看。<p>
 
 		
-		<a class="next" href="//%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2015/11/25/snow.html">上一篇</a>
+		<a class="next" style="color:gray;">上一篇</a>
 		
 		
-		<a class="previous" href="//%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2015/11/22/begin.html">下一篇</a>
+		<a class="previous" href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/javascript/2016/01/25/jquery.html">下一篇</a>
 		
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/11/22/begin2" data-title="博客维护注意事项" data-url="http://mly-zju.github.io//%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/11/22/begin2.html"></div>
+	<div class="ds-thread" data-thread-key="/javascript/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/25/js_obj" data-title="javascript面向对象深入理解" data-url="http://mly-zju.github.io//javascript/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/25/js-obj.html"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
