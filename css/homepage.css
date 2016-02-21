@@ -1,5 +1,6 @@
 *{padding:0;margin:0;font-family:"微软雅黑";}
-body{min-width:1000px;min-height:400px;position:relative;}
+html{height:100%;}
+body{min-width:1000px;min-height:400px;position:relative;height:100%;}
 /*nav*/
 #cover{height:100%;width:100%;position:fixed;background-color:black;opacity:0.4;z-index:-1;top:0;}
 #nav{height:40px;width:100%;overflow:hidden;font-size:18px;position:fixed;top:0;z-index:1;}
@@ -8,7 +9,7 @@ body{min-width:1000px;min-height:400px;position:relative;}
 #nav li{float:right;margin-right:30px;}
 #nav li a{display:block;width:60px;height:40px;line-height:40px;text-align:center;color:white;text-decoration:none;}
 /*header*/
-#header{height:500px;width:100%;padding-top:150px;text-align:center;position:relative;top:40px;}
+#header{height:100%;width:100%;padding-top:150px;text-align:center;position:relative;top:40px;}
 #header span:nth-of-type(1){display:block;width:0px;height:2px;background:white;margin:0px auto 0;opacity:0;}
 #header span:nth-of-type(2){display:block;width:0px;height:2px;background:white;margin:20px auto 0;opacity:0;}
 #header h2{color:white;margin-top:20px;font-size:50px;font-family:"微软雅黑";}
