@@ -42,5 +42,5 @@ a{text-decoration:none;color:white;}
 .slides a.chosen{color:red;}
 /*footer*/
 .foot{width:100%;height:120px;text-align:center;background-color:rgb(10,36,65);opacity:0.9;padding-top:20px;}
-.foot a{text-decoration:none;color:white;font-size:14px;margin-top:10px;}
+.foot a{display:inline-block;text-decoration:none;color:white;font-size:14px;margin-top:10px;}
 .foot p{margin:40px auto 0;color:white;font-size:14px;}
