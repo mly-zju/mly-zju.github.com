@@ -16,8 +16,7 @@ body{min-width:1000px;min-height:400px;position:relative;height:100%;}
 #header h2{color:white;margin-top:20px;font-size:50px;font-family:"微软雅黑";}
 #header p{color:white;margin-top:20px;margin-bottom:20px;font-size:30px;font-family:"微软雅黑";opacity:0;}
 #header #header_down{ position:absolute; left:0; right:0; bottom:10%; margin:auto; width:100%; height:100px;}
-#header p.content-downa{color:white;margin:0;font-size:25px;font-family:'微软雅黑';opacity:0;}
-#header p.content-downb{color:white;margin:0;font-size:25px;font-family:'微软雅黑';opacity:0;}
+#header p.content-down{color:white;margin:0;font-size:30px;font-family:'微软雅黑';opacity:0;}
 /*content*/
 a{text-decoration:none;color:white;}
 .content_pic1{background-color:rgb(43,50,61);color:white;width:100%;height:300px;opacity:0.95;}
