@@ -43,7 +43,7 @@
 	@media screen and (max-width:560px){
 		*{margin:0;padding:0;}
 		html{ font-size:1.5vw; }
-		body{ height:100vh; width:100%; position:relative; }
+		body{ height:100vh; width:100%; position:relative;font-family:"微软雅黑"; }
 		.cover{ display:none; }
 		.nav{ height:7vh; width:100%; position:fixed; top:0; z-index:1; font-size:2.8rem; background-color:rgb(10,36,65);opacity:0.9;font-family:"微软雅黑";}
 		.nav .name{ float:left; margin-left:3vw; color:white; line-height:7vh; opacity:0; }
@@ -54,9 +54,11 @@
 								 top: 1vh; overflow:hidden; }
 		.nav .hamburger{ height:0.6vh; width:4vh; background-color:white; display:block; margin:0.8vh auto; }
 		.left { display:none; }
+		.publish_title{ text-align:center; margin-bottom:2vh; font-size:4.8rem; }
+		.publish_date{ text-align:center; margin-bottom:2vh; font-size:2.8rem; }
 		.right{ width:92%; padding:10vh 4%; background-color:rgb(39,46,57);opacity:0.92;color:white;font-family:"宋体";}
 		.right p{ font-size:2.8rem; }
-		.right a{color:#EEC900;}
+		.right a{color:#EEC900;padding-left:5vw;}
 		.right a.previous{text-decoration:none;color:white;float:right;font-size:2.8rem;margin-top:2vh;}
 		.right a.next{text-decoration:none;color:white;float:left;font-size:2.8rem;margin-top:2vh;}
 		.foot{ width:100%; height:8vh; text-align:center; opacity:0.9; padding-top:2vh; border-top:0.5vh solid rgb(10,36,65); margin-top:1.5vh; clear:both;}
@@ -76,6 +78,11 @@
 			<li><a href="{{ site.baseurl }}/article_list.html">分类</a></li>
 			<li><a href="{{ site.baseurl }}/index.html">主页</a></li>
 		</ul>
+		<div class='hamburger_wrapper'>
+			<span class='hamburger'></span>
+			<span class='hamburger'></span>
+			<span class='hamburger'></span>
+		</div>
 	</div>
 	<div class="right">
 		{{content}}
