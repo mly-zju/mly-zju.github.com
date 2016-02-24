@@ -117,7 +117,7 @@ $(document).ready(function(){
 	$(window).scroll(function(){
 		var top=$(document).scrollTop();
 		if(innerWidth<560){
-			if(nav_dropdown.css('display')!=none){
+			if(nav_dropdown.css('display')!='none'){
 				nav_dropdown.css('display','none');
 			}
 		}
