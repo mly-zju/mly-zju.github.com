@@ -97,5 +97,5 @@ a{text-decoration:none;color:white;}
 /*footer*/
 .foot{ width:100%; height:16vh; text-align:center; background-color:rgb(10,36,65); opacity:0.9; padding-top:2vh;}
 .foot a{ display:block; text-decoration:none; color:white ;font-size:2rem; margin-top:0.5vh;}
-.foot a span{ margin:0.5vh auto 0; color:white; font-size:2.5rem; color:#EEC900;}
+.foot a span{ margin:0 auto; color:white; font-size:2.5rem; color:#EEC900;}
 }
