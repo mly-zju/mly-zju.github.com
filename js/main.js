@@ -16,8 +16,9 @@ $(document).ready(function(){
 	var nav_dropdown=$('#nav ul');
 	var content_word=$('.word p');
 	var content_para=$('.paragraph p');
+	var innerWidth=window.innerWidth;
 	
-	if(window.innerWidth>560){
+	if(innerWidth>560){
 		foot.css({"top":height+"px"});
 		body.css({"background":"url(img/bg"+day+".jpg) fixed no-repeat","background-size":"cover"});
 		title_line.eq(0).animate(
@@ -115,10 +116,11 @@ $(document).ready(function(){
 	
 	$(window).scroll(function(){
 		var top=$(document).scrollTop();
-		// if(window.innerWidth<560){
-		// 	if(nav_dropdown.css('display')!=none)
-		// 	nav_dropdown.css('display','none');
-		// }
+		if(innerWidth<560){
+			if(nav_dropdown.css('display')!=none){
+				nav_dropdown.css('display','none');
+			}
+		}
 		if(top>=header.innerHeight())
 		{
 			if(flag==0)
