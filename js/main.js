@@ -59,8 +59,8 @@ $(document).ready(function(){
 		});
 		content.each(function(index){
 			var t=$(this);
-			if(t.text().length>40){
-				t.text(t.text().substring(0,40)+'...');
+			if(t.text().length>30){
+				t.text(t.text().substring(0,30)+'...');
 			}
 		});
 	}
