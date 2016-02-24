@@ -54,8 +54,10 @@ $(document).ready(function(){
 		hamburger_wrapper.click(function(){
 			if(nav_dropdown.css('display')=='block'){
 				nav_dropdown.css('display','none');
+				$(this).parent().css({"background-color":"transparent"});
 			}else{
 				nav_dropdown.css('display','block');
+				$(this).parent().css({"background-color":"rgb(10,36,65)","opacity":"0.9"});
 			}
 		});
 		content_word.each(function(index){

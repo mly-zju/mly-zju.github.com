@@ -51,9 +51,9 @@
 		.cover{ display:none; }
 		.nav{ height:7vh; width:100%; position:fixed; top:0; z-index:1; font-size:2.8rem; background-color:rgb(10,36,65);opacity:0.9;font-family:"微软雅黑";}
 		.nav .name{ float:left; margin-left:3vw; color:white; line-height:7vh; opacity:0; }
-		.nav ul{ list-style:none; position:fixed; top:7vh; right:0; display:none;background-color:rgb(10,36,65);opacity:0.9; }
+		.nav ul{ list-style:none; position:fixed; top:7vh; right:0; display:none;background-color:rgb(10,36,65);opacity:0.9; width:100%;}
 		.nav li{  }
-		.nav li a{ display:block; width:15vw; height:5vh; line-height:5vh; text-align:center; color:white; text-decoration:none;}
+		.nav li a{ display:block; width:100%; height:5vh; line-height:5vh; text-align:center; color:white; text-decoration:none;}
 		.nav .hamburger_wrapper{ height:5vh; width:5vh; position:absolute; right:2vw; 
 								 top: 1vh; overflow:hidden; }
 		.nav .hamburger{ height:0.6vh; width:4vh; background-color:white; display:block; margin:0.8vh auto; }
@@ -171,11 +171,11 @@
 		var img=$('img');
 		hamburger_wrapper.click(function(){
 			if(nav_dropdown.css('display')=='block'){
-				nav.css('opacity','1');
 				nav_dropdown.css('display','none');
-				setTimeout(function(){nav.css('opacity','0.9');},500);
+				$(this).parent().css({"background-color":"transparent"});
 			}else{
 				nav_dropdown.css('display','block');
+				$(this).parent().css({"background-color":"rgb(10,36,65)","opacity":"0.9"});
 		}
 		});
 		img.each(function(index){
