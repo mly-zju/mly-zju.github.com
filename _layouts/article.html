@@ -176,11 +176,11 @@
 				nav_dropdown.css('display','block');
 		}
 		});
-		// img.each(function(index){
-		// 	if(img[index].naturalWidth<$(this).width()){
-		// 		$(this).width(img[index].naturalWidth);
-		// 	}
-		// });
+		img.each(function(index){
+			if($(this).width()>window.innerWidth){
+				$(this).css('width','80vw');
+			}
+		});
 	});
 	</script>
 </body>
