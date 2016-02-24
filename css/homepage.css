@@ -65,7 +65,7 @@ body{ height:100vh; width:100vw; position:relative;}
 						 top: 1vh; overflow:hidden; }
 #nav .hamburger{ height:0.6vh; width:4vh; background-color:white; display:block; margin:0.8vh auto; }
 /*header*/
-#header{ height:42vh; width:100vw; text-align:center; position:relative; background:url(../img/bg0.jpg) no-repeat; background-size:cover; background-color:red; }
+#header{ height:42vh; width:100vw; text-align:center; position:relative; background:url(../img/bg0.jpg) no-repeat; background-size:cover;}
 #header_cover{ height:100%; width:100%; position:fixed; background-color:black; opacity:0.4; z-index:0; }
 #header_wrapper { position:absolute; left:0; right:0; top:5vh; bottom:0; margin:auto; height:30vh; width:80vw; }
 #header span:nth-of-type(1){ display:block; height:0.4vh; width:0; background:white; margin:3vh auto 0; opacity:0;}
