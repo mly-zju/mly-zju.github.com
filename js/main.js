@@ -53,7 +53,9 @@ $(document).ready(function(){
 		},3000);
 		hamburger_wrapper.click(function(){
 			if(nav_dropdown.css('display')=='block'){
+				nav.css('opacity','1');
 				nav_dropdown.css('display','none');
+				setTimeout(function(){nav.css('opacity','0.9')},500);
 				if($(document).scrollTop()<header.innerHeight()){
 					$(this).parent().css({"background-color":"transparent"});
 				}
