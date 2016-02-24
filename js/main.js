@@ -12,57 +12,59 @@ $(document).ready(function(){
 	var pre=0;
 	var foot=$(".foot");
 	var height=$(document).height();
+	var hamburger_wrapper=$('.hamburger_wrapper');
+	var nav_dropdown=$('#nav ul');
+	var content=$('.word p,.paragraph p');
 	
 	foot.css({"top":height+"px"});
 	body.css({"background":"url(img/bg"+day+".jpg) fixed no-repeat","background-size":"cover"});
-	title_line.eq(0).animate(
-	{
-		height:"2px",
-		width:"190px",
-		opacity:"1"
-	},1200);
-	title_line.eq(1).animate(
-	{
-		height:"2px",
-		width:"190px",
-		opacity:"1"
-	},1200);
-	sub_title.animate({
-		opacity:"1"
-	},3000);
-	// wrapper.each(function(index){
-	// 	var t=$(this);
-	// 	if(pre==0)
-	// 	{
-	// 		if(t.hasClass("pic_type"))
-	// 		{
-	// 			t.removeClass("content_pic1");
-	// 			t.addClass("content_pic2");
-	// 			pre=1;
-	// 		}
-	// 		else if(t.hasClass("word_type"))
-	// 		{
-	// 			t.removeClass("content_word1");
-	// 			t.addClass("content_word2");
-	// 			pre=1;
-	// 		}
-	// 	}
-	// 	else if(pre==1)
-	// 	{
-	// 		if(t.hasClass("pic_type"))
-	// 		{
-	// 			t.removeClass("content_pic2");
-	// 			t.addClass("content_pic1");
-	// 			pre=0;
-	// 		}
-	// 		else if(t.hasClass("word_type"))
-	// 		{
-	// 			t.removeClass("content_word2");
-	// 			t.addClass("content_word1");
-	// 			pre=0;
-	// 		}
-	// 	}
-	// });
+	if(window.innerWidth>560){
+		title_line.eq(0).animate(
+		{
+			height:"2px",
+			width:"190px",
+			opacity:"1"
+		},1200);
+		title_line.eq(1).animate(
+		{
+			height:"2px",
+			width:"190px",
+			opacity:"1"
+		},1200);
+		sub_title.animate({
+			opacity:"1"
+		},3000);
+	}else{
+		title_line.eq(0).animate(
+		{
+			height:"0.4vh",
+			width:"50vw",
+			opacity:"1"
+		},1200);
+		title_line.eq(1).animate(
+		{
+			height:"0.4vh",
+			width:"50vw",
+			opacity:"1"
+		},1200);
+		sub_title.animate({
+			opacity:"1"
+		},3000);
+		hamburger_wrapper.click(function(){
+			if(nav_dropdown.css('display')=='block'){
+				nav_dropdown.css('display','none');
+			}else{
+				nav_dropdown.css('display','block');
+			}
+		});
+		content.each(function(index){
+			var t=$(this);
+			if(t.text().length>40){
+				t.text(t.text().substring(0,40)+'...');
+			}
+		});
+	}
+
 	for(var i=len-1;i>=0;i--)
 	{
 		t=wrapper.eq(i);
@@ -100,6 +102,9 @@ $(document).ready(function(){
 	
 	$(window).scroll(function(){
 		var top=$(document).scrollTop();
+		if(window.innerWidth<560){
+			nav_dropdown.css('display','none');
+		}
 		if(top>=header.innerHeight())
 		{
 			if(flag==0)
