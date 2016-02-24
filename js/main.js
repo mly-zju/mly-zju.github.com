@@ -115,9 +115,10 @@ $(document).ready(function(){
 	
 	$(window).scroll(function(){
 		var top=$(document).scrollTop();
-		if(window.innerWidth<560){
-			nav_dropdown.css('display','none');
-		}
+		// if(window.innerWidth<560){
+		// 	if(nav_dropdown.css('display')!=none)
+		// 	nav_dropdown.css('display','none');
+		// }
 		if(top>=header.innerHeight())
 		{
 			if(flag==0)
