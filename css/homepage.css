@@ -52,7 +52,7 @@ a{text-decoration:none;color:white;}
 @media screen and (max-width: 560px){
 *{padding:0;margin:0;font-family:"微软雅黑";}
 html{font-size:1.5vw;}
-body{ height:100vh; width:100%; position:relative;}
+body{  position:relative;}
 #cover{ display:none; }
 /*nav*/
 #nav{ height:7vh; width:100%; position:fixed; top:0; z-index:1; font-size:2.8rem; background-color:transparent;opacity:1;}
