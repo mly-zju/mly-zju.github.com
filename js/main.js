@@ -14,7 +14,8 @@ $(document).ready(function(){
 	var height=$(document).height();
 	var hamburger_wrapper=$('.hamburger_wrapper');
 	var nav_dropdown=$('#nav ul');
-	var content=$('.word p,.paragraph p');
+	var content_word=$('.word p');
+	var content_para=$('.paragraph p');
 	
 	if(window.innerWidth>560){
 		foot.css({"top":height+"px"});
@@ -57,7 +58,13 @@ $(document).ready(function(){
 				nav_dropdown.css('display','block');
 			}
 		});
-		content.each(function(index){
+		content_word.each(function(index){
+			var t=$(this);
+			if(t.text().length>20){
+				t.text(t.text().substring(0,20)+'...');
+			}
+		});
+		content_para.each(function(index){
 			var t=$(this);
 			if(t.text().length>30){
 				t.text(t.text().substring(0,30)+'...');
