@@ -76,7 +76,7 @@ a{text-decoration:none;color:white;}
 .content_pic1{ background-color:rgb(43,50,61); color:white; width:100vw; height:22vh; opacity:0.95; }
 .content_pic1 .pic{ float:left; height:22vh; width:35%; background:url(../img/pic1.jpg) no-repeat;background-size:cover;}
 .content_pic1 .word{ float:left; padding-top:1vh; padding-bottom:1vh; height:20vh; width:65%; } 
-.word h3{ text-align:center; margin:3vh 1vh 1vh; font-size:3.5rem; }
+.word h2{ text-align:center; margin:3vh 1vh 1vh; font-size:3.5rem; }
 .word p{ width:90%;margin:0 auto 1vh;font-size:2.5rem;}
 
 .content_pic2{ background-color:rgb(39,46,57); color:white; width:100vw; height:22vh; opacity:0.95; }
