@@ -60,14 +60,14 @@ $(document).ready(function(){
 		});
 		content_word.each(function(index){
 			var t=$(this);
-			if(t.text().length>20){
-				t.text(t.text().substring(0,20)+'...');
+			if(t.text().length>15){
+				t.text(t.text().substring(0,15)+'...');
 			}
 		});
 		content_para.each(function(index){
 			var t=$(this);
-			if(t.text().length>30){
-				t.text(t.text().substring(0,30)+'...');
+			if(t.text().length>35){
+				t.text(t.text().substring(0,35)+'...');
 			}
 		});
 	}
