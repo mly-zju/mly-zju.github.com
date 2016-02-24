@@ -55,7 +55,7 @@ html{font-size:1.5vw;}
 body{  position:relative;}
 #cover{ display:none; }
 /*nav*/
-#nav{ height:7vh; width:100%; position:fixed; top:0; z-index:1; font-size:2.8rem; background-color:transparent;opacity:1;}
+#nav{ height:7vh; width:100%; position:fixed; top:0; z-index:1; font-size:2.8rem; background-color:transparent;opacity:0.9;}
 #nav #name{ float:left; margin-left:3vw; color:white; line-height:7vh; opacity:0; }
 #nav ul{ list-style:none; position:fixed; top:7vh; right:0; display:none; background-color:rgb(10,36,65); opacity:0.9; width:100%; }
 #nav li{  }

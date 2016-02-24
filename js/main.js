@@ -119,6 +119,9 @@ $(document).ready(function(){
 		if(innerWidth<560){
 			if(nav_dropdown.css('display')!='none'){
 				nav_dropdown.css('display','none');
+				if(top<header.innnerHeight()){
+					nav.css({"background-color":"transparent"});
+				}
 			}
 		}
 		if(top>=header.innerHeight())
@@ -128,7 +131,7 @@ $(document).ready(function(){
 				flag=1;
 				nav.find("#name").animate({
 				opacity:"1",
-				},300);
+				},200);
 				//nav.css({"background-color":"rgb(49,55,69)"});
 				nav.css({"background-color":"rgb(10,36,65)","opacity":"0.9"});
 
@@ -141,7 +144,7 @@ $(document).ready(function(){
 				flag=0;
 				nav.find("#name").animate({
 				opacity:"0"
-				},300);
+				},200);
 			 	nav.css({"background-color":"transparent"});
 			}
 		}
