@@ -57,7 +57,7 @@ body{  position:relative;}
 /*nav*/
 #nav{ height:7vh; width:100%; position:fixed; top:0; z-index:2; font-size:2.8rem; background-color:transparent;opacity:0.9;}
 #nav #name{ float:left; margin-left:3vw; color:white; line-height:7vh; opacity:0; }
-#nav ul{ list-style:none; position:relative; top:7vh; display:none; background-color:rgb(10,36,65); opacity:0.9; text-align:center; }
+#nav ul{ list-style:none; position:fixed; top:7vh; display:none; background-color:rgb(10,36,65); opacity:0.9; text-align:center; }
 #nav li{ }
 #nav li a{ display:block; width:100%; height:5vh; line-height:5vh; text-align:center; color:white; text-decoration:none; }
 #nav .hamburger_wrapper{ height:5vh; width:5vh; position:absolute; right:2vw; 
