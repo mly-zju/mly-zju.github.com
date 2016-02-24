@@ -168,7 +168,8 @@
 		var hamburger_wrapper=$('.hamburger_wrapper');
 		var nav_dropdown=$('.nav ul');
 		var nav=$('.nav');
-			hamburger_wrapper.click(function(){
+		var img=$('.img');
+		hamburger_wrapper.click(function(){
 			if(nav_dropdown.css('display')=='block'){
 				nav.css('opacity','1');
 				nav_dropdown.css('display','none');
@@ -177,6 +178,11 @@
 				nav_dropdown.css('display','block');
 		}
 		});
+		img.each(function(index){
+			if($(this).width()>window.innerWidth){
+				$(this).width('100%');
+			}
+		})
 	});
 	</script>
 </body>
