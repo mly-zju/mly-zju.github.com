@@ -119,7 +119,7 @@ $(document).ready(function(){
 		if(innerWidth<560){
 			if(nav_dropdown.css('display')!='none'){
 				nav_dropdown.css('display','none');
-				if(top<header.innnerHeight()){
+				if(top<header.innerHeight()){
 					nav.css({"background-color":"transparent"});
 				}
 			}
