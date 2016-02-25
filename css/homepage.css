@@ -1,7 +1,7 @@
 @media screen and (min-width:560px){
 *{padding:0;margin:0;font-family:"微软雅黑";}
 html{height:100%;}
-body{min-width:1000px;min-height:400px;position:relative;height:100%;}
+body{min-width:560px;min-height:400px;position:relative;height:100%;}
 /*nav*/
 #cover{height:100%;width:100%;position:fixed;background-color:black;opacity:0.4;z-index:-1;top:0;}
 #nav{height:40px;width:100%;overflow:hidden;font-size:18px;position:fixed;top:0;z-index:1;}
