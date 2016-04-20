@@ -22,7 +22,7 @@ $(document).ready(function() {
       "top": height + "px"
     });
     body.css({
-      "background": "url(img/bg" + day + ".jpg) fixed no-repeat",
+      "background": "url(../img/bg" + day + ".jpg) fixed no-repeat",
       "background-size": "cover"
     });
     title_line.eq(0).animate(
