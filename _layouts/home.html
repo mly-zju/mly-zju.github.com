@@ -17,9 +17,9 @@
 	<div id="nav">
 		<div id="name">马龄阳的部落格</div>
 		<ul>
-			<li><a href="{{ site.baseurl }}/self_intro.html">关于我</a></li>
-			<li><a href="{{ site.baseurl }}/article_list.html">分类</a></li>
-			<li><a href="{{ site.baseurl }}/blog.html">主页</a></li>
+			<li><a href="{{ site.baseurl }}/blog/self_intro.html">关于我</a></li>
+			<li><a href="{{ site.baseurl }}/blog/article_list.html">分类</a></li>
+			<li><a href="{{ site.baseurl }}/blog/index.html">主页</a></li>
 		</ul>
 		<div class='hamburger_wrapper'>
 			<span class='hamburger'></span>
@@ -36,35 +36,7 @@
 		<p>马龄阳的部落格</p>
 		</div>
 	</div>
-	{% for post in paginator.posts %}
-	{% if post.description %}
-		<div class="wrapper pic_type">
-			{% if paginator.page == 1 %}
-			<div class="pic" style="background:url(img/{{ post.description }}) no-repeat;background-size:cover">
-			{% else %}
-			<div class="pic" style="background:url(../img/{{ post.description }}) no-repeat;background-size:cover">
-			{% endif %}
-			</div>
-			<div class="word">
-				<h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }} </a></h2>
-				{{ post.excerpt }}
-			</div>
-	</div>
-	{% else %}
-		<div class="wrapper word_type">
-			<div class="title">
-				<h3><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
-			</div>
-			<div class="paragraph">
-				{{ post.excerpt }}
-			</div>
-			<script>
-				var h=$(".publish_title");
-				h.css({"display":"none"});
-			</script>
-		</div>
-	{% endif %}
-{% endfor %}
+	{{ content }}
 	<div class="foot">
 		<a href="{{ site.baseurl }}/article_list"><span>更多文章 ...</span></a><br/>
 		<a href="javascript:void(0)">Designed By 马龄阳</a><br/>
