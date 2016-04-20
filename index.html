@@ -1,72 +1,154 @@
----
-layout: home
-title: 马龄阳的部落格
----
-{% for post in paginator.posts %}
-	{% if post.description %}
-		<div class="wrapper pic_type">
-			{% if paginator.page == 1 %}
-			<div class="pic" style="background:url(img/{{ post.description }}) no-repeat;background-size:cover">
-			{% else %}
-			<div class="pic" style="background:url(../img/{{ post.description }}) no-repeat;background-size:cover">
-			{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<title>MLY's Blog</title>
+</head>
+<style>
+*{margin:0;padding:0;}
+body,html{height:100%;}
+#backpage,#frontpage{height:100%;width:100%;position:absolute;}
+#backpage{z-index:-1;}
+
+@media screen and (min-width:560px){
+#container{position:absolute;width:500px;height:160px;background:rgba(10,10,10,0.3);left:0;right:0;top:0;bottom:0;margin:auto; padding:20px 0; border-radius:2%;}
+#container-inner{width:480px;height:160px;margin:0 auto;color:white;font-weight:normal;opacity:0.85;}
+#container-inner h2,#container-inner h3{text-align:center;}
+#container-inner h3{margin-top:10px; font-family:'微软雅黑'; font-weight:lighter;}
+#container-content {text-align:center; background:rgba(0,0,0,0.3);width:400px;margin:30px auto; padding:10px 0;border-radius:5px;font-family:'微软雅黑'; font-weight:lighter;}
+#container-content a{font-family:'微软雅黑';font-weight:lighter;}
+#container-content a:link,#container-content a:visited{text-decoration:none;font-size:18px;color:white;}
+#container-content a:hover,#container-content a:active{text-decoration:underline;color:rgb(180,180,180);}
+}
+
+@media screen and (max-width:560px){
+#container{position:absolute;width:95vw;height:29vw;background:rgba(10,10,10,0.3);left:0;right:0;top:0;bottom:0;margin:auto;padding:6vw 0; border-radius:2%;font-size:14px;}
+#container-inner{width:86vw;height:29vw;margin:0 auto;color:white;font-weight:normal;opacity:0.85;}
+#container-inner h2,#container-inner h3{text-align:center;}
+#container-inner h3{margin-top:2vw; font-family:'微软雅黑';font-weight:lighter;}
+#container-content{text-align:center;background:rgba(0,0,0,0.3);width:72vw;margin:5vw auto;padding:2vw 0;border-radius:2%;font-family:'微软雅黑';font-weight:lighter;}
+#container-content a{font-family:'微软雅黑';font-weight:lighter;}
+#container-content a:link,#container-content a:visited{text-decoration:none;font-size:14px;color:white;}
+#container-content a:hover,#container-content a:active{text-decoration:underline;color:rgb(180,180,180);}
+}
+
+</style>
+<body>
+	<canvas id='backpage'></canvas>
+	<canvas id='frontpage'></canvas>
+	<div id='container'>
+		<div id='container-inner'>
+			<h2>马龄阳的个人网站</h2>
+			<h3>Ma Lingyang's Personal Website</h3>
+			<div id='container-content'>
+				&gt;&gt;&nbsp;<a href='{{ site.baseurl }}/blog.html'>Blog</a> / <a href='http://wyandmly.lofter.com/'>Album</a> / <a href='http://weibo.com/u/2455894192?is_hot=1'>Weibo</a> / <a href='{{ site.baseurl }}/self_intro.html'>About</a>
 			</div>
-			<div class="word">
-				<h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }} </a></h2>
-				{{ post.excerpt }}
-			</div>
-	</div>
-	{% else %}
-		<div class="wrapper word_type">
-			<div class="title">
-				<h3><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
-			</div>
-			<div class="paragraph">
-				{{ post.excerpt }}
-			</div>
-			<script>
-				var h=$(".publish_title");
-				h.css({"display":"none"});
-			</script>
 		</div>
-	{% endif %}
-{% endfor %}
-<!-- <div class="slides">
-  {% if paginator.previous_page %}
-      {% if paginator.previous_page == 1 %}
-        <a href="{{ site.baseurl }}/index.html">&lt;</a>
-      {% else %}
-        <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}/index.html">&lt;</a>
-      {% endif %}
-  {% else %}
-   	<a>&lt;</a>
-  {% endif %}
+	</div>
 
-  {% if paginator.page == 1 %}
-    <a class="chosen">1</a>
-  {% else %}
-    <a href="{{ site.baseurl }}/index.html">1</a>
-  {% endif %}
+<script>
+	window.onload=function(){
+		var can1=document.getElementById('backpage');
+		var can2=document.getElementById('frontpage');
+		var ctx1=can1.getContext('2d');
+		var ctx=can2.getContext('2d');
+		var wd=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth;
+		var ht=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight;
+		can1.width=wd;
+		can1.height=ht;
+		can2.width=wd;
+		can2.height=ht;
+		var bgPic=new Image();
+		bgPic.src='img/sky.jpeg';
+		bgPic.onload=function(){
+			ctx1.drawImage(bgPic,0,0,wd,ht);
+		}
+		var starPic=new Image();
+		starPic.src='img/star.png';
 
-  {% for count in (2..paginator.total_pages) %}
-    {% if count == paginator.page %}
-        <a class="chosen">{{ count }}</a>
-    {% else %}
-        <a href="{{ site.baseurl }}/page{{ count }}/index.html">{{ count }}</a>
-    {% endif %}
-  {% endfor %}
+		var starObj=function(){
+			this.x=[];
+			this.y=[];
+			this.alpha=[];
+			this.pos=[];
+			this.flag=[];
+			this.speed=[];
+		}
+		starObj.prototype.num=35;
+		starObj.prototype.init=function(){
+			var i=0;
+			for(i=0;i<this.num;i++){
+				this.x[i]=Math.random()*wd;
+				this.y[i]=Math.random()*(ht-100);
+				this.alpha[i]=Math.random()*0.1;
+				this.pos[i]=Math.floor(Math.random()*3)*7;
+				this.flag[i]=true;
+				this.speed[i]=Math.random()*0.03+0.002;
+			}
+		}
+		starObj.prototype.draw=function(){
+			var i=0;
+			ctx.save();
+			for(i=0;i<this.num;i++){
+				ctx.clearRect(this.x[i],this.y[i],7,7);
+				ctx.globalAlpha=this.alpha[i];
+				ctx.drawImage(starPic,this.pos[i],0,7,7,this.x[i],this.y[i],7,7);
+			}
+			ctx.restore();
+			for(i=0;i<this.num;i++){
+				if(this.flag[i]){
+					this.alpha[i]+=this.speed[i];
+				}else{
+					this.alpha[i]-=this.speed[i];
+				}
+				if(this.alpha[i]>=1){
+					this.flag[i]=false;
+				}
+				if(this.alpha[i]<=0){
+					this.x[i]=Math.random()*wd;
+					this.y[i]=Math.random()*(ht-100);
+					this.alpha[i]=Math.random()*0.1;
+					this.pos[i]=Math.floor(Math.random()*3)*7;
+					this.flag[i]=true;
+				}
+			}
+		}
+		var star=new starObj();
+		star.init();
 
-  {% if paginator.next_page %}
-      <a href="{{ site.baseurl }}{{ paginator.next_page_path }}/index.html">&gt;</a>
-  {% else %}
-      <a>&gt;</a>
-  {% endif %}
-</div> -->
+		window.requestAnimFrame = (function() {
+		return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+			function( /* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
+				return window.setTimeout(callback, 1000 / 60);
+			};
+		})();
+		window.cancelAnimFrame = (function(x){
+			return window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.oCancelAnimationFrame || window.msCancelAnimationFrame ||
+				function( /* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
+					return window.clearTimeout(x);
+				};
+		})();
 
-<!-- {% if paginator.page == 1 %}
-	<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/homepage.css" />
-	<script type="text/javascript" src="{{ site.baseurl }}/js/main.js"></script>
-{% else %}
-	<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/homepage.css"/>
-	<script type="text/javascript" src="{{ site.baseurl }}/js/main2.js"></script>
-{% endif %} -->
+		var timeout;
+		function myLoop(){
+			// ctx.clearRect(0,0,wd,ht);
+			// ctx.drawImage(bgPic,0,0,wd,ht);
+			star.draw();
+			window.cancelAnimFrame(timeout);
+			timeout=window.requestAnimFrame(myLoop);
+		}
+		window.onresize=function(){
+			wd=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth;
+			ht=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight;
+			can1.width=wd;
+			can1.height=ht;
+			can2.width=wd;
+			can2.height=ht;
+			ctx1.drawImage(bgPic,0,0,wd,ht);
+		}
+		myLoop();
+	};
+</script>
+</body>
+</html>
