@@ -91,7 +91,7 @@ body,html{height:100%;}
 			var i=0;
 			ctx.save();
 			for(i=0;i<this.num;i++){
-				ctx.clearRect(this.x[i],this.y[i],7,7);
+				ctx.clearRect(this.x[i]-3,this.y[i]-3,13,13);
 				ctx.globalAlpha=this.alpha[i];
 				ctx.drawImage(starPic,this.pos[i],0,7,7,this.x[i],this.y[i],7,7);
 			}
