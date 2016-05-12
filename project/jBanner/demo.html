@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jBanner demo</title>
+  <script src='http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js' type='text/javascript'></script>
+  <script src='../jbanner.js' type='text/javascript'></script>
+<style>
+html,body{
+  background-color:#ccc;
+}
+.jBanner-wrapper{
+  position:relative;
+  width:800px;
+  height:400px;
+  margin:10px auto 0;
+}
+.switcher{
+  width:200px;
+  height:30px;
+  position:relative;
+  margin:10px auto 0;
+}
+.switcher div{
+  width:100%;
+  background-color:brown;
+  border:none;
+  text-align:center;
+  line-height:30px;
+  color:white;
+  font-size:20px;
+  cursor:pointer;
+}
+.switcher ul{
+  list-style:none;
+  margin:0;
+  padding:0;
+  position:absolute;
+  width:200px;
+  left:0;
+  top:30px;
+  display:none;
+}
+.switcher ul li{
+  cursor:pointer;
+  margin:0;
+  background-color:gray;
+  color:white;
+  width:200px;
+  height:30px;
+  text-align:center;
+  line-height:30px;
+  font-size:20px;
+}
+.switcher ul li:hover{
+  background-color:black;
+}
+</style>
+</head>
+<body>
+  <div class='jBanner-wrapper'>
+  </div>
+  <div class='switcher'>
+    <div></div>
+    <ul>
+      <li>fade</li>
+      <li>slide</li>
+      <li>box</li>
+      <li>blind</li>
+      <li>vertical-blind</li>
+      <li>stripe</li>
+      <li>vertical-stripe</li>
+    </ul>
+  </div>
+<script>
+$(document).ready(function(){
+  var switcher=$('.switcher');
+  var input=switcher.find('div');
+  var ul=switcher.find('ul');
+  var lis=ul.find('li');
+  input.text(lis.eq(0).text());
+  var options={
+    imgURL:['./img/0.jpg','./img/1.jpg','./img/2.jpg','./img/3.jpg','./img/4.jpg'],
+    imgWidth:800,
+    imgHeight:400,
+    mode:input.text(),
+    interval:2200
+  }
+  var wrapper=$('.jBanner-wrapper');
+  wrapper.jBannerInit(options);
+  input.click(function(e){
+    if(e.target==e.currentTarget){
+      if(ul.css('display')=='none'){
+        ul.css('display','block');
+      }else{
+        ul.css('display','none');
+      }
+    }
+  });
+  ul.on('click','li',function(e){
+    e.stopPropagation();
+    var ele=$(e.target||e.srcElement);
+    options.mode=ele.text();
+    input.text(ele.text());
+    ul.css('display','none');
+    wrapper.jBannerInit(options);
+  });
+
+
+  // $('.jBanner-wrapper').jBannerInit({imgURL:['./img/0.jpg','./img/1.jpg','./img/2.jpg']});
+});
+</script>
+</body>
+</html>
