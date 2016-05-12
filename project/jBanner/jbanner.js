@@ -88,7 +88,7 @@
           }
           setTimeout(function(){
             cops.css('background-image','url(./img/'+target.index+'.jpg)');
-          },150);
+          },280);
           if(opts.mode=='fade'){
             setTimeout(function(){
               cops.removeClass('jBanner-fade-hide');
@@ -127,7 +127,7 @@
           cops.addClass('jBanner-box-hide');
           setTimeout(function(){
             cops.css('background-image','url(./img/'+target.index+'.jpg)');
-          },150);
+          },280);
           setTimeout(function(){
             cops.removeClass('jBanner-box-hide');
           },300);
@@ -158,7 +158,7 @@
           cops.addClass('jBanner-blind-hide');
           setTimeout(function(){
             cops.css('background-image','url(./img/'+target.index+'.jpg)');
-          },150);
+          },280);
           setTimeout(function(){
             cops.removeClass('jBanner-blind-hide');
           },300);
@@ -189,7 +189,7 @@
           cops.addClass('jBanner-vertical-blind-hide');
           setTimeout(function(){
             cops.css('background-image','url(./img/'+target.index+'.jpg)');
-          },150);
+          },280);
           setTimeout(function(){
             cops.removeClass('jBanner-vertical-blind-hide');
           },300);
@@ -226,7 +226,7 @@
           });
           setTimeout(function(){
             cops.css('background-image','url(./img/'+target.index+'.jpg)');
-          },150);
+          },280);
           setTimeout(function(){
             cops.each(function(index,ele){
               if(index%2==0){
@@ -269,7 +269,7 @@
           });
           setTimeout(function(){
             cops.css('background-image','url(./img/'+target.index+'.jpg)');
-          },150);
+          },280);
           setTimeout(function(){
             cops.each(function(index,ele){
               if(index%2==0){
