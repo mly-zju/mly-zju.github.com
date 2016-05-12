@@ -28,8 +28,11 @@
                 .jBanner-vertical-stripe-hide-up{transform:translate(0,-'+opts.imgHeight+'px);-webkit-transform:translate(0,-'+opts.imgHeight+'px);}\
                 .jBanner-vertical-stripe-hide-down{transform:translate(0,'+opts.imgHeight+'px);-webkit-transform:translate(0,'+opts.imgHeight+'px);}\
                 </style>}'
-      $('head').append(myCss);
       var wrapper=$(this);
+      if(!this.already){
+        this.already=true;
+        $('head').append(myCss);
+      }
       var autoIndex=0;
       var autoTimer;
       clearTimeout(autoTimer);
