@@ -31,6 +31,7 @@
       $('head').append(myCss);
       var wrapper=$(this);
       var autoIndex=0;
+      var autoTimer;
       var picNum=opts.imgURL.length;
       var ctrlBar=$(document.createElement('div'));
       ctrlBar.addClass('jBanner-ctrl');
@@ -46,6 +47,12 @@
         }
       });
       $('.jBanner-content').remove();
+      function autoPlay(){
+        autoIndex=(autoIndex+1)%5;
+        ctrlItems.eq(autoIndex).click();
+        clearTimeout(autoTimer);
+        autoTimer=setTimeout(autoPlay,opts.interval);
+      };
 
       if(opts.mode=='fade'||opts.mode=='slide'){
         var component;
@@ -66,6 +73,8 @@
         ctrlBar.on('click','span',function(e){
           var target=e.target||e.srcElement;
           autoIndex=target.index;
+          clearTimeout(autoTimer);
+          autoTimer=setTimeout(autoPlay,opts.interval);
           ctrlItems.removeClass('jBanner-ctrl-selected');
           $(target).addClass('jBanner-ctrl-selected');
           if(opts.mode=='fade'){
@@ -108,6 +117,8 @@
         ctrlBar.on('click','span',function(e){
           var target=e.target||e.srcElement;
           autoIndex=target.index;
+          clearTimeout(autoTimer);
+          autoTimer=setTimeout(autoPlay,opts.interval);
           ctrlItems.removeClass('jBanner-ctrl-selected');
           $(target).addClass('jBanner-ctrl-selected');
           var cops=$('.jBanner-box');
@@ -137,6 +148,8 @@
         ctrlBar.on('click','span',function(e){
           var target=e.target||e.srcElement;
           autoIndex=target.index;
+          clearTimeout(autoTimer);
+          autoTimer=setTimeout(autoPlay,opts.interval);
           ctrlItems.removeClass('jBanner-ctrl-selected');
           $(target).addClass('jBanner-ctrl-selected');
           var cops=$('.jBanner-blind');
@@ -166,6 +179,8 @@
         ctrlBar.on('click','span',function(e){
           var target=e.target||e.srcElement;
           autoIndex=target.index;
+          clearTimeout(autoTimer);
+          autoTimer=setTimeout(autoPlay,opts.interval);
           ctrlItems.removeClass('jBanner-ctrl-selected');
           $(target).addClass('jBanner-ctrl-selected');
           var cops=$('.jBanner-vertical-blind');
@@ -195,6 +210,8 @@
         ctrlBar.on('click','span',function(e){
           var target=e.target||e.srcElement;
           autoIndex=target.index;
+          clearTimeout(autoTimer);
+          autoTimer=setTimeout(autoPlay,opts.interval);
           ctrlItems.removeClass('jBanner-ctrl-selected');
           $(target).addClass('jBanner-ctrl-selected');
           var cops=$('.jBanner-stripe');
@@ -236,6 +253,8 @@
         ctrlBar.on('click','span',function(e){
           var target=e.target||e.srcElement;
           autoIndex=target.index;
+          clearTimeout(autoTimer);
+          autoTimer=setTimeout(autoPlay,opts.interval);
           ctrlItems.removeClass('jBanner-ctrl-selected');
           $(target).addClass('jBanner-ctrl-selected');
           var cops=$('.jBanner-vertical-stripe');
@@ -261,13 +280,6 @@
         });
       }
       if(opts.autoPlay){
-        var t;
-        function autoPlay(){
-          autoIndex=(autoIndex+1)%5;
-          ctrlItems.eq(autoIndex).click();
-          clearTimeout(t);
-          t=setTimeout(autoPlay,opts.interval);
-        };
         setTimeout(autoPlay,opts.interval);
       }
 
