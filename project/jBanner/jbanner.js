@@ -32,7 +32,9 @@
       var wrapper=$(this);
       var autoIndex=0;
       var autoTimer;
+      clearTimeout(autoTimer);
       var picNum=opts.imgURL.length;
+      $('.jBanner-ctrl').remove();
       var ctrlBar=$(document.createElement('div'));
       ctrlBar.addClass('jBanner-ctrl');
       for(var i=0;i<picNum;i++){
