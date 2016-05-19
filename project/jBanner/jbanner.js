@@ -19,6 +19,9 @@
                 .jBanner-slide{left:0;}\
                 .jBanner-slide-hide{left:-100%;}\
                 .jBanner-slide ~ .jBanner-slide-hide{left:100%;}\
+                .jBanner-vertical-slide{left:0;top:0;}\
+                .jBanner-vertical-slide-hide{left:0;top:-100%;}\
+                .jBanner-vertical-slide ~ .jBanner-vertical-slide-hide{left:0;top:100%;}\
                 .jBanner-box{width:' + Math.ceil(opts.imgWidth / 4) + 'px;height:' + Math.ceil(opts.imgHeight / 4) + 'px;}\
                 .jBanner-box-hide{transform:scale(0,0);-webkit-transform:scale(0,0);}\
                 .jBanner-blind,.jBanner-stripe{width:100%;height:' + Math.ceil(opts.imgHeight / 4) + 'px;}\
@@ -30,6 +33,7 @@
                 .jBanner-vertical-stripe-hide-up{transform:translate(0,-' + opts.imgHeight + 'px);-webkit-transform:translate(0,-' + opts.imgHeight + 'px);}\
                 .jBanner-vertical-stripe-hide-down{transform:translate(0,' + opts.imgHeight + 'px);-webkit-transform:translate(0,' + opts.imgHeight + 'px);}\
                 </style>}'
+
       var wrapper = $(this);
       var picNum = opts.imgURL.length;
       if (!this.already) {
@@ -75,7 +79,7 @@
       }
       ;
 
-      if (opts.mode == 'fade' || opts.mode == 'slide') {
+      if (opts.mode == 'fade' || opts.mode == 'slide' || opts.mode == 'vertical-slide') {
         var components = $('.jBanner-preload');
         components.addClass('jBanner-content-whole jBanner-' + opts.mode + '-hide');
         components.eq(0).removeClass('jBanner-' + opts.mode + '-hide').addClass('jBanner-' + opts.mode);
