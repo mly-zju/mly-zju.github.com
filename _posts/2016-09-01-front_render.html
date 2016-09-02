@@ -90,11 +90,11 @@ category: 前端开发
 	<script>
 		//假设该数据是通过ajax从后端拿到的数据
 		var mockData={
-			title: '你好!',
-			content:'这是测试异步渲染的例子'
+			my_title: '你好!',
+			my_content:'这是测试异步渲染的例子'
 		};
-		var template='<h2>{{title}}</h2>\
-		<div>{{content}}</div>';
+		var template='<h2>\{\{title\}\}</h2>\
+		<div>\{\{content\}\}</div>';
 		var wrapper=document.getElementById('wrapper');
 		wrapper.innerHTML=Mustache.render(template,{
 			title: mockData.title,
