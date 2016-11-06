@@ -1,84 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<script type="text/javascript" src="//js/jquery.js"></script>
-	<title>前端开发</title>
-	<style>
-	*{margin:0;padding:0;}
-	body{background:url("//img/bg_article.jpg") fixed;background-size:cover;
-		width:100%;min-height:400px;font-family:"微软雅黑";color:white;margin:0;padding:0;}
-	.cover{background:black;width:100%;height:100%;position:fixed;z-index:-1;opacity:0.6;top:0;left:0;}
-	.nav{height:40px;width:100%;overflow:hidden;font-size:18px;position:fixed;top:0;z-index:1;
-		background-color:rgb(10,36,65);opacity:0.9;}
-	.nav .name{float:left;margin-left:40px;color:white;line-height:40px;opacity:0;}
-	.nav ul{list-style:none;}
-	.nav li{float:right;margin-right:30px;}
-	.nav li a{display:block;width:60px;height:40px;line-height:40px;text-align:center;color:white;text-decoration:none;}
-	.left{height:100%;width:15%;margin-left:5%;margin-top:42px;float:left;background-color:red;
-		padding:20px 1px;background-color:rgb(43,50,61);opacity:0.92;}
-	.left h3{text-align:center;margin-bottom:5px;}
-	.left li{margin-left:30px;}
-	.left li a{text-decoration:none;color:white;font-size:14px;}
-	.right{height:100%;width:65%;margin-left:18%;margin-top:42px;
-		float:left;padding:20px 40px;background-color:rgb(39,46,57);opacity:0.92;}
-	.publish_title{text-align:center;margin-bottom:10px;}
-	.publish_date{text-align:center;margin-bottom:15px;}
-	.right p{margin-top:5px;font-size:16px;font-family:"宋体";font-size:14px;}
-	.previous{text-decoration:none;color:white;float:right;font-size:14px;margin-top:15px;}
-	.next{text-decoration:none;color:white;float:left;font-size:14px;margin-top:15px;}
-	.foot{width:100%;height:120px;text-align:center;background-color:rgb(10,36,65);opacity:0.9;
-		padding-top:20px;position:absolute;}
-	.foot a{display:block;text-decoration:none;color:white;font-size:14px;margin-top:10px;}
-	.foot p{margin:40px auto 0;color:white;font-size:14px;}
-	</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>文章分类 | 马龄阳的个人网站</title>
+  <meta name="description" itemprop="description" content="马龄阳的个人网站, Mly's Personal Website, 马龄阳的博客，web开发，前端开发">
+  <meta itemprop="keywords" name="keywords" content="马龄阳，博客，web开发，前端开发">
+  <link href="/Web develop/imooc/jekyll_blog/_site/css/category.css" type="text/css" rel="stylesheet"/>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
-	<div class="cover"></div>
-	<div class="nav">
-		<div class="name">马龄阳的部落格</div>
-		<ul>
-			<li><a href="//self_intro.html">关于我</a></li>
-			<li><a href="//article_list.html">分类</a></li>
-			<li><a href="//index.html">主页</a></li>
-		</ul>
-	</div>
-	<div class="right">
-		<ul>
-
+  <div class="wrap">
+    <div class="left-main">
+      <div class="avatar"></div>
+      <h2>马龄阳</h2>
+      <h5>风烟俱净</h5>
+      <div class="all-page left-item"><a href="/Web develop/imooc/jekyll_blog/_site/index.html">文章</a></div>
+      <div class="category left-item  current"><a href="/Web develop/imooc/jekyll_blog/_site/category/diary.html">分类</a></div>
+      <div class="about left-item"><a href="/Web develop/imooc/jekyll_blog/_site/about.html">关于我</a></div>
+    </div>
+    <div class="right-main">
+      <div class="category-wrap">
+        
+          
+            <a href="/Web develop/imooc/jekyll_blog/_site/category/diary.html" class="category ">日记随笔(4)</a>
+          
+        
+          
+            <a href="/Web develop/imooc/jekyll_blog/_site/category/front_end.html" class="category  selected">前端开发(14)</a>
+          
+        
+          
+            <a href="/Web develop/imooc/jekyll_blog/_site/category/demo.html" class="category ">作品demo(5)</a>
+          
+        
+          
+        
+          
+            <a href="/Web develop/imooc/jekyll_blog/_site/category/python.html" class="category ">python(1)</a>
+          
+        
+          
+            <a href="/Web develop/imooc/jekyll_blog/_site/category/back_end.html" class="category ">后端开发(2)</a>
+          
+        
+          
+            <a href="/Web develop/imooc/jekyll_blog/_site/category/network.html" class="category ">网络通信(1)</a>
+          
+        
+          
+            <a href="/Web develop/imooc/jekyll_blog/_site/category/javascript.html" class="category ">javascript(5)</a>
+          
+        
+      </div>
+      <ul>
+        
 	
 
 	
 		
-		<li><p><a href="//javascript/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/25/js-obj.html" style="text-decoration:none;color:white">
-			javascript面向对象深入理解 25 Jan 2016</a></p></li>
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2016/09/01/front-render.html">前端渲染那些事儿</a></h3>
+          <p><p>Ajax的流行让前端异步渲染得到广泛的应用。而笔者在学习前端的过程中，对异步渲染的应用也有一个从模糊到清晰的过程</p>
+
+...</p>
+        </div>
+        
 		
-		<li><p><a href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/javascript/2016/01/25/jquery.html" style="text-decoration:none;color:white">
-			jQuery插件编写 25 Jan 2016</a></p></li>
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%BD%9C%E5%93%81demo/2016/08/31/banner.html">一款焦点图轮播插件的开发</a></h3>
+          <p><p>开发了一款轻量但是强大的焦点图组件，可以实现多种焦点图轮播效果，取名叫做jBanner。组件持续开发中，未来还将实现更多酷炫的效果哦！</p>
+
+...</p>
+        </div>
+        
 		
-		<li><p><a href="//%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/20/cache.html" style="text-decoration:none;color:white">
-			客户端与服务器的缓存机制 20 Jan 2016</a></p></li>
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/javascript/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2016/02/23/verticalalign.html">总结html中垂直居中的方案</a></h3>
+          <p><p>上一篇讲了水平居中方案，这一篇再来总结一下垂直居中的方法。</p>
+
+...</p>
+        </div>
+        
 		
-		<li><p><a href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/02/overflow.html" style="text-decoration:none;color:white">
-			关于css中元素内部清除浮动的思考 02 Jan 2016</a></p></li>
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/javascript/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2016/02/22/aligncenter.html">总结html中水平居中的方案</a></h3>
+          <p><p>算一算搞前端开发也有一段时间了，也是踩过了不少的坑</p>
+
+...</p>
+        </div>
+        
 		
-		<li><p><a href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/12/13/enterprise-page.html" style="text-decoration:none;color:white">
-			企业网站首页开发 13 Dec 2015</a></p></li>
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/javascript/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%BD%9C%E5%93%81demo/2016/02/21/fishgame.html">“海底世界”小游戏</a></h3>
+          <p><p>最近使用html5技术编写了一款小游戏，试玩地址在这里：<a href="http://7xovdy.com1.z0.glb.clouddn.com/mine_fishGame/index.html">海底世界小游戏</a></p>
+
+...</p>
+        </div>
+        
+          <div class="img-wrap" style="background: url(../img/fishGame.jpg) no-repeat;background-size: cover">
+          </div>
+        
 		
-		<li><p><a href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/12/07/2048game.html" style="text-decoration:none;color:white">
-			一个简单的2048游戏 07 Dec 2015</a></p></li>
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/javascript/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/25/js-obj.html">javascript面向对象深入理解</a></h3>
+          <p><p>前面将到了jquery插件的写法，其中涉及到了很多js对象和继承的知识点</p>
+
+...</p>
+        </div>
+        
 		
-		<li><p><a href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/12/05/e-business.html" style="text-decoration:none;color:white">
-			电商网站首页开发 05 Dec 2015</a></p></li>
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/javascript/2016/01/25/jquery.html">jQuery插件编写</a></h3>
+          <p><p>最近工作当中需要写一个简单的jquery插件。之前看过一些jquery插件的写法</p>
+
+...</p>
+        </div>
+        
 		
-		<li><p><a href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/12/03/web.html" style="text-decoration:none;color:white">
-			代码高亮测试 03 Dec 2015</a></p></li>
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/20/cache.html">客户端与服务器的缓存机制</a></h3>
+          <p><p>自己一个人玩玩的时候不会考虑很多，通常都是做出东西来能用就觉得很开心了</p>
+
+...</p>
+        </div>
+        
 		
-		<li><p><a href="//%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/11/30/waterfall.html" style="text-decoration:none;color:white">
-			Web前端实现瀑布流效果页面 30 Nov 2015</a></p></li>
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/02/overflow.html">关于css中元素内部清除浮动的思考</a></h3>
+          <p><p>经常在前端编程的时候遇到这样的问题：一个div元素，没有指定大小，内部有其他元素</p>
+
+...</p>
+        </div>
+        
+          <div class="img-wrap" style="background: url(../img/201601/div1.jpg) no-repeat;background-size: cover">
+          </div>
+        
 		
-		<li><p><a href="//%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/11/22/begin2.html" style="text-decoration:none;color:white">
-			博客维护注意事项 22 Nov 2015</a></p></li>
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%BD%9C%E5%93%81demo/2015/12/07/2048game.html">一个简单的2048游戏</a></h3>
+          <p><p>这里主要是一个简易版的2048网页游戏开发，没有加入动画效果在里面，因此整个程序比较简洁，逻辑很明了。</p>
+
+...</p>
+        </div>
+        
+		
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%BD%9C%E5%93%81demo/2015/12/05/e-business.html">电商网站首页开发</a></h3>
+          <p><p>做了一个电商网站的首页，商品图片很多为了简化，都使用了重复的图片。</p>
+
+...</p>
+        </div>
+        
+		
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/12/03/web.html">代码高亮测试</a></h3>
+          <p><p>这一篇主要想测试一下代码高亮。使用了pygments生成代码高亮样式文件</p>
+
+...</p>
+        </div>
+        
+          <div class="img-wrap" style="background: url(../img/javascript.jpg) no-repeat;background-size: cover">
+          </div>
+        
+		
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%BD%9C%E5%93%81demo/2015/11/30/waterfall.html">Web前端实现瀑布流效果页面</a></h3>
+          <p><p>一个实现了图片瀑布流效果的Web页面。</p>
+
+...</p>
+        </div>
+        
+		
+      <li class="right-item-img">
+        <div class="article-wrap">
+          <h3 class="article-title"><a href="/Web develop/imooc/jekyll_blog/_site/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/2015/11/22/begin2.html">博客维护注意事项</a></h3>
+          <p><h3 id="section">1. 网站维护与更新</h3>
+
+<p>日常博客维护都是在本地进行的，比如文章的更新、网站版式的更改等等。</p>
+
+...</p>
+        </div>
+        
 		
 	
 
@@ -90,18 +207,14 @@
 
 	
 
-</ul>
-	</div>
-	<div class="foot">
-		<a href="javascript:void(0)">Designed By 马龄阳</a>
-		<a href="//self_intro.html">@联系方式</a> 
-	</div>
-	<script>
-		$(document).ready(function(){
-			var foot=$(".foot");
-			var height=$(document).height();
-			foot.css({"top":height+"px"});
-		});
-	</script>
+	
+
+	
+
+
+      </ul>
+    </div>
+  </div>
+  <script src="/Web develop/imooc/jekyll_blog/_site/js/index.js" type="text/javascript"></script>
 </body>
 </html>

@@ -1,187 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="{{ site.baseurl }}/css/pygments.css">
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1">
-	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-	<script type="text/javascript" src="{{ site.baseurl }}/js/jquery.js"></script>
-	<title>{{ page.title }} - 马龄阳的部落格</title>
-	<!--[if lt IE 9]>
-  	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-	<![endif]-->
-	<style>
-	@media screen and (min-width:560px){
-		*{margin:0;padding:0;}
-		body{background:url("{{ site.baseurl }}/img/bg_article.jpg") fixed;background-size:cover;
-			width:100%;min-height:400px;font-family:"微软雅黑";color:white;margin:0;padding:0;}
-		.cover{background:black;width:100%;height:100%;position:fixed;z-index:-1;opacity:0.6;top:0;left:0;}
-		.nav{height:40px;width:100%;overflow:hidden;font-size:18px;position:fixed;top:0;z-index:1;
-			background-color:rgb(10,36,65);opacity:0.9;}
-		.nav .name{float:left;margin-left:40px;color:white;line-height:40px;opacity:0;}
-		.nav ul{list-style:none;}
-		.nav li{float:right;margin-right:30px;}
-		.nav li a{display:block;width:60px;height:40px;line-height:40px;text-align:center;color:white;text-decoration:none;}
-		.left{height:100%;width:15%;margin-left:5%;margin-top:42px;float:left;background-color:red;
-			padding:20px 1px;background-color:rgb(43,50,61);opacity:0.92;}
-		.left h3{text-align:center;margin-bottom:5px;}
-		.left li{margin-left:30px;}
-		.left li a{text-decoration:none;color:white;font-size:14px;}
-		.right{height:100%;width:65%;margin-left:1%;margin-top:42px;
-			float:left;overflow:hidden;padding:20px 40px;background-color:rgb(39,46,57);opacity:0.92;}
-		.publish_title{text-align:center;margin-bottom:10px;}
-		.publish_date{text-align:center;margin-bottom:15px;}
-		.right p{margin-top:8px;font-size:16px;font-family:"宋体";font-size:14px;line-height:20px;}
-	    .right a{color:#EEC900;}
-		.right a.previous{text-decoration:none;color:white;float:right;font-size:14px;margin-top:15px;}
-		.right a.next{text-decoration:none;color:white;float:left;font-size:14px;margin-top:15px;}
-		.foot{width:100%;height:90px;text-align:center;/*background-color:rgb(10,36,65);*/opacity:0.9;
-			padding-top:20px;float:left;border-top:1px solid rgb(10,36,65);margin-top:30px;}
-		.foot a{text-decoration:none;color:white;font-size:14px;margin-top:10px;display:inline-block;}
-		.foot p{margin:40px auto 0;color:white;font-size:14px;}
-		img{ margin:10px auto; max-width:100%; height:auto; }
-		.code{background:rgb(0,0,0);padding:5px 0 5px 5px;margin:5px 0;}
-		a{color:blue;}
-	}
-	@media screen and (max-width:560px){
-		*{margin:0;padding:0;}
-		html{ font-size:1.5vw;  }
-		body{  position:relative;font-family:"微软雅黑";}
-		.cover{ background-color:rgb(10,36,65);position:fixed;opacity:0.7;height:100vh;width:100%; }
-		.nav{ height:7vh; width:100%; position:fixed; top:0; z-index:1; font-size:2.8rem; background-color:rgb(10,36,65);opacity:0.9;font-family:"微软雅黑";}
-		.nav .name{ float:left; margin-left:3vw; color:white; line-height:7vh; opacity:0; }
-		.nav ul{ list-style:none; position:fixed; top:7vh; right:0; display:none;background-color:rgb(10,36,65);opacity:0.9; width:100%;}
-		.nav li{  }
-		.nav li a{ display:block; width:100%; height:5vh; line-height:5vh; text-align:center; color:white; text-decoration:none;}
-		.nav .hamburger_wrapper{ height:5vh; width:5vh; position:absolute; right:2vw; 
-								 top: 1vh; overflow:hidden; }
-		.nav .hamburger{ height:0.6vh; width:4vh; background-color:white; display:block; margin:0.8vh auto; }
-		.left { display:none; }
-		.right{ width:92%; padding:10vh 4%; background-color:rgb(39,46,57);opacity:0.92;color:white;font-family:"宋体";}
-		.publish_title{ text-align:center; margin-bottom:2vh; font-size:4.8rem; }
-		.publish_date{ text-align:center; margin-bottom:2vh; font-size:2.8rem; }
-		.right p{ font-size:2.8rem; }
-		.right a{color:#EEC900;}
-		.right a.previous{text-decoration:none;color:white;float:right;font-size:2.8rem;margin-top:2vh;}
-		.right a.next{text-decoration:none;color:white;float:left;font-size:2.8rem;margin-top:2vh;}
-		.foot{ width:100%; height:8vh; text-align:center; opacity:0.9; padding-top:2vh; border-top:0.5vh solid rgb(10,36,65); margin-top:1.5vh; clear:both;}
-		.foot a{ text-decoration:none; color:white; font-size:2rem; margin-top:2vh; display:inline-block; }
-		img{ margin:3vw auto; max-width:100%; height:auto; }
-		.code{ background:rgb(0,0,0); padding: 1vh 0 1vh 1vw; margin:1vh 0; word-wrap:break-word; font-size:2rem; }
-		a{ color:blue; }
-	}
-	
-	</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{{ page.title }} | 马龄阳的个人网站</title>
+  <link href="{{ site.baseurl }}/css/article.css" type="text/css" rel="stylesheet"/>
+  <link href="{{ site.baseurl }}/css/pygments.css" type="text/css" rel="stylesheet"/>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
-	<div class="cover"></div>
-	<div class="nav">
-		<div class="name">马龄阳的部落格</div>
-		<ul>
-			<li><a href="{{ site.baseurl }}/blog/self_intro.html">关于我</a></li>
-			<li><a href="{{ site.baseurl }}/blog/article_list.html">分类</a></li>
-			<li><a href="{{ site.baseurl }}/blog/index.html">主页</a></li>
-		</ul>
-		<div class='hamburger_wrapper'>
-			<span class='hamburger'></span>
-			<span class='hamburger'></span>
-			<span class='hamburger'></span>
-		</div>
-	</div>
-	<div class="left">
-		<h3>文章分类</h3>
-		<ul>
-		{% for category in site.categories %}
-			{% if category.first == "日记随笔" %}
-				<li><p><a href="{{ site.baseurl }}/category/diary.html" style="text-decoration:none;color:white">
-					{{ category.first }}({{ category | last | size }})</a></p></li>
-			{% elsif category.first == "前端开发" %}
-				<li><p><a href="{{ site.baseurl }}/category/front_end.html" style="text-decoration:none;color:white">
-					{{ category.first }}({{ category | last | size }})</a></p></li>
-			{% elsif category.first == "后端开发" %}
-				<li><p><a href="{{ site.baseurl }}/category/back_end.html" style="text-decoration:none;color:white">
-					{{ category.first }}({{ category | last | size }})</a></p></li>
-			{% elsif category.first == "网络通信" %}
-				<li><p><a href="{{ site.baseurl }}/category/network.html" style="text-decoration:none;color:white">
-					{{ category.first }}({{ category | last | size }})</a></p></li>
-			{% elsif category.first == "javascript" %}
-				<li><p><a href="{{ site.baseurl }}/category/javascript.html" style="text-decoration:none;color:white">
-					{{ category.first }}({{ category | last | size }})</a></p></li>
-			{% elsif category.first == "python" %}
-				<li><p><a href="{{ site.baseurl }}/category/python.html" style="text-decoration:none;color:white">
-					{{ category.first }}({{ category | last | size }})</a></p></li>
-			{% endif %}
-		{% endfor %}
-		</ul>
-	</div>
-	<div class="right">
-		<h2 class="publish_title">{{ page.title }}</h2>
-		<h4 class="publish_date">{{ page.date | date_to_long_string }}</h4>
-		{{ content }}
-		{% if page.next %}
-		<a class="next" href="{{ site.baseurl }}{{ page.next.url }}">上一篇</a>
-		{% else %}
-		<a class="next" style="color:gray;">上一篇</a>
-		{% endif %}
-		{% if page.previous %}
-		<a class="previous" href="{{ site.baseurl }}{{ page.previous.url }}">下一篇</a>
-		{% else %}
-		<a class="previous" style="color:gray;">下一篇</a>
-		{% endif %}
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="{{ page.id }}" data-title="{{ page.title}}" data-url="http://mly-zju.github.io/{{ page.url }}"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	function footdisplay(){
-		// var foot=$(".foot");
-		// var height=$(document).height();
-		var right=$(".right");
-		var img=$("img");
-		// foot.css({"top":height+"px"});
-		img.each(function(index,t){
-		if(t.width()>right.width())
-			t.css({"width":"100%"});
-		});
-	}
-	var duoshuoQuery = {short_name:"mly-zju"};
-	function judge(){
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	}
-	judge();
-	footdisplay();
-	</script>
-	<!-- 多说公共JS代码 end -->
-	<div class="foot">
-		<a href="javascript:void(0)">Designed By 马龄阳</a><br/>
-		<a href="{{ site.baseurl }}/blog/self_intro.html">@联系方式</a> 
-	</div>
-	</div>
-	<script>
-	$(document).ready(function(){
-		var hamburger_wrapper=$('.hamburger_wrapper');
-		var nav_dropdown=$('.nav ul');
-		var nav=$('.nav');
-		var img=$('img');
-		hamburger_wrapper.click(function(){
-			if(nav_dropdown.css('display')=='block'){
-				nav_dropdown.css('display','none');
-			}else{
-				nav_dropdown.css('display','block');
-		}
-		});
-		img.each(function(index){
-			if($(this).width()>window.innerWidth){
-				$(this).css('width','80vw');
-			}
-		});
-	});
-	</script>
+  <div class="wrap">
+    <div class="left-main">
+      <div class="avatar"></div>
+      <h2>马龄阳</h2>
+      <h5>风烟俱净</h5>
+      <div class="all-page left-item current"><a href="{{ site.baseurl }}/index.html">文章</a></div>
+      <div class="category left-item"><a href="{{ site.baseurl }}/category/diary.html">分类</a></div>
+      <div class="about left-item"><a href="{{ site.baseurl }}/about.html">关于我</a></div>
+    </div>
+    <div class="right-main">
+      <div class="article-detail-wrap" style="overflow: hidden;">
+        <div class="article-detail">
+          <h2 class="article-title">{{ page.title }}</h2>
+          <h3 class="article-date">{{ page.date | date_to_string }}</h3>
+          {{ content }}
+        </div>
+        <div class="pager-wrap" style="overflow: hidden;">
+          {% if page.next %}
+      		  <a class="pager-pre pager" href="{{ site.baseurl }}{{ page.next.url }}">上一篇</a>
+      		{% endif %}
+      		{% if page.previous %}
+      		  <a class="pager-next pager" href="{{ site.baseurl }}{{ page.previous.url }}">下一篇</a>
+      		{% endif %}
+        </div>
+        <!-- 多说评论框 start -->
+          <div class="ds-thread" data-thread-key="{{ page.id }}" data-title="{{ page.title }}" data-url="http://mly-zju.github.io/{{ page.url }}"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"mly-zju"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0]
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+      </div>
+    </div>
+  </div>
+  <script src="{{ site.baseurl }}/js/index.js" type="text/javascript"></script>
 </body>
 </html>

@@ -1,3 +1,31 @@
 ---
 layout: index
 ---
+<ul>
+  {% for post in paginator.posts %}
+    <li class="right-item-img">
+      <div class="article-wrap">
+        <h3 class="article-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+        {{ post.excerpt }}
+      </div>
+      {% if post.description %}
+        {% if paginator.page ==1 %}
+        <div class="img-wrap" style="background:url(./img/{{ post.description }}) no-repeat;background-size:cover;">
+        </div>
+        {% else %}
+        <div class="img-wrap" style="background:url(../img/{{ post.description }}) no-repeat;background-size:cover;">
+        {% endif %}
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+<div class="index-page-wrap">
+  <div class="index-page-inner-wrap">
+  {% if paginator.previous_page %}
+    <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}/index.html" class="index-page-pre index-page">上一页</a>
+  {% endif %}
+  {% if paginator.next_page %}
+      <a href="{{ site.baseurl }}{{ paginator.next_page_path }}/index.html" class="index-page-next index-page">下一页</a>
+  {% endif %}
+  <div class="index-page-inner-wrap">
+</div>

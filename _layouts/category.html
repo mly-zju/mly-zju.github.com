@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>文章分类 | 马龄阳的个人网站</title>
+  <meta name="description" itemprop="description" content="马龄阳的个人网站, Mly's Personal Website, 马龄阳的博客，web开发，前端开发">
+  <meta itemprop="keywords" name="keywords" content="马龄阳，博客，web开发，前端开发">
+  <link href="{{ site.baseurl }}/css/category.css" type="text/css" rel="stylesheet"/>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="left-main">
+      <div class="avatar"></div>
+      <h2>马龄阳</h2>
+      <h5>风烟俱净</h5>
+      <div class="all-page left-item"><a href="{{ site.baseurl }}/index.html">文章</a></div>
+      <div class="category left-item  current"><a href="{{ site.baseurl }}/category/diary.html">分类</a></div>
+      <div class="about left-item"><a href="{{ site.baseurl }}/about.html">关于我</a></div>
+    </div>
+    <div class="right-main">
+      <div class="category-wrap">
+        {% for category in site.categories %}
+          {% if category.first == "javascript" %}
+            <a href="{{ site.baseurl }}/category/javascript.html" class="category {% if category.first == page.description %} selected{% endif %}">javascript({{ category | last | size }})</a>
+          {% elsif category.first == "日记随笔" %}
+            <a href="{{ site.baseurl }}/category/diary.html" class="category {% if category.first == page.description %} selected{% endif %}">日记随笔({{ category | last | size }})</a>
+          {% elsif category.first == "前端开发" %}
+            <a href="{{ site.baseurl }}/category/front_end.html" class="category {% if category.first == page.description %} selected{% endif %}">前端开发({{ category | last | size }})</a>
+          {% elsif category.first == "后端开发" %}
+            <a href="{{ site.baseurl }}/category/back_end.html" class="category {% if category.first == page.description %} selected{% endif %}">后端开发({{ category | last | size }})</a>
+          {% elsif category.first == "python" %}
+            <a href="{{ site.baseurl }}/category/python.html" class="category {% if category.first == page.description %} selected{% endif %}">python({{ category | last | size }})</a>
+          {% elsif category.first == "网络通信" %}
+            <a href="{{ site.baseurl }}/category/network.html" class="category {% if category.first == page.description %} selected{% endif %}">网络通信({{ category | last | size }})</a>
+          {% elsif category.first == "作品demo" %}
+            <a href="{{ site.baseurl }}/category/demo.html" class="category {% if category.first == page.description %} selected{% endif %}">作品demo({{ category | last | size }})</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <ul>
+        {{ content }}
+      </ul>
+    </div>
+  </div>
+  <script src="{{ site.baseurl }}/js/index.js" type="text/javascript"></script>
+</body>
+</html>

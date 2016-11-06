@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>爱心鱼游戏</title>
+	<style>
+		body{padding:10px;}
+		.g-bg{width:1000px;height:600px;margin:0 auto;position:relative;}
+		#m-canvas{width:1000px;height:600px;position:relative;}
+		#canvas1, #canvas2{position:absolute;top:0;left:0;}
+		#canvas1{z-index:0;}
+		#canvas2{z-index:-1;}
+		#restart{position:absolute;top:55%;left:46%;color:white;background-color:#EE9A00;border:none;
+			font-size:18px;display:block;}
+	</style>
+</head>
+<body>
+	<div class="g-bg">
+		<div id="m-canvas">
+			<canvas id="canvas1" width="1000" height="600">
+			</canvas>
+			<canvas id="canvas2" width="1000" height="600">
+			</canvas>
+		</div>
+		<button id="restart">开始游戏</button>
+	</div>
+	<script type="text/javascript" src="./js/commonFunctions.js"></script>
+	<script type="text/javascript" src="./js/main.js"></script>
+	<script type="text/javascript" src="./js/drawBg.js"></script>
+	<script type="text/javascript" src="./js/ane.js"></script>
+	<script type="text/javascript" src="./js/fruit.js"></script>
+	<script type="text/javascript" src="./js/mom.js"></script>
+	<script type="text/javascript" src="./js/baby.js"></script>
+	<script type="text/javascript" src="./js/collision.js"></script>
+	<script type="text/javascript" src="./js/circle.js"></script>
+	<script type="text/javascript" src="./js/data.js"></script>
+	<script type="text/javascript" src="./js/dust.js"></script>
+</body>
+</html>

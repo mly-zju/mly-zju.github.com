@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Basic Handler | Jcrop Demo</title>
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+<script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.js" type="text/javascript"></script>
+<script src="./Jtailor.js"></script>
+<style>
+	body{
+		background-color:rgb(241,244,245);
+	}
+	.wrapper{position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;height:130px;width:310px;padding:15px;border:1px solid rgb(207,214,222);background-color:white;}
+	.signin_wrapper{float:right;height:130px;width:200px;position:relative;text-align:center;}
+	.signin_name{padding:0 10px;margin-top:5px;height:30px;width:170px;}
+	.signin_pw{padding:0 10px;margin-top:20px;height:30px;width:170px;}
+	.signin_remember{margin-top:18px;font-size:15px;}
+	.signin_label{font-size:15px;}
+</style>
+</head>
+<body>
+	<div class='wrapper'>
+		<div class='jtailor_avatar_wrapper'>
+			<img src='' alt='等待上传' class='jtailor_avatar'/>
+			<button class="jtailor_avatar_upload">上传头像</button>
+		</div>
+		<div class='signin_wrapper'>
+			<input class='signin_name' type='text' placeholder='用户名'/>
+			<input class='signin_pw' type='text' placeholder='密码'/>
+			<input class='signin_remember' type='checkbox'/><span class='signin_label'>同意网站协议?</span>
+		</div>
+	</div>
+<script>
+$(document).ready(function(){
+    $('.jtailor_avatar_wrapper').avatar_init({size_level: 'middle'});
+});
+</script>
+</body>
+</html>
