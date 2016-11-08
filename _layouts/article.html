@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{ page.title }} | 马龄阳的个人网站</title>
+  <script>
+    var html=document.getElementsByTagName('html')[0];
+    var rem=window.innerWidth|| document.documentElement.clientWidth|| document.body.clientWidth;
+    html.style.fontSize=rem/10+'px';
+  </script>
   <link href="{{ site.baseurl }}/css/article.css" type="text/css" rel="stylesheet"/>
   <link href="{{ site.baseurl }}/css/pygments.css" type="text/css" rel="stylesheet"/>
   <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
