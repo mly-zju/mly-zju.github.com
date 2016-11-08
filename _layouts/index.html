@@ -3,10 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-  <!-- <meta name="format-detection" content="telephone=no" /> -->
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="wap-font-scale" content="no">
   <title>马龄阳的个人网站 - mly's personal website</title>
   <meta name="description" itemprop="description" content="马龄阳的个人网站, Mly's Personal Website, 马龄阳的博客，web开发，前端开发">
 	<meta itemprop="keywords" name="keywords" content="马龄阳，博客，web开发，前端开发">
+  <script>
+    var html=document.getElementsByTagName('html')[0];
+    var rem=window.innerWidth|| document.documentElement.clientWidth|| document.body.clientWidth;
+    html.style.fontSize=rem/10+'px';
+  </script>
   <link href="{{ site.baseurl }}/css/index.css" type="text/css" rel="stylesheet"/>
   <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
 </head>
