@@ -1,7 +1,7 @@
 ---
 layout: article
 title: 企业网站首页开发
-category: [前端开发，作品demo]
+category: 作品demo
 ---
 最近几天抽空做了一个企业网站首页的前端开发demo。<!--more-->设计图是从网上找的，然后自己使用html+css+javascript实现了效果图。
 

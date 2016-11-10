@@ -1,7 +1,7 @@
 ---
 layout: article
 title: 总结html中垂直居中的方案
-category: [javascript,前端开发]
+category: html/css
 ---
 上一篇讲了水平居中方案，这一篇再来总结一下垂直居中的方法。<!--more-->
 

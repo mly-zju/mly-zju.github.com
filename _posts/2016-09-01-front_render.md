@@ -1,7 +1,7 @@
 ---
 layout: article
 title: 前端渲染那些事儿
-category: 前端开发
+category: [javascript,前端工程化]
 ---
 Ajax的流行让前端异步渲染得到广泛的应用。而笔者在学习前端的过程中，对异步渲染的应用也有一个从模糊到清晰的过程<!--more-->，下面就讲一下自己应用中的感悟。
 

@@ -31,8 +31,8 @@
             <a href="{{ site.baseurl }}/category/javascript.html" class="category {% if category.first == page.description %} selected{% endif %}">javascript({{ category | last | size }})</a>
           {% elsif category.first == "日记随笔" %}
             <a href="{{ site.baseurl }}/category/diary.html" class="category {% if category.first == page.description %} selected{% endif %}">日记随笔({{ category | last | size }})</a>
-          {% elsif category.first == "前端开发" %}
-            <a href="{{ site.baseurl }}/category/front_end.html" class="category {% if category.first == page.description %} selected{% endif %}">前端开发({{ category | last | size }})</a>
+          {% elsif category.first == "html/css" %}
+            <a href="{{ site.baseurl }}/category/html_css.html" class="category {% if category.first == page.description %} selected{% endif %}">html/css({{ category | last | size }})</a>
           {% elsif category.first == "后端开发" %}
             <a href="{{ site.baseurl }}/category/back_end.html" class="category {% if category.first == page.description %} selected{% endif %}">后端开发({{ category | last | size }})</a>
           {% elsif category.first == "python" %}
@@ -41,6 +41,10 @@
             <a href="{{ site.baseurl }}/category/network.html" class="category {% if category.first == page.description %} selected{% endif %}">网络通信({{ category | last | size }})</a>
           {% elsif category.first == "作品demo" %}
             <a href="{{ site.baseurl }}/category/demo.html" class="category {% if category.first == page.description %} selected{% endif %}">作品demo({{ category | last | size }})</a>
+          {% elsif category.first == "性能优化" %}
+            <a href="{{ site.baseurl }}/category/optimize.html" class="category {% if category.first == page.description %} selected{% endif %}">性能优化({{ category | last | size }})</a>
+          {% elsif category.first == "前端工程化" %}
+            <a href="{{ site.baseurl }}/category/project.html" class="category {% if category.first == page.description %} selected{% endif %}">前端工程化({{ category | last | size }})</a>
           {% endif %}
         {% endfor %}
       </div>
