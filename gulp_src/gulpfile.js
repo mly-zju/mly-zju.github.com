@@ -11,17 +11,17 @@ var gulp = require('gulp'),
   buffer = require('vinyl-buffer'),
   fs = require('fs'),
   browserify = require('browserify'),
-  connect=require('gulp-connect');
+  connect = require('gulp-connect');
 
-var filename=[];
+var filename = [];
 //扫描src底下有哪些文件夹，创建一个文件夹列表
-gulp.task('readdir',function(){
-  filename.splice(0,filename.length);
-  var tmp=fs.readdirSync('./src');
-  tmp.forEach(function(e){
-    var stat=fs.statSync('./src/'+e);
-    if(stat.isDirectory()){
-      filename.push('src/'+e+'/index.js');
+gulp.task('readdir', function() {
+  filename.splice(0, filename.length);
+  var tmp = fs.readdirSync('./src');
+  tmp.forEach(function(e) {
+    var stat = fs.statSync('./src/' + e);
+    if (stat.isDirectory()) {
+      filename.push('src/' + e + '/index.js');
     }
   });
 });
@@ -34,12 +34,13 @@ gulp.task('style', function() {
       suffix: '.min'
     }))
     .pipe(minify())
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('../css'));
 });
 
-gulp.task('reload-1',['style'],function(){
+gulp.task('reload-1', ['style'], function() {
   gulp.src('./src/*/*.html')
-  .pipe(connect.reload());
+    .pipe(connect.reload());
 });
 
 //使用broserify并且定义多个入口文件和对应的出口
@@ -58,19 +59,20 @@ gulp.task('script', function() {
       }))
       .pipe(uglify())
       .pipe(gulp.dest('./dist'))
+      .pipe(gulp.dest('../js'));
   });
   return tasks;
 });
 
-gulp.task('reload-2',['script'],function(){
+gulp.task('reload-2', ['script'], function() {
   gulp.src('./src/*/*.html')
-  .pipe(connect.reload());
+    .pipe(connect.reload());
 });
 
 gulp.task('watch', function() {
-  gulp.watch('./src/*/*.less', ['style','reload-1']);
-  gulp.watch('./src/*/*.js', ['script','reload-2']);
-  gulp.watch('./src/*/*.html',['html']);
+  gulp.watch('./src/*/*.less', ['style', 'reload-1']);
+  gulp.watch('./src/*/*.js', ['script', 'reload-2']);
+  gulp.watch('./src/*/*.html', ['html']);
 });
 
 gulp.task('clean', function() {
@@ -78,18 +80,18 @@ gulp.task('clean', function() {
     .pipe(clean());
 });
 
-gulp.task('connect',function(){
+gulp.task('connect', function() {
   connect.server({
     root: './',
     livereload: true
   });
 });
 
-gulp.task('html',function(){
+gulp.task('html', function() {
   gulp.src('./src/*/*.html')
-  .pipe(connect.reload());
+    .pipe(connect.reload());
 });
 
-gulp.task('default', ['clean','readdir'], function() {
-  gulp.start('connect','watch', 'style', 'script', 'html');
+gulp.task('default', ['clean', 'readdir'], function() {
+  gulp.start('connect', 'watch', 'style', 'script', 'html');
 });
