@@ -2,6 +2,7 @@
 layout: article
 title: 赖床情书02-淡淡桂花香
 category: 日记随笔
+description: 201611/loveletter.jpg
 ---
 2010初秋的某一天傍晚，在依旧温暖的杭州，满城突然飘满了清香。在甜腻的空气中，我走过一处转角，一瞬间感觉到一种似曾相识。<!--more-->
 
