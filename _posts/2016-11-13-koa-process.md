@@ -55,7 +55,7 @@ end middleware 1
 
 这个例子非常形象的代表了koa的中间件执行机制，可以用下图的洋葱模型来形容：
 
-![img]({{ site.baseurl }}/img/{{ page.description }})
+![img]({{ site.baseurl }}/img/201611/koa_middleware.jpg)
 
 通过这种执行流程，开发者可以非常方便的开发一些中间件，并且非常容易的整合到实际业务流程中。那么，这样的流程又是如何实现和控制的呢？
 
