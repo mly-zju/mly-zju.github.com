@@ -12,6 +12,10 @@ window.onload = function() {
 	var poem = document.getElementById("today-poem");
 	var date = document.getElementById("date");
 
+	var beginEnd = document.getElementById('music-button');
+	var next = document.getElementById('music-button-next');
+	var prev = document.getElementById('music-button-prev');
+
 	function musicBarMove(current, total) {
 		var percent = current / total * 100;
 		musicPlayed.style.width = percent + "%";
@@ -59,6 +63,7 @@ window.onload = function() {
 		clearInterval(timer);
 		timer = setInterval(function() {
 			currentTime = music.currentTime;
+			totalTime = music.duration;
 			musicBarMove(currentTime, totalTime);
 		}, 1000);
 	}
@@ -87,8 +92,10 @@ window.onload = function() {
 			draggable = false;
 			music.currentTime = currentTime;
 			beginEnd.style.backgroundImage = "url(./pause.png)";
+			clearInterval(timer);
 			timer = setInterval(function() {
 				currentTime = music.currentTime;
+				totalTime = music.duration;
 				musicBarMove(currentTime, totalTime);
 			}, 1000);
 		}
@@ -105,7 +112,7 @@ window.onload = function() {
 		}
 	});
 
-	var beginEnd = document.getElementById('music-button');
+
 	beginEnd.onclick = function() {
 		if (music.paused) {
 			music.play();
@@ -122,8 +129,7 @@ window.onload = function() {
 			clearInterval(timer);
 		}
 	}
-	var next = document.getElementById('music-button-next');
-	var prev = document.getElementById('music-button-prev');
+
 	next.onclick = function() {
 		cursor++;
 		if (cursor >= maxLength) {
