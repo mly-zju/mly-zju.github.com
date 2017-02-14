@@ -42,8 +42,8 @@ window.onload = function() {
 	var timer;
 	var cursor = itemList.length - 1;
 	var maxLength = cursor + 1;
-	var musicPrefix = "http://mly-zju.github.io/project/one_me/music/";
-	var picPrefix = "http://mly-zju.github.io/project/one_me/photo/"
+	var musicPrefix = "http://mly-zju.github.io/project/oneMe/music/";
+	var picPrefix = "http://mly-zju.github.io/project/oneMe/photo/"
 
 	//define controller
 	music.src = musicPrefix + cursor + '.mp3';
@@ -71,6 +71,7 @@ window.onload = function() {
 			currentTime = totalTime * ratio;
 			musicBarMove(currentTime, totalTime);
 			music.currentTime = currentTime;
+			beginEnd.style.backgroundImage = "url(./pause.png)";
 		}
 	});
 	musicBar.addEventListener('touchstart', function(e) {
@@ -85,6 +86,7 @@ window.onload = function() {
 		if (t.id == "music-ctrl") {
 			draggable = false;
 			music.currentTime = currentTime;
+			beginEnd.style.backgroundImage = "url(./pause.png)";
 			timer = setInterval(function() {
 				currentTime = music.currentTime;
 				musicBarMove(currentTime, totalTime);
