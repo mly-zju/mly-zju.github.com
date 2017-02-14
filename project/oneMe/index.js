@@ -64,6 +64,9 @@ window.onload = function() {
 		timer = setInterval(function() {
 			currentTime = music.currentTime;
 			totalTime = music.duration;
+			if (isNaN(totalTime)) {
+				totalTime = 0;
+			}
 			musicBarMove(currentTime, totalTime);
 		}, 1000);
 	}
