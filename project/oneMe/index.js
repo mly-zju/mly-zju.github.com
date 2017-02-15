@@ -94,7 +94,7 @@ window.onload = function() {
 		if (t.id == "music-ctrl") {
 			draggable = false;
 			music.currentTime = currentTime;
-			beginEnd.style.backgroundImage = "url(./pause.png)";
+			beginEnd.style.backgroundImage = "url(./pause.svg)";
 			clearInterval(timer);
 			timer = setInterval(function() {
 				currentTime = music.currentTime;
@@ -119,7 +119,7 @@ window.onload = function() {
 	beginEnd.onclick = function() {
 		if (music.paused) {
 			music.play();
-			this.style.backgroundImage = "url(./pause.png)"
+			this.style.backgroundImage = "url(./pause.svg)"
 			clearInterval(timer);
 			timer = setInterval(function() {
 				currentTime = music.currentTime;
@@ -128,7 +128,7 @@ window.onload = function() {
 			}, 1000);
 		} else {
 			music.pause();
-			this.style.backgroundImage = "url(./play.png)"
+			this.style.backgroundImage = "url(./play.svg)"
 			clearInterval(timer);
 		}
 	}
@@ -143,7 +143,7 @@ window.onload = function() {
 		picture.src = picPrefix + cursor + '.jpg';
 		poem.innerText = itemList[cursor].poem;
 		date.innerText = '——' + itemList[cursor].date;
-		beginEnd.style.backgroundImage = "url(./pause.png)";
+		beginEnd.style.backgroundImage = "url(./pause.svg)";
 	}
 	prev.onclick = function() {
 		cursor--;
@@ -155,6 +155,6 @@ window.onload = function() {
 		picture.src = picPrefix + cursor + '.jpg';
 		poem.innerText = itemList[cursor].poem;
 		date.innerText = '——' + itemList[cursor].date;
-		beginEnd.style.backgroundImage = "url(./pause.png)";
+		beginEnd.style.backgroundImage = "url(./pause.svg)";
 	}
 }

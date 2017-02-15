@@ -66,15 +66,15 @@
   border-radius: 12px;
 }
 #music-button-prev {
-  background-image: url(./previous.png);
+  background-image: url(./previous.svg);
   background-size: cover;
 }
 #music-button-next {
-  background-image: url(./next.png);
+  background-image: url(./next.svg);
   background-size: cover;
 }
 #music-button {
-  background-image: url(./pause.png);
+  background-image: url(./pause.svg);
   background-size: cover;
 }
 .img-poem {
