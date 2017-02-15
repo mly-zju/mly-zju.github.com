@@ -10,6 +10,9 @@ window.onload = function() {
 	bindEvent();
 
 	function init() {
+		//preload img
+		var img = new Image();
+		img.src = "./play.svg";
 		model.loadMusic();
 		music.init(model.getMusicTitle());
 		var artInfo = model.getArt();
