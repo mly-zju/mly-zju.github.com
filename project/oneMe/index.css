@@ -35,12 +35,12 @@
 }
 #music-ctrl {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 14px;
+  height: 14px;
   background-color: white;
   padding: 0;
   margin: 0;
-  top: 43px;
+  top: 40px;
   border-radius: 50%;
   border: 1px solid gray;
 }

@@ -71,6 +71,9 @@ window.onload = function() {
 		}, 1000);
 	}
 	music.addEventListener('canplay', init);
+	music.addEventListener('ended', function() {
+		next.click();
+	});
 	musicBar.addEventListener('click', function(e) {
 		var t = e.target;
 		if (t.id == "music-all" || t.id == "music-played" || t.id == "music-ctrl") {
@@ -79,7 +82,7 @@ window.onload = function() {
 			currentTime = totalTime * ratio;
 			musicBarMove(currentTime, totalTime);
 			music.currentTime = currentTime;
-			beginEnd.style.backgroundImage = "url(./pause.png)";
+			beginEnd.style.backgroundImage = "url(./pause.svg)";
 		}
 	});
 	musicBar.addEventListener('touchstart', function(e) {
