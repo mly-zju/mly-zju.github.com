@@ -21,12 +21,7 @@ window.onload = function() {
     //init visual area
     setInterval(function() {
       visual.update(model.getFreq());
-    }, 5000);
-    // function updateVisual() {
-    //   visual.update(model.getFreq());
-    //   requestAnimationFrame(updateVisual);
-    // };
-    // requestAnimationFrame(updateVisual);
+    }, 100);
 
     Const.leftNum = music.dom.wrapper.offsetLeft;
     Const.barLength = music.dom.wrapper.offsetWidth;
