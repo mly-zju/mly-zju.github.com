@@ -86,4 +86,6 @@ Visual.prototype.init = function() {
 Visual.prototype.update = function(data) {
   this.option.series[0].data = data;
   this.chart.setOption(this.option);
+  console.log(data);
+  document.getElementById('music-title').innerText = data[0] + data[1] + data[2] + data[3] + data[4];
 }

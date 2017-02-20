@@ -19,15 +19,9 @@ window.onload = function() {
     visual.init();
 
     //init visual area
-    // setInterval(function() {
-    //   visual.update(model.getFreq());
-    // }, 10000);
-    setTimeout(function() {
+    setInterval(function() {
       visual.update(model.getFreq());
-    }, 0);
-    setTimeout(function() {
-      visual.update(model.getFreq());
-    }, 10000);
+    }, 5000);
     // function updateVisual() {
     //   visual.update(model.getFreq());
     //   requestAnimationFrame(updateVisual);
