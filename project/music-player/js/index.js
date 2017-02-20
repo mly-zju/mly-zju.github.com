@@ -21,7 +21,7 @@ window.onload = function() {
     //init visual area
     setInterval(function() {
       visual.update(model.getFreq());
-    }, 100);
+    }, 1000);
     // function updateVisual() {
     //   visual.update(model.getFreq());
     //   requestAnimationFrame(updateVisual);
