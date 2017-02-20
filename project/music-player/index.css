@@ -116,7 +116,7 @@ html, body{
 
 @media screen and (min-width: 500px){
   .background {
-    background-image: url(./img/background.jpg);
+    background-image: url(./img/background2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     position: absolute;
@@ -125,7 +125,7 @@ html, body{
     top: 0;
     right: 0;
     z-index: -1;
-    filter: blur(2px);
+    filter: blur(3px);
   }
   #music-wrap {
     width: 400px;
