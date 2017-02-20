@@ -71,6 +71,7 @@ var Visual = function() {
         show: false
       }
     },
+    animationDurationUpdate: 150,
     series: [{
       name: '销量',
       type: 'bar',
