@@ -197,6 +197,7 @@ html, body{
     width: 24px;
     height: 24px;
     border-radius: 12px;
+    outline: none;
   }
   #music-button-prev {
     background-image: url(./img/previous.svg);
