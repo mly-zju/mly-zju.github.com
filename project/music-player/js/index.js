@@ -27,7 +27,7 @@ window.onload = function() {
     }, 0);
     setTimeout(function() {
       visual.update([10, 240, 50, 40]);
-    }, 10000);
+    }, 2000);
     // function updateVisual() {
     //   visual.update(model.getFreq());
     //   requestAnimationFrame(updateVisual);
