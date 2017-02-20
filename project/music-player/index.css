@@ -7,106 +7,213 @@ html, body{
   width: 100%;
   overflow: hidden;
 }
-.background {
-  background-image: url(./img/background.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  top: 0;
-  right: 0;
-  z-index: -1;
-  filter: blur(2px);
+
+@media screen and (max-width: 500px){
+  .background {
+    background-image: url(./img/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    filter: blur(2px);
+  }
+  #music-wrap {
+    width: 96vw;
+    margin-left: 2vw;
+    padding: 5px 0 5px 0;
+    border-radius: 5px;
+    margin-top: 30px;
+    background: rgba(255,255,255,0.5);
+  }
+  #music-title {
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 6px;
+  }
+  #music-bar {
+    width: 90vw;
+    height: 61px;
+    padding: 0;
+    margin-left: 3vw;
+    margin-top: 20px;
+    position: relative;
+    text-align: center;
+  }
+  #music-all {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background-color: #878787;
+    padding: 0;
+    margin: 0;
+    top: 46px;
+  }
+  #music-played {
+    position: absolute;
+    height: 5px;
+    background-color: #ff3838;
+    padding: 0;
+    margin: 0;
+    top: 46px;
+  }
+  #music-ctrl {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    top: 40px;
+    left: -1%;
+    border-radius: 50%;
+    border: 1px solid gray;
+  }
+  #music-time-now {
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+    top: 2px;
+  }
+  #music-time-total {
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    top: 2px;
+  }
+  .music-button {
+    background-color: white;
+    font-size: 12px;
+    border: 1px solid gray;
+    line-height: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+  }
+  #music-button-prev {
+    background-image: url(./img/previous.svg);
+    background-size: cover;
+  }
+  #music-button-next {
+    background-image: url(./img/next.svg);
+    background-size: cover;
+  }
+  #music-button {
+    background-image: url(./img/pause.svg);
+    background-size: cover;
+  }
+  #canvas {
+    width: 96vw;
+    height: 55vh;
+    margin-left: 2vw;
+    margin-top: 5vh;
+    border-radius: 5px;
+  }
 }
-#music-wrap {
-  width: 96vw;
-  margin-left: 2vw;
-  padding: 5px 0 5px 0;
-  border-radius: 5px;
-  margin-top: 30px;
-  background: rgba(255,255,255,0.5);
-}
-#music-title {
-  text-align: center;
-  margin-top: 12px;
-  margin-bottom: 6px;
-}
-#music-bar {
-  width: 90vw;
-  height: 61px;
-  padding: 0;
-  margin-left: 3vw;
-  margin-top: 20px;
-  position: relative;
-  text-align: center;
-}
-#music-all {
-  position: absolute;
-  width: 100%;
-  height: 5px;
-  background-color: #878787;
-  padding: 0;
-  margin: 0;
-  top: 46px;
-}
-#music-played {
-  position: absolute;
-  height: 5px;
-  background-color: #ff3838;
-  padding: 0;
-  margin: 0;
-  top: 46px;
-}
-#music-ctrl {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  background-color: white;
-  padding: 0;
-  margin: 0;
-  top: 40px;
-  left: -1%;
-  border-radius: 50%;
-  border: 1px solid gray;
-}
-#music-time-now {
-  font-size: 12px;
-  position: absolute;
-  left: 0;
-  top: 2px;
-}
-#music-time-total {
-  font-size: 12px;
-  position: absolute;
-  right: 0;
-  top: 2px;
-}
-.music-button {
-  background-color: white;
-  font-size: 12px;
-  border: 1px solid gray;
-  line-height: 12px;
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-}
-#music-button-prev {
-  background-image: url(./img/previous.svg);
-  background-size: cover;
-}
-#music-button-next {
-  background-image: url(./img/next.svg);
-  background-size: cover;
-}
-#music-button {
-  background-image: url(./img/pause.svg);
-  background-size: cover;
-}
-#canvas {
-  width: 96vw;
-  height: 55vh;
-  margin-left: 2vw;
-  margin-top: 5vh;
-  border-radius: 5px;
+
+@media screen and (min-width: 500px){
+  .background {
+    background-image: url(./img/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    filter: blur(2px);
+  }
+  #music-wrap {
+    width: 400px;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10% auto 0;
+    background: rgba(255,255,255,0.5);
+  }
+  #music-title {
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 6px;
+  }
+  #music-bar {
+    width: 390px;
+    height: 61px;
+    padding: 0;
+    margin-left: 5px;
+    margin-top: 20px;
+    position: relative;
+    text-align: center;
+  }
+  #music-all {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background-color: #878787;
+    padding: 0;
+    margin: 0;
+    top: 46px;
+  }
+  #music-played {
+    position: absolute;
+    height: 5px;
+    background-color: #ff3838;
+    padding: 0;
+    margin: 0;
+    top: 46px;
+  }
+  #music-ctrl {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    top: 40px;
+    left: -3px;
+    border-radius: 50%;
+    border: 1px solid gray;
+  }
+  #music-time-now {
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+    top: 2px;
+  }
+  #music-time-total {
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    top: 2px;
+  }
+  .music-button {
+    background-color: white;
+    font-size: 12px;
+    border: 1px solid gray;
+    line-height: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+  }
+  #music-button-prev {
+    background-image: url(./img/previous.svg);
+    background-size: cover;
+  }
+  #music-button-next {
+    background-image: url(./img/next.svg);
+    background-size: cover;
+  }
+  #music-button {
+    background-image: url(./img/pause.svg);
+    background-size: cover;
+  }
+  #canvas {
+    width: 420px;
+    height: 200px;
+    margin: 5px auto;
+    border-radius: 5px;
+  }
 }
