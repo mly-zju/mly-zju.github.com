@@ -23,7 +23,7 @@ window.onload = function() {
     //   visual.update(model.getFreq());
     // }, 10000);
     setTimeout(function() {
-      visual.update(model.getFrea());
+      visual.update(model.getFreq());
     }, 0);
     setTimeout(function() {
       visual.update(model.getFreq());
