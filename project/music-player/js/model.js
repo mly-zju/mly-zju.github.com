@@ -80,7 +80,7 @@ Model.prototype.getFreq = function() {
   var data = [];
   for (var i = 0; i < 1000;) {
     data.push(this.data.output[i]);
-    i = i + 100;
+    i = i + 200;
   }
   return data;
 }

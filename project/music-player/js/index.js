@@ -19,13 +19,12 @@ window.onload = function() {
     visual.init();
 
     //init visual area
-    // setInterval(function() {
-    //   visual.update(model.getFreq());
-    // }, 1000);
-    // visual.update([100, 200, 50, 40]);
-    setTimeout(function() {
-      visual.update([100, 200, 50, 40]);
-    }, 0);
+    setInterval(function() {
+      visual.update(model.getFreq());
+    }, 5000);
+    // setTimeout(function() {
+    //   visual.update([100, 200, 50, 40]);
+    // }, 0);
     // function updateVisual() {
     //   visual.update(model.getFreq());
     //   requestAnimationFrame(updateVisual);
