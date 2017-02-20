@@ -23,11 +23,11 @@ window.onload = function() {
     //   visual.update(model.getFreq());
     // }, 10000);
     setTimeout(function() {
-      visual.update([100, 200, 50, 40]);
+      visual.update(model.getFrea());
     }, 0);
     setTimeout(function() {
-      visual.update([10, 240, 50, 40]);
-    }, 2000);
+      visual.update(model.getFreq());
+    }, 10000);
     // function updateVisual() {
     //   visual.update(model.getFreq());
     //   requestAnimationFrame(updateVisual);
