@@ -59,6 +59,13 @@ window.onload = function() {
         clearInterval(timer);
       }
     });
+    music.dom.wrapper.addEventListener('mousedown', function(e) {
+      var t = e.target;
+      if (t.id == "music-ctrl") {
+        draggable = true;
+        clearInterval(timer);
+      }
+    });
     music.dom.wrapper.addEventListener('touchmove', function(e) {
       if (draggable) {
         if (e.targetTouches.length == 1) {
@@ -72,7 +79,30 @@ window.onload = function() {
         }
       }
     });
+    music.dom.wrapper.addEventListener('mousemove', function(e) {
+      if (draggable) {
+        var innerLeft = e.clientX - Const.leftNum;
+        var ratio = innerLeft / Const.barLength;
+        var time = model.getTime();
+        music.cache.currentTime = time.totalTime * ratio;
+        //model.setTime(currentTime);
+        music.update(music.cache.currentTime, time.totalTime);
+      }
+    });
     music.dom.wrapper.addEventListener('touchend', function(e) {
+      var t = e.target;
+      if (t.id == "music-ctrl") {
+        draggable = false;
+        model.setTime(music.cache.currentTime);
+        clearInterval();
+        timer = setInterval(function() {
+          var time = model.getTime();
+          music.update(time.currentTime, time.totalTime);
+          music.endtoBegin();
+        }, 1000);
+      }
+    });
+    music.dom.wrapper.addEventListener('mouseup', function(e) {
       var t = e.target;
       if (t.id == "music-ctrl") {
         draggable = false;
@@ -112,6 +142,9 @@ window.onload = function() {
         music.begintoEnd();
         clearInterval(timer);
       }
+    });
+    visual.dom.changeButton.addEventListener('click', function() {
+      visual.changeType();
     });
   }
 }

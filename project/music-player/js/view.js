@@ -39,7 +39,8 @@ Music.prototype.endtoBegin = function() {
 //可视化图形部分
 var Visual = function() {
   this.chart = echarts.init(document.getElementById('canvas'));
-  this.option = {
+  this.state = 'bar';
+  this.optionBar = {
     title: {},
     tooltip: {
       show: false
@@ -73,18 +74,105 @@ var Visual = function() {
     },
     animationDurationUpdate: 150,
     series: [{
-      name: '销量',
+      name: '',
       type: 'bar',
       data: []
     }]
   }
+  this.scatterData = [];
+  for (var i = 0; i < 40; i++) {
+    this.scatterData[i] = [];
+    this.scatterData[i].push(Math.ceil(Math.random() * 101));
+    this.scatterData[i].push(Math.ceil(Math.random() * 101));
+    this.scatterData[i].push(Math.ceil(Math.random() * 255));
+  }
+  ;
+  this.optionScatter = {
+    title: {
+    },
+    legend: {
+    },
+    tooltip: {
+      show: false
+    },
+    backgroundColor: 'rgba(255,255,255,0.5)',
+    grid: {
+      left: '5%',
+      right: '5%',
+      top: '5%',
+      bottom: '5%'
+    },
+    xAxis: {
+      data: [],
+      max: 100,
+      axisLine: {
+        show: false,
+      }
+    },
+    yAxis: {
+      data: [],
+      max: 100,
+      axisLine: {
+        show: false,
+      }
+    },
+    visualMap: {
+      type: 'continuous',
+      min: 0,
+      max: 255,
+      show: false
+    },
+    series: [{
+      name: '',
+      data: [],
+      type: 'scatter',
+      symbolSize: function(data) {
+        return data[2] / 5;
+      },
+      itemStyle: {
+        normal: {
+          shadowBlur: 10,
+          shadowColor: 'rgba(120, 36, 50, 0.5)',
+          shadowOffsetY: 5,
+          color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+            offset: 0,
+            color: 'rgb(251, 118, 123)'
+          }, {
+            offset: 1,
+            color: 'rgb(204, 46, 72)'
+          }])
+        }
+      }
+    }],
+    animationDurationUpdate: 150,
+  };
 }
 
 Visual.prototype.init = function() {
-  this.chart.setOption(this.option);
+  // this.chart.setOption(this.optionBar);
+  this.dom = {};
+  this.dom.changeButton = document.getElementsByClassName('change-anim')[0];
 }
 
 Visual.prototype.update = function(data) {
-  this.option.series[0].data = data;
-  this.chart.setOption(this.option);
+  if (this.state == 'bar') {
+    this.optionBar.series[0].data = data;
+    this.chart.setOption(this.optionBar);
+  } else {
+    for (var i = 0; i < data.length; i++) {
+      this.scatterData[i][2] = data[i];
+    }
+    this.optionScatter.series[0].data = this.scatterData;
+    this.chart.setOption(this.optionScatter);
+  }
+}
+
+Visual.prototype.changeType = function() {
+  if (this.state == 'bar') {
+    this.state = 'scatter';
+    this.chart.clear();
+  } else {
+    this.state = 'bar';
+    this.chart.clear();
+  }
 }

@@ -217,4 +217,13 @@ html, body{
     margin: 5px auto;
     border-radius: 5px;
   }
+  .change-anim {
+    display: block;
+    margin: 5px auto;
+    outline: none;
+    padding: 5px;
+    background: rgba(255,255,255,0.5);
+    border: none;
+    border-radius: 5px;
+  }
 }
