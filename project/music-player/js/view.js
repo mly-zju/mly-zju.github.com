@@ -146,6 +146,30 @@ var Visual = function() {
     }],
     animationDurationUpdate: 150,
   };
+  this.optionLiquid = {
+    animationDuration: 150,
+    animationDurationUpdate: 150,
+    backgroundColor: 'rgba(255,255,255,0.5)',
+    series: [{
+      type: 'liquidFill',
+      data: [],
+      radius: '100%',
+      backgroundStyle: {
+        color: 'rgba(255,255,255,0)'
+      },
+      label: {
+        normal: {
+          formatter: function() {
+            return '';
+          }
+        }
+      },
+      outline: {
+        show: false
+      },
+      shape: 'rect',
+    }]
+  };
 }
 
 Visual.prototype.init = function() {
@@ -158,18 +182,37 @@ Visual.prototype.update = function(data) {
   if (this.state == 'bar') {
     this.optionBar.series[0].data = data;
     this.chart.setOption(this.optionBar);
-  } else {
+  } else if (this.state == 'scatter') {
     for (var i = 0; i < data.length; i++) {
       this.scatterData[i][2] = data[i];
     }
     this.optionScatter.series[0].data = this.scatterData;
     this.chart.setOption(this.optionScatter);
+  } else {
+    var inter = 0;
+    var mydata = [];
+    var tmp = 0;
+    for (var i = 0; i < 20; i++) {
+      tmp = tmp + data[i];
+      inter++;
+      if (inter == 4) {
+        inter = 0;
+        tmp = tmp / (200 * 4);
+        mydata.push(tmp);
+        tmp = 0;
+      }
+    }
+    this.optionLiquid.series[0].data = mydata;
+    this.chart.setOption(this.optionLiquid);
   }
 }
 
 Visual.prototype.changeType = function() {
   if (this.state == 'bar') {
     this.state = 'scatter';
+    this.chart.clear();
+  } else if (this.state == 'scatter') {
+    this.state = 'liquidFill';
     this.chart.clear();
   } else {
     this.state = 'bar';

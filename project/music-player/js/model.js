@@ -73,6 +73,7 @@ Model.prototype.initAudio = function() {
   this.data.source.connect(this.data.analyser);
   this.data.analyser.connect(this.data.audioContext.destination);
   this.data.output = new Uint8Array(this.data.analyser.frequencyBinCount);
+  this.data.voiceOutput = new Uint8Array(this.data.analyser.fftSize);
 }
 
 Model.prototype.getFreq = function() {
