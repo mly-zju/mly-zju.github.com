@@ -168,6 +168,9 @@ var Visual = function() {
         show: false
       },
       shape: 'rect',
+      period: function(value, index) {
+        return 1500 + 200 * index;
+      }
     }]
   };
 }
@@ -189,18 +192,10 @@ Visual.prototype.update = function(data) {
     this.optionScatter.series[0].data = this.scatterData;
     this.chart.setOption(this.optionScatter);
   } else {
-    var inter = 0;
     var mydata = [];
-    var tmp = 0;
-    for (var i = 0; i < 25; i++) {
-      tmp = tmp + data[i];
-      inter++;
-      if (inter == 5) {
-        inter = 0;
-        tmp = tmp / (200 * 5);
-        mydata.push(tmp);
-        tmp = 0;
-      }
+    for (var i = 0; i < 32;) {
+      mydata.push(data[i] / 250);
+      i = i + 4;
     }
     this.optionLiquid.series[0].data = mydata;
     this.chart.setOption(this.optionLiquid);
