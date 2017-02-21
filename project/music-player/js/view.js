@@ -197,7 +197,7 @@ Visual.prototype.update = function(data) {
       inter++;
       if (inter == 5) {
         inter = 0;
-        tmp = tmp / (250 * 5);
+        tmp = tmp / (200 * 5);
         mydata.push(tmp);
         tmp = 0;
       }
