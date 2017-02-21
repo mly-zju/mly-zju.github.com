@@ -192,12 +192,12 @@ Visual.prototype.update = function(data) {
     var inter = 0;
     var mydata = [];
     var tmp = 0;
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 25; i++) {
       tmp = tmp + data[i];
       inter++;
-      if (inter == 4) {
+      if (inter == 5) {
         inter = 0;
-        tmp = tmp / (200 * 4);
+        tmp = tmp / (250 * 5);
         mydata.push(tmp);
         tmp = 0;
       }
