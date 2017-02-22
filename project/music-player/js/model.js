@@ -26,7 +26,8 @@ Model.prototype.reduceCursor = function() {
 }
 
 Model.prototype.loadMusic = function() {
-  this.data.music.src = "http://mly-zju.github.io/project/music-player/music/" + this.data.itemCursor + ".mp3";
+  // this.data.music.src = "http://mly-zju.github.io/project/music-player/music/" + this.data.itemCursor + ".mp3";
+  this.data.music.src = "http://7xovdy.com1.z0.glb.clouddn.com/music/" + this.data.itemCursor + ".mp3";
   this.data.music.crossOrigin = 'anonymous';
   // this.data.music.src = "./music/" + this.data.itemCursor + ".mp3";
 
