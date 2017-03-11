@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Web前端实现瀑布流效果页面
-category: 作品demo
+category: [javascript,作品demo]
 ---
 一个实现了图片瀑布流效果的Web页面。<!--more-->
 

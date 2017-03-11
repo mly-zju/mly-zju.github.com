@@ -11,7 +11,7 @@ description: 作品demo
           <p>{{ post.excerpt }}...</p>
         </div>
         {% if post.description %}
-          <div class="img-wrap" style="background: url(../img/{{ post.description }}) no-repeat;background-size: cover">
+          <div class="img-wrap" style="background: url(../img/{{ post.description }}) no-repeat;background-size: contain">
           </div>
         {% endif %}
 		{% endfor %}
