@@ -10,10 +10,10 @@ layout: index
       </div>
       {% if post.description %}
         {% if paginator.page ==1 %}
-        <div class="img-wrap" style="background:url(./img/{{ post.description }}) no-repeat;background-size:cover;">
+        <div class="img-wrap" style="background:url(./img/{{ post.description }}) no-repeat;background-size:contain;">
         </div>
         {% else %}
-        <div class="img-wrap" style="background:url(../img/{{ post.description }}) no-repeat;background-size:cover;">
+        <div class="img-wrap" style="background:url(../img/{{ post.description }}) no-repeat;background-size:contain;">
         {% endif %}
       {% endif %}
     </li>
