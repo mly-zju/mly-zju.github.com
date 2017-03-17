@@ -1,265 +1,312 @@
-*{
-  padding: 0;
-  margin: 0;
+* {
+    padding: 0;
+    margin: 0;
 }
+
 .wrap {
-  position: relative;
+    position: relative;
 }
+
 body {
-  font-size: 14px;
+    font-size: 14px;
 }
-@media screen and (min-width: 500px){
-  .left-main{
-    position: fixed;
-    top:0;
-    bottom:0;
-    left:0;
-    width: 20%;
-    min-width: 150px;
-    background-color: rgb(61,88,108);
-    font-family: "Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1";
+@media screen and (min-width: 500px) {
+    .left-main {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 20%;
+        min-width: 150px;
+        background-color: rgb(61,88,108);
+        font-family: "Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1";
 
-    .avatar{
-      margin: 50px auto 0;
-      width: 80px;
-      height: 80px;
-      background-image: url(../../img/avatar.jpg);
-      background-repeat: no-repeat;
-      background-size: cover;
-      border-radius: 50%;
-    }
-    h2 {
-      margin-top: 40px;
-      color: white;
-      text-align: center;
-      font-size: 30px;
-    }
-    h5{
-      margin-top: 30px;
-      margin-bottom: 40px;
-      color: white;
-      text-align: center;
-      font-size: 14px;
-    }
-    .left-item{
-      margin: 15px auto 0;
-      width: 70%;
-      padding-left: 15px;
-      height: 36px;
-      border: 1px solid white;
-      border-radius: 18px;
-      font-size: 14px;
-      line-height: 36px;
-      a {
-        color: white;
-        display: block;
-        text-decoration: none;
-      }
-    }
-    .left-item:hover{
-      background-color:rgb(80,104,122);
-    }
-    div.current{
-      background-color:#eaeaea;
-      a {
-        color: black;
-      }
-    }
-    .contact {
-      text-align: center;
-      margin-top: 20px;
-      .github {
-        text-decoration: none;
-        width: 40px;
-        height: 40px;
-        display: inline-block;
-        background-image: url(../../img/github.svg);
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
-    }
-  }
-  .right-main{
-    margin-left: 20%;
-    width: auto;
-    min-width: 800px;
-    height: 100%;
-    padding-top: 20px;
-    box-sizing: border-box;
-    font-family: "Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1";
-    .article-detail-wrap{
-      width: 70%;
-      padding: 20px 5px;
-      border-top: 1px solid gray;
-      margin: 0 10%;
-      .article-title {
-        color: rgb(85,85,85);
-        font-size: 30px;
-        word-break: break-all;
-      }
-      .article-date {
-        color: rgb(153,153,153);
-        font-size: 14px;
-        margin: 10px 0 15px;
-      }
-      p{
-        color: black;
-        font-size: 14px;
-        margin-bottom: 12px;
-      }
-      h1,h2,h3,h4,h5{
-        margin-bottom: 12px;
-      }
-      img {
-        max-width: 100%;
-      }
-      .highlight {
-        border-top: 1px dotted gray;
-        border-bottom: 1px dotted gray;
-        padding: 5px 5px;
-        margin-bottom: 12px;
-        width: 95%;
-        word-wrap: break-word;
-      }
-      .pager-wrap {
-        border-top: 1px solid gray;
-        padding-top: 10px;
-        overflow: hidden;
-        margin-bottom: 5px;
-        .pager {
-          display: block;
-          width: 108px;
-          height: 38px;
-          border-radius: 19px;
-          background-color: rgb(90, 167, 206);
-          text-align: center;
-          color: white;
-          line-height: 38px;
-          text-decoration: none;
-          font-size: 14px;
+        .avatar {
+            margin: 50px auto 0;
+            width: 80px;
+            height: 80px;
+            background-image: url("../../img/avatar_mly.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 50%;
         }
-        .pager-pre {
-          float: left;
+
+        h2 {
+            margin-top: 40px;
+            color: white;
+            text-align: center;
+            font-size: 30px;
         }
-        .pager-next{
-          float: right;
+
+        h5 {
+            margin-top: 30px;
+            margin-bottom: 40px;
+            color: white;
+            text-align: center;
+            font-size: 14px;
         }
-      }
+
+        .left-item {
+            margin: 15px auto 0;
+            width: 70%;
+            padding-left: 15px;
+            height: 36px;
+            border: 1px solid white;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 36px;
+
+            a {
+                color: white;
+                display: block;
+                text-decoration: none;
+            }
+        }
+
+        .left-item:hover {
+            background-color: rgb(80,104,122);
+        }
+
+        div.current {
+            background-color: #eaeaea;
+
+            a {
+                color: black;
+            }
+        }
+
+        .contact {
+            text-align: center;
+            margin-top: 20px;
+
+            .github {
+                text-decoration: none;
+                width: 40px;
+                height: 40px;
+                display: inline-block;
+                background-image: url("../../img/github.svg");
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        }
     }
-  }
+
+    .right-main {
+        margin-left: 20%;
+        width: auto;
+        min-width: 800px;
+        height: 100%;
+        padding-top: 20px;
+        box-sizing: border-box;
+        font-family: "Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1";
+
+        .article-detail-wrap {
+            width: 70%;
+            padding: 20px 5px;
+            border-top: 1px solid gray;
+            margin: 0 10%;
+
+            .article-title {
+                color: rgb(85,85,85);
+                font-size: 30px;
+                word-break: break-all;
+            }
+
+            .article-date {
+                color: rgb(153,153,153);
+                font-size: 14px;
+                margin: 10px 0 15px;
+            }
+
+            p {
+                color: black;
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5 {
+                margin-bottom: 12px;
+            }
+
+            img {
+                max-width: 100%;
+            }
+
+            .highlight {
+                border-top: 1px dotted gray;
+                border-bottom: 1px dotted gray;
+                padding: 5px;
+                margin-bottom: 12px;
+                width: 95%;
+                word-wrap: break-word;
+            }
+
+            .pager-wrap {
+                border-top: 1px solid gray;
+                padding-top: 10px;
+                overflow: hidden;
+                margin-bottom: 5px;
+
+                .pager {
+                    display: block;
+                    width: 108px;
+                    height: 38px;
+                    border-radius: 19px;
+                    background-color: rgb(90, 167, 206);
+                    text-align: center;
+                    color: white;
+                    line-height: 38px;
+                    text-decoration: none;
+                    font-size: 14px;
+                }
+
+                .pager-pre {
+                    float: left;
+                }
+
+                .pager-next {
+                    float: right;
+                }
+            }
+        }
+    }
 }
-
-
-
-@media screen and (max-width: 500px){
-  .left-main{
-    background-color: rgb(61,88,108);
-    font-family: "Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1";
-    padding-top: 1rem;
-    // text-align: center;
-    .avatar{
-      margin: 0 auto 0;
-      width: 2.5rem;
-      height: 2.5rem;
-      background-image: url(../../img/avatar.jpg);
-      background-repeat: no-repeat;
-      background-size: cover;
-      border-radius: 50%;
-    }
-    h2 {
-      margin-top: 0.5rem;
-      margin-bottom: 0.4rem;
-      color: white;
-      text-align: center;
-      font-size: 30px;
-    }
-    h5{
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
-      color: white;
-      text-align: center;
-      font-size: 14px;
-    }
-    .left-item{
-      display: inline-block;
-      width: 3.2rem;
-      height: 1rem;
-      font-size: 16px;
-      text-align: center;
-      line-height: 1rem;
-      a {
-        color: white;
-        display: block;
-        text-decoration: none;
-      }
-    }
-    div.current{
-      background-color:#eaeaea;
-      a {
-        color: black;
-      }
-    }
-    .contact {
-      display: none;
-    }
-  }
-  .right-main{
-    font-family: "Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1";
-    .article-detail-wrap{
-      padding: 1rem 0.2rem;
-      font-size: 14px;
-      .article-title {
-        color: rgb(85,85,85);
-        font-size: 30px;
-      }
-      .article-date {
-        color: rgb(153,153,153);
-        font-size: 14px;
-        margin: 0.3rem 0 0.5rem;
-      }
-      p{
-        color: black;
-        font-size: 14px;
-        margin-bottom: 0.3rem;
-      }
-      h1,h2,h3,h4,h5{
-        margin-bottom: 0.3rem;
-      }
-      img{
-        max-width: 9rem
-      }
-      .highlight {
-        border-top: 1px dotted gray;
-        border-bottom: 1px dotted gray;
-        padding: 0.2rem 0.2rem;
-        margin-bottom: 0.3rem;
-        width: 95%;
-        overflow-x: scroll;
-      }
-      .pager-wrap {
-        border-top: 1px solid gray;
-        padding-top: 0.3rem;
-        overflow: hidden;
-        margin-bottom: 0.2rem;
-        .pager {
-          display: block;
-          padding: 0 0.4rem;
-          height: 1rem;
-          border-radius: 0.5rem;
-          background-color: rgb(90, 167, 206);
-          text-align: center;
-          color: white;
-          line-height: 1rem;
-          text-decoration: none;
-          font-size: 14px;
+@media screen and (max-width: 500px) {
+    .left-main {
+        background-color: rgb(61,88,108);
+        font-family: "Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1";
+        padding-top: 1rem;
+        // text-align: center;
+        .avatar {
+            margin: 0 auto;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-image: url("../../img/avatar_mly.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 50%;
         }
-        .pager-pre {
-          float: left;
+
+        h2 {
+            margin-top: 0.5rem;
+            margin-bottom: 0.4rem;
+            color: white;
+            text-align: center;
+            font-size: 30px;
         }
-        .pager-next{
-          float: right;
+
+        h5 {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+            text-align: center;
+            font-size: 14px;
         }
-      }
+
+        .left-item {
+            display: inline-block;
+            width: 3.2rem;
+            height: 1rem;
+            font-size: 16px;
+            text-align: center;
+            line-height: 1rem;
+
+            a {
+                color: white;
+                display: block;
+                text-decoration: none;
+            }
+        }
+
+        div.current {
+            background-color: #eaeaea;
+
+            a {
+                color: black;
+            }
+        }
+
+        .contact {
+            display: none;
+        }
     }
-  }
+
+    .right-main {
+        font-family: "Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1";
+
+        .article-detail-wrap {
+            padding: 1rem 0.2rem;
+            font-size: 14px;
+
+            .article-title {
+                color: rgb(85,85,85);
+                font-size: 30px;
+            }
+
+            .article-date {
+                color: rgb(153,153,153);
+                font-size: 14px;
+                margin: 0.3rem 0 0.5rem;
+            }
+
+            p {
+                color: black;
+                font-size: 14px;
+                margin-bottom: 0.3rem;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5 {
+                margin-bottom: 0.3rem;
+            }
+
+            img {
+                max-width: 9rem;
+            }
+
+            .highlight {
+                border-top: 1px dotted gray;
+                border-bottom: 1px dotted gray;
+                padding: 0.2rem;
+                margin-bottom: 0.3rem;
+                width: 95%;
+                overflow-x: scroll;
+            }
+
+            .pager-wrap {
+                border-top: 1px solid gray;
+                padding-top: 0.3rem;
+                overflow: hidden;
+                margin-bottom: 0.2rem;
+
+                .pager {
+                    display: block;
+                    padding: 0 0.4rem;
+                    height: 1rem;
+                    border-radius: 0.5rem;
+                    background-color: rgb(90, 167, 206);
+                    text-align: center;
+                    color: white;
+                    line-height: 1rem;
+                    text-decoration: none;
+                    font-size: 14px;
+                }
+
+                .pager-pre {
+                    float: left;
+                }
+
+                .pager-next {
+                    float: right;
+                }
+            }
+        }
+    }
 }
