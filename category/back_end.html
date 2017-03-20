@@ -6,24 +6,10 @@ description: 后端开发
 	{% if category.first == "后端开发" %}
 		{% for post in category.last %}
       <li class="right-item-img">
-      {% if post.description %}
-      <div class="article-wrap article-with-image">
-        <h3 class="article-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
-          {{ post.excerpt }}
-      </div>
-        {% if paginator.page ==1 %}
-        <div class="img-wrap" style="background:url(./img/{{ post.description }}) no-repeat;background-size:contain;">
-        </div>
-        {% else %}
-        <div class="img-wrap" style="background:url(../img/{{ post.description }}) no-repeat;background-size:contain;">
-        {% endif %}
-      {% else %}
-      <div class="article-wrap article-no-image">
-        <h3 class="article-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
-        {{ post.excerpt }}
-      </div>
-      {% endif %}
-		</li>
+				<div class="article-wrap article-no-image">
+					<h3 class="article-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+				</div>
+			</li>
 		{% endfor %}
 	{% endif %}
 {% endfor %}
