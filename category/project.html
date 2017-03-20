@@ -6,7 +6,7 @@ description: 前端工程化
 	{% if category.first == "前端工程化" %}
 		{% for post in category.last %}
       <li class="right-item-img">
-          {% if post.description %}
+      {% if post.description %}
       <div class="article-wrap article-with-image">
         <h3 class="article-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
           {{ post.excerpt }}
@@ -22,7 +22,7 @@ description: 前端工程化
         <h3 class="article-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
         {{ post.excerpt }}
       </div>
-      {% endif %}}
+      {% endif %}
 		</li>
 		{% endfor %}
 	{% endif %}
