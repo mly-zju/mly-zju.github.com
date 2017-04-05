@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>关于css中元素内部清除浮动的思考 | 马龄阳的个人网站</title>
+    <script>
+        var html = document.getElementsByTagName('html')[0];
+        var rem = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        html.style.fontSize = rem / 10 + 'px';
+    </script>
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93174249-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <link href="/Users/malingyang/Workspace/mly-zju.github.com/css/article/index.min.css" type="text/css" rel="stylesheet" />
+    <link href="/Users/malingyang/Workspace/mly-zju.github.com/css/pygments.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="left-main">
+            <div class="avatar"></div>
+            <h2>马龄阳</h2>
+            <!-- <h5>风烟俱净</h5> -->
+            <div class="contact">
+                <a class="github" href="https://github.com/mly-zju"></a>
+            </div>
+            <div class="all-page left-item current"><a href="/Users/malingyang/Workspace/mly-zju.github.com/index.html">文章</a></div>
+            <div class="category left-item"><a href="/Users/malingyang/Workspace/mly-zju.github.com/category/diary.html">分类</a></div>
+            <div class="about left-item"><a href="/Users/malingyang/Workspace/mly-zju.github.com/about.html">关于我</a></div>
+        </div>
+        <div class="right-main">
+            <div class="article-detail-wrap" style="overflow: hidden;">
+                <div class="article-detail">
+                    <h2 class="article-title">关于css中元素内部清除浮动的思考</h2>
+                    <h3 class="article-date">02 Jan 2016</h3> <p>经常在前端编程的时候遇到这样的问题：一个div元素，没有指定大小，内部有其他元素<!--more-->，但是是浮动或者是absolute的，这种情况下父div元素不会被撑开。为了能够被撑开，需要对父div元素做一些修改。</p>
+
+<p>首先看如下的例子:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;title&gt;</span>test<span class="nt">&lt;/title&gt;</span>
+	<span class="nt">&lt;style&gt;</span>
+	<span class="nf">#container</span> <span class="p">{</span>
+	  	<span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+	  	<span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+	  	<span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nf">#container2</span><span class="p">{</span>
+		<span class="nl">width</span><span class="p">:</span><span class="m">100px</span><span class="p">;</span>
+		<span class="nl">height</span><span class="p">:</span><span class="m">600px</span><span class="p">;</span>
+		<span class="nl">background-color</span><span class="p">:</span><span class="no">black</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nf">#content</span><span class="p">{</span>
+		<span class="nl">width</span><span class="p">:</span><span class="m">100px</span><span class="p">;</span>
+		<span class="nl">height</span><span class="p">:</span><span class="m">100px</span><span class="p">;</span>
+		<span class="nl">background-color</span><span class="p">:</span><span class="no">blue</span><span class="p">;</span>
+		<span class="nl">float</span><span class="p">:</span><span class="nb">left</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"container"</span> <span class="nt">&gt;</span>
+  		<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"content"</span><span class="nt">&gt;&lt;/div&gt;</span>
+	<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"container2"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+<p>这个时候，观察container的盒子，发现如下图所示:</p>
+
+<p><img src="/Users/malingyang/Workspace/mly-zju.github.com/img/201601/div1.jpg" alt="img" /></p>
+
+<p>可以看到，container的height为0，并没有被content撑起来，主要是因为content有float属性，脱离了文档流。这个时候，可以有很多种方法来清除浮动，一种是w3cschool当中提到的，在container容器的最后再加一个空的div,并且属性设置为clear:both。还有一种方法就是将container的属性增加一条overflow:hidden，当然，还有一种就是将container本身进行float，这个用途有限。我们来看加了overflow以后盒子模型：</p>
+
+<p><img src="/Users/malingyang/Workspace/mly-zju.github.com/img/201601/div2.jpg" alt="img" /></p>
+
+<p>可以看出这个时候container的height已经成为了100px，被content撑了起来。</p>
+
+<p>这里需要注意的是，这些清除浮动的方法仅仅对于float有效果！如果content有position:absolute属性，那么即使清除浮动，也无法撑起父元素，比如如下代码:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;title&gt;</span>test<span class="nt">&lt;/title&gt;</span>
+	<span class="nt">&lt;style&gt;</span>
+	<span class="nf">#container</span> <span class="p">{</span>
+	  	<span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+	  	<span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+	  	<span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+	  	<span class="nl">overflow</span><span class="p">:</span><span class="nb">hidden</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nf">#container2</span><span class="p">{</span>
+		<span class="nl">width</span><span class="p">:</span><span class="m">100px</span><span class="p">;</span>
+		<span class="nl">height</span><span class="p">:</span><span class="m">600px</span><span class="p">;</span>
+		<span class="nl">background-color</span><span class="p">:</span><span class="no">black</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nf">#content</span><span class="p">{</span>
+		<span class="nl">width</span><span class="p">:</span><span class="m">100px</span><span class="p">;</span>
+		<span class="nl">height</span><span class="p">:</span><span class="m">100px</span><span class="p">;</span>
+		<span class="nl">background-color</span><span class="p">:</span><span class="no">blue</span><span class="p">;</span>
+		<span class="nl">position</span><span class="p">:</span><span class="nb">absolute</span><span class="p">;</span>
+		<span class="nl">top</span><span class="p">:</span><span class="m">0</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"container"</span> <span class="nt">&gt;</span>
+  		<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"content"</span><span class="nt">&gt;&lt;/div&gt;</span>
+	<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"container2"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+<p>这个时候，无论container加上overflow或者float属性，或者加一个清除浮动的空div，都无法被撑起来。这里就要明白float和absolute的区别了，这个比较繁琐，自行百度。</p>
+
+<p>还有一种情况就是container中的content虽然没有float，但是自身没有大小，只有margin-top或者margin-bottom等等，比如如下代码:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;title&gt;</span>test<span class="nt">&lt;/title&gt;</span>
+	<span class="nt">&lt;style&gt;</span>
+	<span class="nf">#container</span> <span class="p">{</span>
+	  	<span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+	  	<span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nf">#container2</span><span class="p">{</span>
+		<span class="nl">width</span><span class="p">:</span><span class="m">100px</span><span class="p">;</span>
+		<span class="nl">height</span><span class="p">:</span><span class="m">600px</span><span class="p">;</span>
+		<span class="nl">background-color</span><span class="p">:</span><span class="no">black</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nf">#content</span><span class="p">{</span>
+		<span class="nl">width</span><span class="p">:</span><span class="m">100px</span><span class="p">;</span>
+		<span class="nl">background-color</span><span class="p">:</span><span class="no">blue</span><span class="p">;</span>
+		<span class="nl">margin-top</span><span class="p">:</span><span class="m">100px</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"container"</span> <span class="nt">&gt;</span>
+  		<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"content"</span><span class="nt">&gt;&lt;/div&gt;</span>
+	<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"container2"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+<p>这个时候观察发现，container的height为0，也就是说，没有被子元素的margin-top给撑起来。相反，margin-top这时候也作用于container，使得container也跟着content有了一个margin-top 但我们注意到，如果此时给container加上overflow:hidden，那么container就会被margin-top给撑起来，获得了100px的高度。</p>
+
+<p>同时这里要注意，如果content依旧没有大小，但是拥有padding-top或者padding-bottom，这个时候container是会被撑起来的。这个和margin不一样。</p>
+
+<p>总结了一下，主要就是首先区分absolute和float，absolute是无法被清除浮动的。而float的时候可以有好几种方法清除浮动。然后是区分当子元素包含margin-top或者margin-bottom，以及padding-top或者padding-bottom时候的区别，前两者无法撑起父元素除非overflow:hidden，而后两者可以撑起父元素。</p>
+
+                </div>
+                <div class="pager-wrap" style="overflow: hidden;">
+                    
+                    <a class="pager-pre pager" href="/Users/malingyang/Workspace/mly-zju.github.com/python/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/2016/01/04/serilize.html">上一篇</a>  
+                    <a class="pager-next pager" href="/Users/malingyang/Workspace/mly-zju.github.com/%E4%BD%9C%E5%93%81demo/2015/12/13/enterprise_page.html">下一篇</a> 
+                </div>
+                <!-- 多说评论框 start -->
+                <!-- <div class="ds-thread" data-thread-key="/html/css/2016/01/02/overflow" data-title="关于css中元素内部清除浮动的思考" data-url="http://mly-zju.github.io//html/css/2016/01/02/overflow.html"></div> -->
+                <!-- 多说评论框 end -->
+                <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                <!-- <script type="text/javascript">
+        var duoshuoQuery = {short_name:"mly-zju"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0]
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script> -->
+                <!-- 多说公共JS代码 end -->
+
+                <!-- UY BEGIN -->
+                <div id="uyan_frame"></div>
+                <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2130013"></script>
+                <!-- UY END -->
+            </div>
+        </div>
+    </div>
+    <script src="/Users/malingyang/Workspace/mly-zju.github.com/js/article/index.min.js" type="text/javascript"></script>
+</body>
+
+</html>

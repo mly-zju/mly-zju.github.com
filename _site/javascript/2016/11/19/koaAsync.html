@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>深入探析koa之异步回调处理篇 | 马龄阳的个人网站</title>
+    <script>
+        var html = document.getElementsByTagName('html')[0];
+        var rem = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        html.style.fontSize = rem / 10 + 'px';
+    </script>
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93174249-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <link href="/Users/malingyang/Workspace/mly-zju.github.com/css/article/index.min.css" type="text/css" rel="stylesheet" />
+    <link href="/Users/malingyang/Workspace/mly-zju.github.com/css/pygments.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="left-main">
+            <div class="avatar"></div>
+            <h2>马龄阳</h2>
+            <!-- <h5>风烟俱净</h5> -->
+            <div class="contact">
+                <a class="github" href="https://github.com/mly-zju"></a>
+            </div>
+            <div class="all-page left-item current"><a href="/Users/malingyang/Workspace/mly-zju.github.com/index.html">文章</a></div>
+            <div class="category left-item"><a href="/Users/malingyang/Workspace/mly-zju.github.com/category/diary.html">分类</a></div>
+            <div class="about left-item"><a href="/Users/malingyang/Workspace/mly-zju.github.com/about.html">关于我</a></div>
+        </div>
+        <div class="right-main">
+            <div class="article-detail-wrap" style="overflow: hidden;">
+                <div class="article-detail">
+                    <h2 class="article-title">深入探析koa之异步回调处理篇</h2>
+                    <h3 class="article-date">19 Nov 2016</h3> <p>在上一篇中我们梳理了koa当中中间件的洋葱模型执行原理，并实现了一个可以让洋葱模型自动跑起来的流程管理函数。这一篇，我们再来研究一下koa当中异步回调同步化写法的原理，同样的，我们也会实现一个管理函数，是的我们能够通过同步化的写法来写异步回调函数。<!--more--></p>
+
+<h3 id="1-回调金字塔及理想中的解决方案">1. 回调金字塔及理想中的解决方案</h3>
+
+<p>我们都知道javascript是一门单线程异步非阻塞语言。异步非阻塞当然是它的一个优点，但大量的异步操作必然涉及大量的回调函数，特别是当异步嵌套的时候，就会出现回调金字塔的问题，使得代码的可读性非常差。比如下面一个例子：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
+
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s1">'./file1'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s1">'./file2'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+<p>这个例子是先后读取两个文件内容并打印，其中file2的读取必须在file1读取结束之后再进行，因此其操作必须要在file1读取的回调函数中执行。这是一个典型的回调嵌套，并且只有两层而已，在实际编程中，我们可能会遇到更多层的嵌套，这样的代码写法无疑是不够优雅的。</p>
+
+<p>在我们想象中，比较优雅的一种写法应该是看似同步实则异步的写法，类似下面这样：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">data</span><span class="p">;</span>
+<span class="nx">data</span> <span class="o">=</span> <span class="nx">readFile</span><span class="p">(</span><span class="s1">'./file1'</span><span class="p">);</span>
+<span class="c1">//下面的代码是第一个readFile执行完毕之后的回调部分</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+<span class="c1">//下面的代码是第二个readFile的回调</span>
+<span class="nx">data</span> <span class="o">=</span> <span class="nx">readFile</span><span class="p">(</span><span class="s1">'./file2'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+</code></pre>
+</div>
+
+<p>这样的写法，就完全避免回调地狱。事实上，koa就让我们可以使用这样的写法来写异步回调函数:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">koa</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'koa'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">koa</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">request</span><span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">'some module'</span><span class="p">);</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">yield</span> <span class="nx">request</span><span class="p">(</span><span class="s1">'http://www.baidu.com'</span><span class="p">);</span>
+  <span class="c1">//以下是异步回调部分</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+<span class="p">})</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>那么，究竟是什么让koa有这么神奇的魔力呢？</p>
+
+<h3 id="2-generator配合promise实现异步回调同步写法">2. generator配合promise实现异步回调同步写法</h3>
+
+<p>关键的一点，其实前一篇也提到了，就是generator具有类似”打断点”这样的效果。当遇到yield的时候，就会暂停，将控制权交给yield后面的函数，当下次返回的时候，再继续执行。</p>
+
+<p>而在上面的那个koa例子中，yield后面的可不是任何对象都可以哦！必须是特定类型。在co函数中，可以支持promise, thunk函数等。</p>
+
+<p>今天的文章中，我们就以promise为例来进行分析，看看如何使用generator和promise配合，实现异步同步化。</p>
+
+<p>依旧以第一个读取文件例子来分析。首先，我们需要将读文件的函数进行改造，将其封装成为一个promise对象：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">readFile</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fileName</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">resolve</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="c1">//下面是readFile使用的示例</span>
+<span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">readFile</span><span class="p">(</span><span class="s1">'./file1'</span><span class="p">);</span>
+<span class="nx">tmp</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+<p>关于promise的使用，如果不熟悉的可以去看看es6中的语法。(近期我也会写一篇文章来教大家如何用es5的语法来自己实现一个具备基本功能的promise对象，敬请期待呦\^_\^)</p>
+
+<p>简单来讲，promise可以实现将回调函数通过 promise.then(callback)的形式来写。但是我们的目标是配合generator，真正实现如丝般顺滑的同步化写法，如何配合呢，看这段代码：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">readFile</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fileName</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">resolve</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="c1">//将读文件的过程放在generator中</span>
+<span class="kd">var</span> <span class="nx">gen</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">yield</span> <span class="nx">readFile</span><span class="p">(</span><span class="s1">'./file1'</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+  <span class="nx">data</span> <span class="o">=</span> <span class="k">yield</span> <span class="nx">readFile</span><span class="p">(</span><span class="s1">'./file2'</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="c1">//手动执行generator</span>
+<span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="nx">gen</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">another</span> <span class="o">=</span> <span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+<span class="c1">//another.value就是返回的promise对象</span>
+<span class="nx">another</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//再次调用g.next从断点处执行generator,并将data作为参数传回</span>
+  <span class="kd">var</span> <span class="nx">another2</span> <span class="o">=</span> <span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+  <span class="nx">another2</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+<p>上述代码中，我们在generator中yield了readFile，回调语句代码写在yield之后的代码中，完全是同步的写法，实现了文章一开头的设想。</p>
+
+<p>而yield之后，我们得到的是一个another.value是一个promise对象，我们可以使用then语句定义回调函数，函数的内容呢，则是将读取到的data返回给generator并继续让generator从断点处执行。</p>
+
+<p>基本上这就是异步回调同步化最核心的原理，事实上如果大家熟悉python，会知道python中有”协程”的概念，基本上也是使用generator来实现的(我想当怀疑es6的generator就是借鉴了python~)</p>
+
+<p>不过呢，上述代码我们依然是手动执行的。那么同上一篇一样，我们还需要实现一个run函数，用于管理generator的流程，让它能够自动跑起来！</p>
+
+<h3 id="3-让同步化回调函数自动跑起来一个run函数的编写">3. 让同步化回调函数自动跑起来：一个run函数的编写</h3>
+
+<p>仔细观察上一段代码中手动执行generator的部分，也能发现一个规律，这个规律让我们可以直接写一个递归的函数来代替：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">run</span><span class="o">=</span><span class="kd">function</span><span class="p">(</span><span class="nx">gen</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">g</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">gen</span><span class="p">.</span><span class="nx">next</span><span class="o">===</span><span class="s1">'function'</span><span class="p">){</span>
+    <span class="nx">g</span><span class="o">=</span><span class="nx">gen</span><span class="p">;</span>
+  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="nx">g</span><span class="o">=</span><span class="nx">gen</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">next</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">tmp</span><span class="o">=</span><span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">tmp</span><span class="p">.</span><span class="nx">done</span><span class="p">){</span>
+      <span class="k">return</span> <span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+      <span class="nx">tmp</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">next</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">next</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>函数接收一个generator，并让其中的异步能够自动执行。使用这个run函数，我们来让上一个异步代码自动执行：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">run</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">gen</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">g</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">gen</span><span class="p">.</span><span class="nx">next</span> <span class="o">===</span> <span class="s1">'function'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">g</span> <span class="o">=</span> <span class="nx">gen</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">g</span> <span class="o">=</span> <span class="nx">gen</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">next</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">tmp</span><span class="p">.</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">tmp</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">next</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">next</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">readFile</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fileName</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">resolve</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="c1">//将读文件的过程放在generator中</span>
+<span class="kd">var</span> <span class="nx">gen</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">yield</span> <span class="nx">readFile</span><span class="p">(</span><span class="s1">'./file1'</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+  <span class="nx">data</span> <span class="o">=</span> <span class="k">yield</span> <span class="nx">readFile</span><span class="p">(</span><span class="s1">'./file2'</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+<span class="p">}</span>
+<span class="c1">//下面只需要将gen放入run当中即可自动执行</span>
+<span class="nx">run</span><span class="p">(</span><span class="nx">gen</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>执行上述代码，即可看到终端依次打印出了file1和file2的内容。</p>
+
+<p>需要指出的是，这里的run函数为了简单起见只支持promise，而实际的co函数还支持thunk等。</p>
+
+<p>这样一来，co函数的两大功能基本就完整介绍了，一个是洋葱模型的流程控制，另一个是异步同步化代码的自动执行。在下一篇文章中，我将带大家对这两个功能进行整合，写出我们自己的一个co函数！</p>
+
+<p>这篇文章的代码同样可以在github上面找到：<a href="https://github.com/mly-zju/async-js-demo">https://github.com/mly-zju/async-js-demo</a>，其中promise_generator.js就是本篇的示例源码。</p>
+
+<p>同样欢迎大家多多关注我的<a href="http://mly-zju.github.io/">github pages个人博客</a>哦，会不定期更新我的技术文章~</p>
+
+                </div>
+                <div class="pager-wrap" style="overflow: hidden;">
+                    
+                    <a class="pager-pre pager" href="/Users/malingyang/Workspace/mly-zju.github.com/javascript/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%BD%9C%E5%93%81demo/2017/03/05/chatApp.html">上一篇</a>  
+                    <a class="pager-next pager" href="/Users/malingyang/Workspace/mly-zju.github.com/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2016/11/13/loveletter2.html">下一篇</a> 
+                </div>
+                <!-- 多说评论框 start -->
+                <!-- <div class="ds-thread" data-thread-key="/javascript/2016/11/19/koaAsync" data-title="深入探析koa之异步回调处理篇" data-url="http://mly-zju.github.io//javascript/2016/11/19/koaAsync.html"></div> -->
+                <!-- 多说评论框 end -->
+                <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                <!-- <script type="text/javascript">
+        var duoshuoQuery = {short_name:"mly-zju"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0]
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script> -->
+                <!-- 多说公共JS代码 end -->
+
+                <!-- UY BEGIN -->
+                <div id="uyan_frame"></div>
+                <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2130013"></script>
+                <!-- UY END -->
+            </div>
+        </div>
+    </div>
+    <script src="/Users/malingyang/Workspace/mly-zju.github.com/js/article/index.min.js" type="text/javascript"></script>
+</body>
+
+</html>

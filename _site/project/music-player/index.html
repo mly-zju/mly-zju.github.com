@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="./index.css" type="text/css" rel="stylesheet">
+  <script src="./list.js"></script>
+  <script src="http://cdn.bootcss.com/echarts/3.4.0/echarts.min.js"></script>
+  <script src='./js/echarts-liquidfill.js'></script>
+  <title>东川路800号电台</title>
+</head>
+<body>
+  <audio id="music">
+    <source type="audio/mpeg">
+  </audio>
+  <div class='background'></div>
+  <div id="music-wrap">
+    <h3 id="music-title"></h3>
+    <div id="music-bar">
+      <span id="music-time-now"></span>
+      <button id="music-button-prev" class="music-button"></button>
+      <button id="music-button" class="music-button"></button>
+      <button id="music-button-next" class="music-button"></button>
+      <div id="music-all"></div>
+      <div id="music-played"></div>
+      <div id="music-ctrl"></div>
+      <span id="music-time-total"></span>
+    </div>
+  </div>
+  <!-- <canvas id="canvas" width="300" height="200"></canvas> -->
+  <div id="canvas"></div>
+  <button class='change-anim'>切换可视化效果</button>
+
+  <script src="./js/util.js"></script>
+  <script src="./js/model.js"></script>
+  <script src="./js/view.js"></script>
+  <script src="./js/index.js"></script>
+</body>
+</html>

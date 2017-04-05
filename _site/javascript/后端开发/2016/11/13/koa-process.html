@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>深入探析koa之中间件流程控制篇 | 马龄阳的个人网站</title>
+    <script>
+        var html = document.getElementsByTagName('html')[0];
+        var rem = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        html.style.fontSize = rem / 10 + 'px';
+    </script>
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93174249-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <link href="/Users/malingyang/Workspace/mly-zju.github.com/css/article/index.min.css" type="text/css" rel="stylesheet" />
+    <link href="/Users/malingyang/Workspace/mly-zju.github.com/css/pygments.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="left-main">
+            <div class="avatar"></div>
+            <h2>马龄阳</h2>
+            <!-- <h5>风烟俱净</h5> -->
+            <div class="contact">
+                <a class="github" href="https://github.com/mly-zju"></a>
+            </div>
+            <div class="all-page left-item current"><a href="/Users/malingyang/Workspace/mly-zju.github.com/index.html">文章</a></div>
+            <div class="category left-item"><a href="/Users/malingyang/Workspace/mly-zju.github.com/category/diary.html">分类</a></div>
+            <div class="about left-item"><a href="/Users/malingyang/Workspace/mly-zju.github.com/about.html">关于我</a></div>
+        </div>
+        <div class="right-main">
+            <div class="article-detail-wrap" style="overflow: hidden;">
+                <div class="article-detail">
+                    <h2 class="article-title">深入探析koa之中间件流程控制篇</h2>
+                    <h3 class="article-date">13 Nov 2016</h3> <p>koa被认为是第二代web后端开发框架，相比于前代express而言，其最大的特色无疑就是解决了回调金字塔的问题，让异步的写法更加的简洁。<!--more-->在使用koa的过程中，其实一直比较好奇koa内部的实现机理。最近终于有空，比较深入的研究了一下koa一些原理，在这里会写一系列文章来记录一下我的学习心得和理解。</p>
+
+<p>在我看来，koa最核心的函数是大名鼎鼎的co，koa正是基于这个函数实现了异步回调同步化，以及中间件流程控制。当然在这篇文章中我并不会去分析co源码，我打算在整个系列文章中，一步一步讲解如何实现koa中间件的流程控制原理，koa的异步回调同步写法实现原理，最后在理解这些的基础上，实现一个简单的类似co的函数。</p>
+
+<p>本篇首先只谈一谈koa的中间件流程控制原理。</p>
+
+<h3 id="1-koa中间件执行流程">1. koa中间件执行流程</h3>
+
+<p>关于koa中间件如何执行，官网上有一个非常经典的例子，有兴趣的可以去看看，不过这里，我想把它修改的更简单一点：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">koa</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'koa'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">koa</span><span class="p">();</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="o">*</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'begin middleware 1'</span><span class="p">);</span>
+  <span class="k">yield</span> <span class="nx">next</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'end middleware 1'</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="o">*</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'begin middleware 2'</span><span class="p">);</span>
+  <span class="k">yield</span> <span class="nx">next</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'end middleware 2'</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'middleware 3'</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>运行这个例子，然后使用curl工具，运行：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl http://localhost:3000
+</code></pre>
+</div>
+
+<p>可以看到，运行之后，会输出：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">begin</span> <span class="nx">middleware</span> <span class="mi">1</span>
+<span class="nx">begin</span> <span class="nx">middleware</span> <span class="mi">2</span>
+<span class="nx">middleware</span> <span class="mi">3</span>
+<span class="nx">end</span> <span class="nx">middleware</span> <span class="mi">2</span>
+<span class="nx">end</span> <span class="nx">middleware</span> <span class="mi">1</span>
+</code></pre>
+</div>
+
+<p>这个例子非常形象的代表了koa的中间件执行机制，可以用下图的洋葱模型来形容：</p>
+
+<p><img src="/Users/malingyang/Workspace/mly-zju.github.com/img/201611/koa_middleware.jpg" alt="img" /></p>
+
+<p>通过这种执行流程，开发者可以非常方便的开发一些中间件，并且非常容易的整合到实际业务流程中。那么，这样的流程又是如何实现和控制的呢？</p>
+
+<h3 id="2-koa中的generator和compose">2. koa中的generator和compose</h3>
+
+<p>简单来说，洋葱模型的执行流程是通过es6中的generator来实现的。不熟悉generator的同学可以去看看其特性，其中一个就是generator函数可以像打断点一样从函数某个地方跳出，之后还可以再回来继续执行。下面一个例子可以说明这种特性：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">gen</span><span class="o">=</span><span class="kd">function</span><span class="o">*</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'begin!'</span><span class="p">);</span>
+  <span class="c1">//yield语句，在这里跳出，将控制权交给anotherfunc函数。</span>
+  <span class="k">yield</span> <span class="nx">anotherfunc</span><span class="p">;</span>
+  <span class="c1">//下次回来时候从这里开始执行</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'end!'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">anotherfunc</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'this is another function!'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">g</span><span class="o">=</span><span class="nx">gen</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">another</span><span class="o">=</span><span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>  <span class="c1">//'begin!'</span>
+<span class="c1">//another是一个对象，其中value成员就是返回的anotherfunc函数</span>
+<span class="nx">another</span><span class="p">.</span><span class="nx">value</span><span class="p">();</span>  <span class="c1">//'this is another function!'</span>
+<span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>  <span class="c1">//'end!';</span>
+</code></pre>
+</div>
+
+<p>从这个简单例子中，可以看出洋葱模型最基本的一个雏形，即yield前后的语句最先和最后执行，yield中间的代码在中心执行。</p>
+
+<p>现在设想一下，如果yield后面跟的函数本身就又是一个generator，会怎么样呢？其实就是从上面例子里面做一个引申：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">gen1</span><span class="o">=</span><span class="kd">function</span><span class="o">*</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'begin!'</span><span class="p">);</span>
+  <span class="k">yield</span> <span class="nx">g2</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'end!'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">gen2</span><span class="o">=</span><span class="kd">function</span><span class="o">*</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'begin 2'</span><span class="p">);</span>
+  <span class="k">yield</span> <span class="nx">anotherfunc</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'end 2'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">anotherfunc</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'this is another function!'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">g</span><span class="o">=</span><span class="nx">gen</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">g2</span><span class="o">=</span><span class="nx">gen2</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">another1</span><span class="o">=</span><span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>  <span class="c1">//'begin!';</span>
+<span class="kd">var</span> <span class="nx">another2</span><span class="o">=</span><span class="nx">another1</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">//'begin 2';</span>
+<span class="nx">another2</span><span class="p">.</span><span class="nx">value</span><span class="p">();</span> <span class="c1">//'this is another function!';</span>
+<span class="nx">another1</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">//'end 2';</span>
+<span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">//'end!';</span>
+</code></pre>
+</div>
+
+<p>可以看出，基本上是用上面的例子，再加一个嵌套而已，原理是一样的。</p>
+
+<p>而在koa中，每个中间件generator都有一个next参数。在我们这个例子中，g2就可以看成是g函数的next参数。事实上，koa也确实是这样做的，当使用app.use()挂载了所有中间件之后，koa有一个koa-compose模块，用于将所有generator中间件串联起来，基本上就是将后一个generator赋给前一个generator的next参数。koa-compose的源码非常简单短小，下面是我自己实现的一个：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">compose</span><span class="p">(</span><span class="nx">middlewares</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">middlewares</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{}();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">next</span> <span class="o">=</span> <span class="nx">middlewares</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">next</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">next</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>使用我们自己写的compose对上面一个例子改造，是的其更接近koa的形式：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">compose</span><span class="p">(</span><span class="nx">middlewares</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">middlewares</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{}();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">next</span> <span class="o">=</span> <span class="nx">middlewares</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">next</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">next</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">gen1</span><span class="o">=</span><span class="kd">function</span><span class="o">*</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'begin!'</span><span class="p">);</span>
+  <span class="k">yield</span> <span class="nx">next</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'end!'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">gen2</span><span class="o">=</span><span class="kd">function</span><span class="o">*</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'begin 2'</span><span class="p">);</span>
+  <span class="k">yield</span> <span class="nx">next</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'end 2'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">gen3</span><span class="o">=</span><span class="kd">function</span><span class="o">*</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'this is another function!'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bundle</span><span class="o">=</span><span class="nx">compose</span><span class="p">([</span><span class="nx">gen1</span><span class="p">,</span><span class="nx">gen2</span><span class="p">,</span><span class="nx">gen3</span><span class="p">]);</span>
+<span class="kd">var</span> <span class="nx">g</span><span class="o">=</span><span class="nx">bundle</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">another1</span><span class="o">=</span><span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>  <span class="c1">//'begin!';</span>
+<span class="kd">var</span> <span class="nx">another2</span><span class="o">=</span><span class="nx">another1</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">//'begin 2';</span>
+<span class="nx">another2</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">//'this is another function!';</span>
+<span class="nx">another1</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">//'end 2';</span>
+<span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">//'end!';</span>
+</code></pre>
+</div>
+
+<p>怎么样？是不是有一点koa中间件写法的感觉了呢？但是目前，我们还是一步一步手动的在执行我们这个洋葱模型，能否写一个函数，自动的来执行我们这个模型呢？</p>
+
+<h3 id="3-让洋葱模型自动跑起来一个run函数的编写">3. 让洋葱模型自动跑起来：一个run函数的编写</h3>
+
+<p>上面例子中，最后的代码我们可以看出一个规律，基本就是外层的generator调用next方法把控制权交给内层，内层再继续调用next把方法交给更里面的一层。整个流程可以用一个函数嵌套的写法写出来。话不多说，直接上代码：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">run</span><span class="p">(</span><span class="nx">gen</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">g</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">gen</span><span class="p">.</span><span class="nx">next</span> <span class="o">===</span> <span class="s1">'function'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">g</span> <span class="o">=</span> <span class="nx">gen</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">g</span> <span class="o">=</span> <span class="nx">gen</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="kd">function</span> <span class="nx">next</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+    <span class="c1">//如果tmp.done为true，那么证明generator执行结束，返回。</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">tmp</span><span class="p">.</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">g</span><span class="p">.</span><span class="nx">next</span> <span class="o">===</span> <span class="s1">'function'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">run</span><span class="p">(</span><span class="nx">tmp</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+      <span class="nx">next</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nx">next</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">compose</span><span class="p">(</span><span class="nx">middlewares</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">middlewares</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{}();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">next</span> <span class="o">=</span> <span class="nx">middlewares</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">next</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">next</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">gen1</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'begin!'</span><span class="p">);</span>
+  <span class="k">yield</span> <span class="nx">next</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'end!'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">gen2</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'begin 2'</span><span class="p">);</span>
+  <span class="k">yield</span> <span class="nx">next</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'end 2'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">gen3</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'this is another function!'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bundle</span> <span class="o">=</span> <span class="nx">compose</span><span class="p">([</span><span class="nx">gen1</span><span class="p">,</span> <span class="nx">gen2</span><span class="p">,</span> <span class="nx">gen3</span><span class="p">]);</span>
+
+<span class="nx">run</span><span class="p">(</span><span class="nx">bundle</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>run函数接受一个generator，其内部执行其实就是我们上一个例子的精简，使用递归的方法执行。运行这个例子，可以看到结果和我们上一个例子相同。</p>
+
+<p>到此为止，我们就基本讲清楚了koa中的中间件洋葱模型是如何自动执行的。事实上，koa中使用的co函数，一部分功能就是实现我们这里编写的run函数的功能。</p>
+
+<p>值得注意的是，这篇文章只注重分析中间件执行流程的实现，暂时并没有考虑异步回调同步化原理。下一篇文章中，我将带大家继续探析koa中异步回调同步化写法的机理。</p>
+
+<p>这篇文章的代码可以在github上面找到：<a href="https://github.com/mly-zju/async-js-demo">https://github.com/mly-zju/async-js-demo</a>，其中process_control.js文件就是本篇的事例源码。</p>
+
+<p>另外欢迎多多关注我的<a href="http://mly-zju.github.io/">个人博客</a>哦^_^ 会不定期更新我的技术文章~</p>
+
+                </div>
+                <div class="pager-wrap" style="overflow: hidden;">
+                    
+                    <a class="pager-pre pager" href="/Users/malingyang/Workspace/mly-zju.github.com/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2016/11/13/loveletter2.html">上一篇</a>  
+                    <a class="pager-next pager" href="/Users/malingyang/Workspace/mly-zju.github.com/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2016/10/17/loveletter1.html">下一篇</a> 
+                </div>
+                <!-- 多说评论框 start -->
+                <!-- <div class="ds-thread" data-thread-key="/javascript/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/2016/11/13/koa-process" data-title="深入探析koa之中间件流程控制篇" data-url="http://mly-zju.github.io//javascript/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/2016/11/13/koa-process.html"></div> -->
+                <!-- 多说评论框 end -->
+                <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                <!-- <script type="text/javascript">
+        var duoshuoQuery = {short_name:"mly-zju"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0]
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script> -->
+                <!-- 多说公共JS代码 end -->
+
+                <!-- UY BEGIN -->
+                <div id="uyan_frame"></div>
+                <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2130013"></script>
+                <!-- UY END -->
+            </div>
+        </div>
+    </div>
+    <script src="/Users/malingyang/Workspace/mly-zju.github.com/js/article/index.min.js" type="text/javascript"></script>
+</body>
+
+</html>

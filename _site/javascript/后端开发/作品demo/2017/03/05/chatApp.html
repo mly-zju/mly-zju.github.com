@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>基于react+ react-router+ redux+ socket.io+ koa开发一个聊天室 | 马龄阳的个人网站</title>
+    <script>
+        var html = document.getElementsByTagName('html')[0];
+        var rem = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        html.style.fontSize = rem / 10 + 'px';
+    </script>
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93174249-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <link href="/Users/malingyang/Workspace/mly-zju.github.com/css/article/index.min.css" type="text/css" rel="stylesheet" />
+    <link href="/Users/malingyang/Workspace/mly-zju.github.com/css/pygments.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="left-main">
+            <div class="avatar"></div>
+            <h2>马龄阳</h2>
+            <!-- <h5>风烟俱净</h5> -->
+            <div class="contact">
+                <a class="github" href="https://github.com/mly-zju"></a>
+            </div>
+            <div class="all-page left-item current"><a href="/Users/malingyang/Workspace/mly-zju.github.com/index.html">文章</a></div>
+            <div class="category left-item"><a href="/Users/malingyang/Workspace/mly-zju.github.com/category/diary.html">分类</a></div>
+            <div class="about left-item"><a href="/Users/malingyang/Workspace/mly-zju.github.com/about.html">关于我</a></div>
+        </div>
+        <div class="right-main">
+            <div class="article-detail-wrap" style="overflow: hidden;">
+                <div class="article-detail">
+                    <h2 class="article-title">基于react+ react-router+ redux+ socket.io+ koa开发一个聊天室</h2>
+                    <h3 class="article-date">05 Mar 2017</h3> <p>最近练手开发了一个项目，是一个聊天室应用。项目虽不大，但是使用到了react, react-router, redux, socket.io，后端开发使用了koa，算是一个比较综合性的案例，很多概念和技巧在开发的过程中都有所涉及,非常有必要再来巩固一下。<!--more--></p>
+
+<p>项目目前部署在heroku平台上，在线演示地址: <a href="https://desolate-fortress-76848.herokuapp.com/">online demo</a>, 因为是国外的平台速度可能有点慢，点进去耐心等一会儿就能加载好了。</p>
+
+<p>加载好之后，首先出现的页面是让用户起一个昵称:</p>
+
+<p><img src="/Users/malingyang/Workspace/mly-zju.github.com/img/201703/chat-nickname.png" alt="nickname" /></p>
+
+<p>输入昵称之后，就会进入聊天页面，左边是进入聊天室的在线用户，右边则是聊天区域，下图是三个在线用户聊天的情形:</p>
+
+<p><img src="/Users/malingyang/Workspace/mly-zju.github.com/img/201703/chat-body.png" alt="chat" /></p>
+
+<p>项目源码的github地址: <a href="https://github.com/mly-zju/chat-room">源码地址</a>, 有兴趣的同学欢迎关注学习~</p>
+
+<p>下面就来分析一下项目的整体架构，以及一下值得注意的技巧和知识点。</p>
+
+<h3 id="1-整体结构">1. 整体结构</h3>
+
+<p>项目的目录如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>├── README.md
+├── node_modules
+├── dist
+│   ├── bundle.css
+│   ├── bundle.js
+│   └── resource
+│       ├── background.jpeg
+│       └── preview.png
+├── package.json
+├── server.js
+├── src
+│   ├── action
+│   │   └── index.js
+│   ├── components
+│   │   ├── chatall
+│   │   │   ├── index.js
+│   │   │   └── index.less
+│   │   ├── login
+│   │   │   ├── index.js
+│   │   │   └── index.less
+│   │   ├── msgshow
+│   │   │   ├── index.js
+│   │   │   └── index.less
+│   │   ├── namelist
+│   │   │   ├── index.js
+│   │   │   └── index.less
+│   │   ├── nav
+│   │   │   ├── index.js
+│   │   │   └── index.less
+│   │   └── typein
+│   │       ├── index.js
+│   │       └── index.less
+│   ├── container
+│   │   ├── chatAll.js
+│   │   └── login.js
+│   ├── index.ejs
+│   ├── index.js
+│   ├── index.less
+│   ├── index2.js
+│   ├── reducer
+│   │   └── index.js
+│   ├── redux_middleware
+│   │   └── index.js
+│   └── resource
+│       ├── background.jpeg
+│       └── preview.png
+└── webpack.config.js
+</code></pre>
+</div>
+
+<p>其中src当中是前端部分的源代码。项目使用webpack进行打包，打包后的代码在dist目录当中。由于我们的项目是一个单页面应用，因此只需要统一打包出一个bundle.js和一个bundle.css。而后端使用了koa框架，由于代码相对比较少，都集中在了server.js这一个文件当中。</p>
+
+<p>开发过程中，由于要webpack打包，一般我们会配合webpack-dev-server来使用。webpack-dev-server运行的时候自身就会开启一个server，而在我们的项目当中，后端koa也是一个server，因此为了简单起见，我们可以使用koa-webpack-dev-middleware来在koa当中开启webpack-dev-server。</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">webpackDev</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'koa-webpack-dev-middleware'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">webpackConf</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./webpack.config.js'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">compiler</span> <span class="o">=</span> <span class="nx">webpack</span><span class="p">(</span><span class="nx">webpackConf</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">webpackDev</span><span class="p">(</span><span class="nx">compiler</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">contentBase</span><span class="p">:</span> <span class="nx">webpackConf</span><span class="p">.</span><span class="nx">output</span><span class="p">.</span><span class="nx">path</span><span class="p">,</span>
+  <span class="na">publicPath</span><span class="p">:</span> <span class="nx">webpackConf</span><span class="p">.</span><span class="nx">output</span><span class="p">.</span><span class="nx">publicPath</span><span class="p">,</span>
+  <span class="na">hot</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}));</span>
+</code></pre>
+</div>
+
+<h3 id="2-项目布局-flexbox实践">2. 项目布局: flexbox实践</h3>
+
+<p>在这个项目中我们有意识的使用了flex布局，作为面向未来的一种新的布局方式，实践一下还是很有必要的！没有学习郭flexbox的同学可以参考这篇来学一下：<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a></p>
+
+<p>以聊天界面为例进行分析，使用flex布局的话，可以非常方便，下图就是对界面的一个简单的切分：</p>
+
+<p><img src="/Users/malingyang/Workspace/mly-zju.github.com/img/201703/flex-layout.png" alt="layout" /></p>
+
+<p>整个聊天框最外层红框框起来的部分display设置为flex，并且flex-direction设置为column，这样它里面的两个元素（即粉框和蓝框部分）就会竖直方向排列，同时粉框的flex设置为0 0 90px，代表该框不可伸缩，固定高度90px，而对于蓝框，则设置flex为1，代表伸展系数为1，这样，蓝框的高度就会占满除了粉框以外的全部空间。</p>
+
+<p>而于此同时，粉框和蓝框本身又分别设置display为flex。对粉框而言，内部一共有欢迎标签和退出button两个元素，分列两侧，因此只需要设置justify-content为space-between即可做到这一点。而对蓝框而言，内部有在线用户列表以及聊天区域两个元素。这里在线用户列表（即黄色框）需要设置固定宽度，因此类似于刚才粉框的设置，flex: 0 0 240px，而聊天区域（即绿色框）则设置flex为1，这样会自适应占满剩余宽度。</p>
+
+<p>最后，聊天区域内部又分为信息展示区以及打字区，因此聊天区域自身又是一个flexbox，设置方式类似，就不再具体分析了。</p>
+
+<p>可以看出，使用flexbox，相比使用float以及position等等而言，更加的规整，使用这种思路，整个页面就像庖丁解牛一般，布局格外清晰。</p>
+
+<h3 id="3-设计页面的数据结构">3. 设计页面的数据结构</h3>
+
+<p>项目中使用了redux作为数据流管理工具，配合react，能够让页面组件同页面数据形成规律的映射。</p>
+
+<p>分析我们的聊天页面，可以看出，主要的数据就是目前在线的用户昵称列表，以及消息记录，此外我们还需要记录自己的用户昵称，方便消息发送时候取用。因此，整个应用的数据结构如下, 也就是redux中的store的数据结构如下：</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"nickName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your nickname"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"nameList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"user A"</span><span class="p">,</span><span class="s2">"user B"</span><span class="p">,</span><span class="s2">"user C"</span><span class="p">,</span><span class="s2">"...."</span><span class="p">],</span><span class="w">
+  </span><span class="nt">"msgList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"nickName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"some user"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"some string"</span><span class="w">
+  </span><span class="p">},{</span><span class="w">
+    </span><span class="nt">"nickName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"another user"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"another string"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>有了这个总体的数据结构，我们就可以根据该结构设计具体的action，reducer等等部分了。这里整个程序的模块拆分遵循了redux官方实例当中的拆分方法，action文件夹当中定义action creators，reducer文件夹中定义reducer函数，component文件夹中定义一些通用的组件，container文件夹当中则是将通用组件取出，定义store中的数据同组件如何映射，以及组件中的事件如何dispatch action，从而引起store数据的改变。</p>
+
+<p>以component/namelist中的组件为例，该组件用于显示在线用户昵称列表，因此它接受一个数组，也就是store中的nameList作为参数，因此其通用组件的写法也很简单：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class NameList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    var {nameList} = this.props;
+    return (
+      &lt;ul className='name-list'&gt;
+        &lt;li className='name-list-title'&gt;在线用户:&lt;/li&gt;
+        {nameList.map((item, index) =&gt; (
+        &lt;li key={index}&gt;{item}&lt;/li&gt;
+      ))}
+      &lt;/ul&gt;
+    )
+  }
+}
+
+export default NameList
+</code></pre>
+</div>
+
+<p>而在container当中，只需要将store中的nameList赋值到该组件的props上面即可。其他组件也是类似的写法。</p>
+
+<p>可以看出，在redux的思想下，我们可以对整个应用抽象出一个总体的数据结构，数据结构的改变，会引发各个组件的改变，而组件当中的各种事件，又会反过来修改数据结构，从而再次引起页面的改变，这是一种单向的数据流，总体的数据都在store这个对象中进行维护，从而让整个应用开发变得更加有规律。redux的这种程序架构是对react提出的flux架构的一种消化和改良，下图是flux架构的示意图：</p>
+
+<p><img src="/Users/malingyang/Workspace/mly-zju.github.com/img/201703/flux.png" alt="flux" /></p>
+
+<h3 id="4--socketio的使用">4.  socket.io的使用</h3>
+
+<p>由于是一个即时聊天应用，websocket协议自然是首选。而socket.io就是基于websocket实现的一套基于事件订阅与发布的js通信库。</p>
+
+<p>在socket.io中，主要有server端和client端。创建一个server和client都非常容易，对于server端，配合koa，只需要如下代码：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">app</span><span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">'koa'</span><span class="p">)();</span>
+<span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">).</span><span class="nx">Server</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">callback</span><span class="p">());</span>
+<span class="kd">var</span> <span class="nx">io</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'socket.io'</span><span class="p">)(</span><span class="nx">server</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>client端更加简单：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">io</span><span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">'socket.io-client'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="nx">io</span><span class="p">();</span>
+</code></pre>
+</div>
+
+<p>一旦连接建立，client和server即可通过时间订阅与发布来彼此通信，socket.io提供的api非常类似于nodejs中的event对象的使用，对于server端：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'connection'</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">socket</span><span class="p">){</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'some event'</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+    <span class="c1">//do something here....</span>
+    <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'another event'</span><span class="p">,{</span><span class="nx">some</span> <span class="nx">data</span> <span class="nx">here</span><span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>对于client端，同样通过socket.on以及socket.emit来订阅和发布事件。比如说，某一个client端口emit了event A，而如果server端口订阅了event A，那么在server端，对应的回调函数就会被执行。通过这种方式，可以方便的编写即时通信程序。</p>
+
+<h3 id="5-一些值得注意的实现细节">5. 一些值得注意的实现细节</h3>
+
+<p>下面对程序中涉及的一些我认为值得注意的细节和技巧进行一下简要分析。</p>
+
+<h4 id="1-socketio同redux的结合方案redux中间件的运用">1. socket.io同redux的结合方案：redux中间件的运用</h4>
+
+<p>在程序编写过程当中，我遇到一个难题，就是如何将socket.io的client实例结合到redux当中。</p>
+
+<p>socket.io的client类似于一个全局的对象，它不属于任何一个react组件，它订阅到的任何消息都可能更改整个应用的数据结构，而这种更改在redux当中又只能通过dispatch来实现。思考之后，我觉得编写一个redux中间件来处理socket.io相关的事件是一个很好的选择。</p>
+
+<p>关于redux中间件，简单来说，就是在redux真正出发dispatch之前，中间件可以首先捕获到react组件出发的action，并针对不同action做一些处理，然后再调用dispatch。中间件的写法，在redux的官方文档当中写的非常详细，有兴趣的可以参考一下: <a href="http://redux.js.org/docs/advanced/Middleware.html">http://redux.js.org/docs/advanced/Middleware.html</a> , 后续我也会出一些系列文章，深入分析redux包括react-redux的原理，其中就会提到中间件的原理，尽请期待~</p>
+
+<p>知道了redux中间件是怎么一回事之后，我们就可以发现，socket.io相关的事件非常适合通过写一个中间件来处理。我们程序当中中间件如下所示:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span> <span class="nx">message_update</span><span class="p">,</span> <span class="nx">guest_update</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'../action'</span>
+
+<span class="kd">function</span> <span class="nx">createSocketMiddleware</span><span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">eventFlag</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">store</span> <span class="o">=&gt;</span> <span class="nx">next</span> <span class="o">=&gt;</span> <span class="nx">action</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">//如果中间件第一次被调用，则首先绑定一些socket订阅事件</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">eventFlag</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">eventFlag</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'guest update'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">next</span><span class="p">(</span><span class="nx">guest_update</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+      <span class="p">});</span>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'msg from server'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">next</span><span class="p">(</span><span class="nx">message_update</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+      <span class="p">});</span>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'self logout'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">reload</span><span class="p">();</span>
+      <span class="p">});</span>
+      <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'heart beat'</span><span class="p">);</span>
+      <span class="p">},</span> <span class="mi">10000</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">//捕获action，如果是和发送相关的事件，则调用socket对应的发布函数</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s1">'MSG_UPDATE'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'msg from client'</span><span class="p">,</span> <span class="nx">action</span><span class="p">.</span><span class="nx">msg</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s1">'NICKNAME_GET'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'guest come'</span><span class="p">,</span> <span class="nx">action</span><span class="p">.</span><span class="nx">nickName</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s1">'NICKNAME_FORGET'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'guest leave'</span><span class="p">,</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getState</span><span class="p">().</span><span class="nx">nickName</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">next</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">createSocketMiddleware</span>
+</code></pre>
+</div>
+
+<p>这段代码是一个socket middleware的创建函数，从中我们可以看出，这个中间件如果第一次调用的话(eventFlag),会首先绑定一些订阅主题和对应的回调函数，主要是订阅了消息到达、新用户来到、用户离开等等事件。同时，中间件会在真正dispatch函数调用之前，首先捕获action，然后分析action的type。如果是和发送事件相关的，就会调用socket.emit来发布对应的事件和数据。比如说，在我们的应用中，点击“发送”按钮会触发一个type为”MSG_UPDATE”的事件，这个事件首先被中间件捕获，那么这时候就会出发socket.emit(‘msg from client’)来将消息发送给server。</p>
+
+<h4 id="2-权限验证-单页面应用中的页面跳转">2. 权限验证: 单页面应用中的页面跳转</h4>
+
+<p>整个应用使用react-router，做成了一个单页面应用，其中前端路由的层级非常简单：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>render(
+  &lt;Provider store={store}&gt;
+    &lt;Router history={hashHistory}&gt;
+      &lt;Route path='/' component={ChatAllContainer}/&gt;
+      &lt;Route path='/login' component={LoginContainer}/&gt;
+    &lt;/Router&gt;
+  &lt;/Provider&gt;
+  ,
+  document.getElementById('test'));
+</code></pre>
+</div>
+
+<p>可以看出，主要是两条路径: ‘/’和’/login’，其中’/’是我们的聊天界面，而’/login’则是起昵称界面。</p>
+
+<p>由于应用的逻辑是，只有用户起了昵称才可以进入聊天界面，因此我们需要做一些权限验证，对于没有起昵称就进入’/’路径的用户，需要跳转到’/login’。在传统多页面web应用中，我们对于跳转非常熟悉，无非是服务器发送一个重定向请求，浏览器就会重定向到新的页面。然而在单页面中，由于始终只有一页，服务器又能够让浏览器跳转到哪里去呢？也就是说，服务器重定向的方法是行不通的。</p>
+
+<p>因此，我们换一种思路，页面跳转的逻辑需要在浏览器端执行，在react-router的框架下，执行跳转也非常简单，只需要使用其中的hashHistory对象，通过hashHistory.push(‘path’)，即可让应用跳转到指定路径对应的界面。有了这个认知，那么我们下面要解决的，就是何时控制单页面的跳转？</p>
+
+<p>我的思路是，将用户的昵称通过一定的加密和编码，保存在cookie当中。当用户访问’/’的时候，在对于界面的组件挂载之前，首先会向服务器发送一个认证请求，服务器会从请求中读取cookie，如果cookie当中没有用户名存在，那么服务器返回的参数当中有一个’permit’字段，设置为false，当应用解析到该字段后，就会调用hashHistory.push(‘/login’)来让页面跳转到起昵称界面下。这部分对应的逻辑主要在container/chatAll.js文件当中实现。</p>
+
+<h4 id="3-文本输入的细节处理-xss的预防以及组合键的识别">3. 文本输入的细节处理: xss的预防，以及组合键的识别</h4>
+
+<p>在我们的聊天应用中，如果不对用户的输入进行一些处理，就有可能导致xss漏洞。举个例子，比如说有一个用户输入了’<script>....</script>‘，如果不进行一些防范，输入到消息显示界面，这段文字就直接被解析成为了一段js代码。为了防范这类攻击，这里我们需要做一些简单的预防：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">regLeft</span> <span class="o">=</span> <span class="sr">/&lt;/g</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">regRight</span> <span class="o">=</span> <span class="sr">/&gt;/g</span><span class="p">;</span>
+<span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">regLeft</span><span class="p">,</span> <span class="s1">'&amp;lt;'</span><span class="p">);</span>
+<span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">regRight</span><span class="p">,</span> <span class="s1">'&amp;gt;'</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>这段代码在components/typein组件当中。</p>
+
+<p>此外，为了方便用户快速发送消息，在消息输入框中，我们设置了’enter’按键为之间发送按键。那么，为了让用户能够打出换行，我们模仿微信，约定用户输入ctrl+enter组合键的时候是换行，这样，在消息输入框中，就需要监听组合键。在js的键盘事件中，event对象有一个ctrlKey属性，用于判断ctrl按键是否按下：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">someDom</span><span class="p">.</span><span class="nx">onkeydown</span><span class="o">=</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span><span class="o">==</span><span class="mi">13</span><span class="o">&amp;&amp;</span><span class="nx">e</span><span class="p">.</span><span class="nx">ctrlKey</span><span class="p">){</span>
+    <span class="c1">//组合键被按下</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>这就是组合键监听的原理。</p>
+
+<p>以上就是对于这个项目的概述以及一些细节的讲解。最后安利一下我的博客 <a href="http://mly-zju.github.io/">http://mly-zju.github.io/</a>,会不定期更新我的原创技术文章和学习感悟，欢迎大家关注~</p>
+
+                </div>
+                <div class="pager-wrap" style="overflow: hidden;">
+                    
+                    <a class="pager-pre pager" href="/Users/malingyang/Workspace/mly-zju.github.com/javascript/2017/03/11/promiseImplement.html">上一篇</a>  
+                    <a class="pager-next pager" href="/Users/malingyang/Workspace/mly-zju.github.com/javascript/2016/11/19/koaAsync.html">下一篇</a> 
+                </div>
+                <!-- 多说评论框 start -->
+                <!-- <div class="ds-thread" data-thread-key="/javascript/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%BD%9C%E5%93%81demo/2017/03/05/chatApp" data-title="基于react+ react-router+ redux+ socket.io+ koa开发一个聊天室" data-url="http://mly-zju.github.io//javascript/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%BD%9C%E5%93%81demo/2017/03/05/chatApp.html"></div> -->
+                <!-- 多说评论框 end -->
+                <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                <!-- <script type="text/javascript">
+        var duoshuoQuery = {short_name:"mly-zju"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0]
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script> -->
+                <!-- 多说公共JS代码 end -->
+
+                <!-- UY BEGIN -->
+                <div id="uyan_frame"></div>
+                <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2130013"></script>
+                <!-- UY END -->
+            </div>
+        </div>
+    </div>
+    <script src="/Users/malingyang/Workspace/mly-zju.github.com/js/article/index.min.js" type="text/javascript"></script>
+</body>
+
+</html>

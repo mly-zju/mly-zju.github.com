@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>博客维护注意事项 | 马龄阳的个人网站</title>
+    <script>
+        var html = document.getElementsByTagName('html')[0];
+        var rem = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        html.style.fontSize = rem / 10 + 'px';
+    </script>
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93174249-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <link href="/Users/malingyang/Workspace/mly-zju.github.com/css/article/index.min.css" type="text/css" rel="stylesheet" />
+    <link href="/Users/malingyang/Workspace/mly-zju.github.com/css/pygments.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="left-main">
+            <div class="avatar"></div>
+            <h2>马龄阳</h2>
+            <!-- <h5>风烟俱净</h5> -->
+            <div class="contact">
+                <a class="github" href="https://github.com/mly-zju"></a>
+            </div>
+            <div class="all-page left-item current"><a href="/Users/malingyang/Workspace/mly-zju.github.com/index.html">文章</a></div>
+            <div class="category left-item"><a href="/Users/malingyang/Workspace/mly-zju.github.com/category/diary.html">分类</a></div>
+            <div class="about left-item"><a href="/Users/malingyang/Workspace/mly-zju.github.com/about.html">关于我</a></div>
+        </div>
+        <div class="right-main">
+            <div class="article-detail-wrap" style="overflow: hidden;">
+                <div class="article-detail">
+                    <h2 class="article-title">博客维护注意事项</h2>
+                    <h3 class="article-date">22 Nov 2015</h3> <h3 id="1-网站维护与更新">1. 网站维护与更新</h3>
+
+<p>日常博客维护都是在本地进行的，比如文章的更新、网站版式的更改等等。<!--more-->当在本地维护更新好确认无误以后，再通过github提交，即可在网站端更新了。</p>
+
+<h3 id="2-文章书写注意事项">2. 文章书写注意事项</h3>
+
+<p>设计网站的时候，为了首页展示好看起见，我将有图片的文章和无图片的文章分为两种样式进行展示。在jekyll语句中，为了提示系统区别不同样式，我规定当发表有图片的文章时候，必须在开头规定description,具体内容则是指定一张想要在首页展示的图片的文件名。所有图片都应该存放在/img文件夹下面。同时，每篇文章都应该有一个category和title，其中category用于系统自动归类文章</p>
+
+<p>在首页中会展示文章的摘要，这里使用了&lt;!–more–&gt;标志作为摘要的截止点。每次写一篇文章都记得要在适当的位置加上该截止标志。</p>
+
+                </div>
+                <div class="pager-wrap" style="overflow: hidden;">
+                    
+                    <a class="pager-pre pager" href="/Users/malingyang/Workspace/mly-zju.github.com/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2015/11/25/snow.html">上一篇</a>  
+                    <a class="pager-next pager" href="/Users/malingyang/Workspace/mly-zju.github.com/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2015/11/22/begin.html">下一篇</a> 
+                </div>
+                <!-- 多说评论框 start -->
+                <!-- <div class="ds-thread" data-thread-key="/%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2015/11/22/begin2" data-title="博客维护注意事项" data-url="http://mly-zju.github.io//%E6%97%A5%E8%AE%B0%E9%9A%8F%E7%AC%94/2015/11/22/begin2.html"></div> -->
+                <!-- 多说评论框 end -->
+                <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                <!-- <script type="text/javascript">
+        var duoshuoQuery = {short_name:"mly-zju"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0]
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script> -->
+                <!-- 多说公共JS代码 end -->
+
+                <!-- UY BEGIN -->
+                <div id="uyan_frame"></div>
+                <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2130013"></script>
+                <!-- UY END -->
+            </div>
+        </div>
+    </div>
+    <script src="/Users/malingyang/Workspace/mly-zju.github.com/js/article/index.min.js" type="text/javascript"></script>
+</body>
+
+</html>
