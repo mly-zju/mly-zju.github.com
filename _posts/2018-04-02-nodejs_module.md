@@ -396,7 +396,7 @@ Module._resolveFilename = function(request, parent, isMain) {
 
 这里就要插入介绍一下 JavaScript native 模块代码是如何存储的了。Node.js 源码编译的时候，会采用 v8 附带的 js2c.py 工具，将 lib 文件夹下面的 js 模块的代码都转换成 C 里面的数组，生成一个 node_natives.h 头文件，记录这个数组：
 
-```c++
+```
 namespace node {
   const char node_native[] = {47, 47, 32, 67, 112 …}
 
@@ -404,7 +404,7 @@ namespace node {
 
   const char buffer_native[] = {47, 47, 32, 67, 112 …}
 
-…
+  …
 
 }
 
