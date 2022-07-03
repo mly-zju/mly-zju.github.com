@@ -1,7 +1,7 @@
 ---
 layout: article
 title: 从头实现一个koa框架
-category: [javascript, 后端开发]
+category: [nodejs, 后端开发]
 ---
 
 koajs是最流行的nodejs后端框架之一，有很多网站都使用koa进行开发，同时社区也涌现出了一大批基于koa封装的企业级框架。然而，在这些亮眼的成绩背后，作为核心引擎的koa代码库本身，却非常的精简，不得不让人惊叹于其巧妙的设计。<!--more-->

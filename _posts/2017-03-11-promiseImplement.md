@@ -1,7 +1,7 @@
 ---
 layout: article
 title: 彻底理解Promise对象——用es5语法实现一个自己的Promise(上篇)
-category: [javascript]
+category: nodejs
 description: 201703/promise.jpeg
 ---
 

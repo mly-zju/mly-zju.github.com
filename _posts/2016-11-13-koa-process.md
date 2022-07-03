@@ -1,7 +1,7 @@
 ---
 layout: article
 title: 深入探析koa之中间件流程控制篇
-category: [javascript,后端开发]
+category: [后端开发,nodejs]
 description: 201611/koa.jpg
 ---
 koa被认为是第二代web后端开发框架，相比于前代express而言，其最大的特色无疑就是解决了回调金字塔的问题，让异步的写法更加的简洁。<!--more-->在使用koa的过程中，其实一直比较好奇koa内部的实现机理。最近终于有空，比较深入的研究了一下koa一些原理，在这里会写一系列文章来记录一下我的学习心得和理解。

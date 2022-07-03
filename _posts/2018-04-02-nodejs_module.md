@@ -1,7 +1,7 @@
 ---
 layout: article
 title: 结合源码分析 Node.js 模块加载与运行原理
-category: [javascript, 后端开发]
+category: [nodejs, 后端开发]
 ---
 
 
